@@ -17,12 +17,7 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      automaticNameDelimiter: '_',
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/
-        }
-      }
+      name: false
     },
     minimizer: [new TerserPlugin()]
   },

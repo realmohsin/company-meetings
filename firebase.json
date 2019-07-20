@@ -1,0 +1,6 @@
+{
+  "functions": {
+    "predeploy": ["node functions/preDeploy.js"],
+    "postdeploy": ["node functions/postDeploy.js"]
+  }
+}

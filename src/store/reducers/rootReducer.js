@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux'
+import authReducer from './authReducer'
 
 const rootReducer = combineReducers({
-  stateSliceOne: () => ({ key: 'value' }),
-  stateSliceTwo: () => ({ key: 'value' }),
-  stateSliceThree: () => ({ key: 'value' })
+  auth: authReducer
 })
 
 export default rootReducer

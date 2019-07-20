@@ -6,9 +6,9 @@ import { createBrowserHistory } from 'history'
 import App from './App'
 import store from './store/store'
 
-const history = createBrowserHistory()
+export const history = createBrowserHistory()
 
-const domTree = (
+const application = (
   <Provider store={store}>
     <Router history={history}>
       <App />
@@ -16,4 +16,4 @@ const domTree = (
   </Provider>
 )
 
-render(domTree, document.getElementById('root'))
+render(application, document.getElementById('root'))
