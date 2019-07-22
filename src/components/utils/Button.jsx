@@ -2,12 +2,13 @@ import styled from '@emotion/styled'
 
 const Button = styled.a`
   display: inline-block;
+  padding: 0.8rem 1.6rem;
+  margin: 0 0.8rem;
+  border-radius: 0.3rem;
   cursor: pointer;
-  padding: 0.6rem 2.4rem;
-  margin: 0 1.6rem;
   color: white;
   background: ${props => props.color};
-  border-radius: 0.3rem;
+  user-select: none;
 `
 
 export default Button

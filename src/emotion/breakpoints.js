@@ -1,4 +1,4 @@
-const breakpoints = [576, 768, 992, 1200]
+const breakpoints = [480, 660, 922, 1200]
 
 export const bp0 = `@media (max-width: ${breakpoints[0]}px)`
 export const bp1 = `@media (max-width: ${breakpoints[1]}px)`

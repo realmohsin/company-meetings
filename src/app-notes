@@ -1,1 +1,32 @@
 Application Notes
+
+# Pages
+'/' - titlepage
+
+'/meetings' - meetings dashboard
+'/meeting/:meetingId - meeting page
+'/meetings/my-meetings' - user meetings
+'/meetings/create-meeting' - create meeting form
+'/meetings/edit-meeting/:meetingId' - edit meeting form
+
+'/people' - people dashboard
+'/people/profile/:userId' - profile page
+
+
+# Meeting Shape
+{ 
+  hostName, 
+  hostUid,
+  hostPhotoURL,
+  createdAt,
+  date,
+  duration,
+  title,
+  building,
+  room,
+  attendees
+}
+
+## todo 
+
+- remove @emotion/styled
