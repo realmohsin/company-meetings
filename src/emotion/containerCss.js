@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
-import * as mq from '../../emotion/breakpoints'
+import { css } from '@emotion/core'
+import * as mq from './breakpoints'
 
-const Container = styled.div`
+const containerCss = css`
   max-width: 112rem;
   margin: 0 auto;
   ${mq.bp3} {
@@ -15,4 +15,4 @@ const Container = styled.div`
   }
 `
 
-export default Container
+export default containerCss

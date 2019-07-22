@@ -1,7 +1,7 @@
 import { LOGIN, LOGOUT } from '../actions/actionTypes'
 
 const initialState = {
-  user: {}
+  user: null
 }
 
 const authReducer = (state = initialState, action) => {

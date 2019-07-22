@@ -1,10 +1,10 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import { NavLink } from 'react-router-dom'
-import Button from '../utils/Button'
 import Logo from '../Logo'
 import * as mq from '../../emotion/breakpoints'
 import history from '../../history/history'
+import buttonCss from '../../emotion/buttonCss'
 
 // This component is used in NavBar and SideDrawer.
 // Styles change based on sidedrawer boolean prop.
@@ -39,12 +39,12 @@ const LeftNavItems = ({ sideDrawer, isAuth }) => {
               ${meetingButtonBox};
             `}
           >
-            <Button
+            <button
               css={meetingButton}
               onClick={() => history.push('/meetings/create-meeting')}
             >
               Create Meeting
-            </Button>
+            </button>
           </div>
         </>
       )}
@@ -96,6 +96,7 @@ const nb_MeetingButtonBox = css`
 `
 
 const nb_MeetingButton = css`
+  ${buttonCss};
   padding: 0.74rem 1.38rem 0.76rem;
   margin: 0.78rem 0rem;
   border: 2px solid #fff;

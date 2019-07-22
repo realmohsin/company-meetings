@@ -1,10 +1,10 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import Button from '../components/utils/Button'
 import logo from '../assets/globe-256.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons'
 import { mainGradient } from '../emotion/variables'
+import buttonCss from '../emotion/buttonCss'
 
 const TitlePage = ({ history }) => {
   return (
@@ -13,11 +13,10 @@ const TitlePage = ({ history }) => {
         <img src={logo} alt='main logo' css={logoCss} />
         <h1 css={title}>Company Meetings</h1>
       </div>
-
-      <Button css={button} onClick={() => history.push('/meetings')}>
+      <button css={titleButton} onClick={() => history.push('/meetings')}>
         Get Started
         <FontAwesomeIcon icon={faLongArrowAltRight} css={iconCss} />
-      </Button>
+      </button>
     </div>
   )
 }
@@ -51,7 +50,8 @@ const logoCss = css`
   margin-right: 4rem;
 `
 
-const button = css`
+const titleButton = css`
+  ${buttonCss}
   font-size: 2.2rem;
   letter-spacing: 1px;
   padding: 1rem 3rem 1rem 4rem;

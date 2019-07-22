@@ -1,15 +1,15 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import Button from '../utils/Button'
 import NavDropdown from './NavDropdown'
 import * as mq from '../../emotion/breakpoints'
+import buttonCss from '../../emotion/buttonCss'
 
 // This component is used in NavBar and SideDrawer.
 // Styles change based on sidedrawer boolean prop.
 // Styles for Navbar start with nb_.
 // Styles for SideDrawer start with sd_.
 
-const RightNavItems = ({ sideDrawer, isAuth, login, logout }) => {
+const RightNavItems = ({ sideDrawer, isAuth, login, logout, openModal }) => {
   const rightNav = sideDrawer ? sd_RightNav : nb_RightNav
   const navItem = sideDrawer ? sd_NavItem : nb_NavItem
   const authButton = sideDrawer ? sd_AuthButton : nb_AuthButton
@@ -26,12 +26,12 @@ const RightNavItems = ({ sideDrawer, isAuth, login, logout }) => {
         </div>
       ) : (
         <div css={navItem}>
-          <Button css={authButton} onClick={login}>
+          <button css={authButton} onClick={() => openModal('LoginModal')}>
             Sign In
-          </Button>
-          <Button css={authButton} onClick={login}>
+          </button>
+          <button css={authButton} onClick={() => openModal('RegisterModal')}>
             Register
-          </Button>
+          </button>
         </div>
       )}
     </div>
@@ -70,6 +70,8 @@ const userDropdown = css`
 `
 
 const nb_AuthButton = css`
+  ${buttonCss};
+  background: none;
   border: 2px solid rgba(255, 255, 255, 0.5);
   font-size: 0.9em;
   &:hover {
@@ -95,6 +97,8 @@ const sd_NavItem = css`
 `
 
 const sd_AuthButton = css`
+  ${buttonCss};
+  background: none;
   text-align: center;
   margin: 1.4rem 1rem;
   border: 2px solid rgba(255, 255, 255, 0.5);

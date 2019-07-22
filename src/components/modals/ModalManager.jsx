@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
   modalProps: selectModalProps(state)
 })
 
-const ModalManager = ({ modalType, modalProps }) => {
+const ModalManager = ({ modalType, modalProps, closeModal }) => {
   const modalLookup = {
     LoginModal,
     RegisterModal

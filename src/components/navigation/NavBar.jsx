@@ -2,24 +2,24 @@ import React from 'react'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import Container from '../utils/Container'
 import Logo from '../Logo'
 import Toggler from '../utils/Toggler'
 import LeftNavItems from './LeftNavItems'
 import RightNavItems from './RightNavItems'
-import { login, logout, toggleSideDrawer } from '../../store/actions/actions'
+import { login, logout, toggleSideDrawer, openModal } from '../../store/actions/actions'
 import { selectIsAuth } from '../../store/selectors/authSelectors'
 import * as mq from '../../emotion/breakpoints'
 import { mainGradient } from '../../emotion/variables'
+import containerCss from '../../emotion/containerCss'
 
 const mapStateToProps = state => ({
   isAuth: selectIsAuth(state)
 })
 
-const NavBar = ({ isAuth, login, logout, toggleSideDrawer }) => {
+const NavBar = ({ isAuth, login, logout, toggleSideDrawer, openModal }) => {
   return (
     <nav css={navCss}>
-      <Container css={container}>
+      <div css={container}>
         <Toggler styles={bp1} handleToggle={toggleSideDrawer} />
         <NavLink exact to='/' css={bp1}>
           <div css={logoCss}>
@@ -27,8 +27,8 @@ const NavBar = ({ isAuth, login, logout, toggleSideDrawer }) => {
           </div>
         </NavLink>
         <LeftNavItems isAuth={isAuth} />
-        <RightNavItems isAuth={isAuth} login={login} logout={logout} />
-      </Container>
+        <RightNavItems isAuth={isAuth} openModal={openModal} logout={logout} />
+      </div>
     </nav>
   )
 }
@@ -46,6 +46,7 @@ const navCss = css`
 `
 
 const container = css`
+  ${containerCss};
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -66,5 +67,5 @@ const bp1 = css`
 
 export default connect(
   mapStateToProps,
-  { login, logout, toggleSideDrawer }
+  { login, logout, toggleSideDrawer, openModal }
 )(NavBar)
