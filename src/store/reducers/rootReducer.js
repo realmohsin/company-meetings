@@ -5,8 +5,8 @@ import modalReducer from './modalReducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  isSideDrawerOpen: sideDrawerReducer,
-  modal: modalReducer
+  modal: modalReducer,
+  isSideDrawerOpen: sideDrawerReducer
 })
 
 export default rootReducer

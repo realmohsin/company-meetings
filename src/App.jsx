@@ -1,9 +1,9 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { hot } from 'react-hot-loader/root'
 import { Global, css } from '@emotion/core'
 import * as mq from './emotion/breakpoints'
 import NavBar from './components/navigation/NavBar'
-// import Container from './components/utils/Container'
 import SideDrawer from './components/navigation/SideDrawer'
 import MeetingsDashboard from './pages/meetings/MeetingsDashboard'
 import TitlePage from './pages/TitlePage'
@@ -82,4 +82,4 @@ const globalStyles = css`
   }
 `
 
-export default App
+export default (process.env.NODE_ENV === 'development' ? hot(App) : App)

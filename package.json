@@ -23,6 +23,7 @@
     "@emotion/core": "10.0.14",
     "@emotion/styled": "10.0.14",
     "@fortawesome/fontawesome-svg-core": "1.2.19",
+    "@fortawesome/free-brands-svg-icons": "5.9.0",
     "@fortawesome/free-solid-svg-icons": "5.9.0",
     "@fortawesome/react-fontawesome": "0.1.4",
     "autoprefixer": "9.5.1",
@@ -68,6 +69,7 @@
     "yup": "0.27.0"
   },
   "devDependencies": {
+    "react-hot-loader": "4.12.8",
     "redux-devtools-extension": "2.13.8",
     "source-map-explorer": "2.0.1"
   }

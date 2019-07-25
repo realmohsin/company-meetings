@@ -64,30 +64,30 @@ const handleSubmit = function (values, { resetForm, setErrors, setSubmitting }) 
   setSubmitting(false)
 }
 
-// const formikEnhancer = withFormik({
-//   mapPropsToValues ({ email, password, isSubscribed, plan }) {
-//     return {
-//       email: email || '',
-//       password: password || '',
-//       isSubscribed: isSubscribed || false,
-//       plan: plan || 'premium'
-//     }
-//   },
-//   validationSchema: yup.object().shape({
-//     email: yup
-//       .string()
-//       .email('Email not valid')
-//       .required('Email is required'),
-//     password: yup
-//       .string()
-//       .min(6, 'Password must be 6 characters or longer')
-//       .required('Password is required')
-//   }),
-//   handleSubmit (values, { resetForm, setErrors, setSubmitting }) {
-//     console.log(values)
-//     setSubmitting(false)
-//   }
-// })
+const formikEnhancer = withFormik({
+  mapPropsToValues ({ email, password, isSubscribed, plan }) {
+    return {
+      email: email || '',
+      password: password || '',
+      isSubscribed: isSubscribed || false,
+      plan: plan || 'premium'
+    }
+  },
+  validationSchema: yup.object().shape({
+    email: yup
+      .string()
+      .email('Email not valid')
+      .required('Email is required'),
+    password: yup
+      .string()
+      .min(6, 'Password must be 6 characters or longer')
+      .required('Password is required')
+  }),
+  handleSubmit (values, { resetForm, setErrors, setSubmitting }) {
+    console.log(values)
+    setSubmitting(false)
+  }
+})
 
 const form = css`
   width: 700px;

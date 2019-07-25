@@ -15,7 +15,8 @@ module.exports = {
     contentBase: 'build',
     overlay: true,
     port: 8080,
-    historyApiFallback: true
+    historyApiFallback: true,
+    hot: true
   },
   devtool: 'source-map',
   resolve: {
