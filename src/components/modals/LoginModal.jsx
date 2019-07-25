@@ -15,6 +15,7 @@ import {
   errCss
 } from '../../emotion/textInputCss'
 import { login, googleLogin } from '../../store/actions/actions'
+import { firebaseAuth } from '../../firebase/firebase'
 
 const LoginModal = ({
   values,
@@ -29,6 +30,8 @@ const LoginModal = ({
     setSubmitting(true)
     googleLogin({ setSubmitting, setErrors, resetForm })
   }
+
+  console.log('from loginModal', firebaseAuth.currentUser)
 
   return (
     <div css={authModal}>

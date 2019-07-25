@@ -6,7 +6,7 @@ import Logo from '../Logo'
 import Toggler from '../utils/Toggler'
 import LeftNavItems from './LeftNavItems'
 import RightNavItems from './RightNavItems'
-import { login, logout, toggleSideDrawer, openModal } from '../../store/actions/actions'
+import { logout, toggleSideDrawer, openModal } from '../../store/actions/actions'
 import { selectIsAuth } from '../../store/selectors/authSelectors'
 import * as mq from '../../emotion/breakpoints'
 import { mainGradient } from '../../emotion/variables'
@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
   isAuth: selectIsAuth(state)
 })
 
-const NavBar = ({ isAuth, login, logout, toggleSideDrawer, openModal }) => {
+const NavBar = ({ isAuth, logout, toggleSideDrawer, openModal }) => {
   return (
     <nav css={navCss}>
       <div css={container}>
@@ -67,5 +67,5 @@ const bp1 = css`
 
 export default connect(
   mapStateToProps,
-  { login, logout, toggleSideDrawer, openModal }
+  { logout, toggleSideDrawer, openModal }
 )(NavBar)

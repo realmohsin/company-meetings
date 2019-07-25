@@ -27,6 +27,26 @@ Application Notes
   attendees
 }
 
-## todo 
+User In AuthService 
+{
+  email,
+  photoURL,
+  phoneNumber,
+  etc
+}
 
-- remove @emotion/styled
+# User Shape in Firestore for Additional Profile Values
+{ 
+  createdAt,
+  uid,
+  username,
+  email,
+  photoURL,
+  photos,
+  [added by settings]
+}
+
+
+user profile will at minimum have uid, username, email, createdAt
+
+For Auth Errors, replace header with the error instead of jarring error box in the middle of the modal.

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Backdrop from '../utils/Backdrop'
 import LeftNavItems from './LeftNavItems'
 import RightNavItems from './RightNavItems'
-import { login, logout, hideSideDrawer, openModal } from '../../store/actions/actions'
+import { logout, hideSideDrawer, openModal } from '../../store/actions/actions'
 import { selectIsAuth } from '../../store/selectors/authSelectors'
 import { selectIsSideDrawerOpen } from '../../store/selectors/sideDrawerSelectors'
 import * as mq from '../../emotion/breakpoints'
@@ -63,5 +63,5 @@ const closed = css`
 
 export default connect(
   mapStateToProps,
-  { login, logout, hideSideDrawer, openModal }
+  { logout, hideSideDrawer, openModal }
 )(SideDrawer)

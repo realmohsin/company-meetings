@@ -1,5 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { hot } from 'react-hot-loader/root'
 import { Global, css } from '@emotion/core'
 import * as mq from './emotion/breakpoints'
@@ -15,8 +16,31 @@ import PeopleDashboard from './pages/people/PeopleDashboard'
 import ProfilePage from './pages/people/ProfilePage'
 import ModalManager from './components/modals/ModalManager'
 import containerCss from './emotion/containerCss'
+import { firebaseAuth } from './firebase/firebase'
+import { setUser } from './store/actions/actions'
+import { createUserProfile } from './firebase/createUserProfile'
 
 class App extends React.Component {
+  componentDidMount () {
+    window.unsubFromAuthIndexPage()
+    const { setUser } = this.props
+    this.unsubAuth = firebaseAuth.onAuthStateChanged(async userInAuth => {
+      if (!userInAuth) return setUser(null)
+      const userRef = await createUserProfile(userInAuth)
+      this.unsubUserSnapshot = userRef.onSnapshot(userSnapshot => {
+        setUser({
+          uid: userSnapshot.id,
+          ...userSnapshot.data()
+        })
+      })
+    })
+  }
+
+  componentWillUnmount () {
+    this.unsubAuth()
+    this.unsubUserSnapshot()
+  }
+
   render () {
     return (
       <>
@@ -82,4 +106,7 @@ const globalStyles = css`
   }
 `
 
-export default (process.env.NODE_ENV === 'development' ? hot(App) : App)
+export default connect(
+  null,
+  { setUser }
+)(process.env.NODE_ENV === 'development' ? hot(App) : App)
