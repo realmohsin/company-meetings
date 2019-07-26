@@ -50,3 +50,5 @@ User In AuthService
 user profile will at minimum have uid, username, email, createdAt
 
 For Auth Errors, replace header with the error instead of jarring error box in the middle of the modal.
+
+set width based positioning for navdropdown, is extremely small when username is small

@@ -10,6 +10,7 @@ import {
 } from './actionTypes'
 import { firebaseAuth, googleProvider } from '../../firebase/firebase'
 import { closeModal } from './modalActions'
+import { createUserProfile } from '../../firebase/createUserProfile'
 
 const _handleFormOnSubmissionErr = (errMsg, formHandlers) => {
   formHandlers.resetForm()
@@ -29,6 +30,7 @@ export const register = (username, email, password, formHandlers) => async dispa
     await userInAuth.updateProfile({
       displayName: username
     })
+    await createUserProfile(userInAuth)
     formHandlers.setSubmitting(false)
     dispatch({ type: REGISTER_SUCCESS })
     dispatch(closeModal())
@@ -39,7 +41,7 @@ export const register = (username, email, password, formHandlers) => async dispa
   }
 }
 
-export const login = (email, password, formHandlers) => async (dispatch, getState) => {
+export const login = (email, password, formHandlers) => async dispatch => {
   dispatch({ type: LOGIN_START })
   try {
     await firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -53,10 +55,14 @@ export const login = (email, password, formHandlers) => async (dispatch, getStat
   }
 }
 
-export const googleLogin = formHandlers => async (dispatch, getState) => {
+export const googleLogin = formHandlers => async dispatch => {
   dispatch({ type: LOGIN_START })
   try {
-    await firebaseAuth.signInWithPopup(googleProvider)
+    const signInInfo = await firebaseAuth.signInWithPopup(googleProvider)
+    if (signInInfo.additionalUserInfo.isNewUser) {
+      const userInAuth = firebaseAuth.currentUser
+      await createUserProfile(userInAuth)
+    }
     dispatch({ type: LOGIN_SUCCESS })
     dispatch(closeModal())
   } catch (error) {

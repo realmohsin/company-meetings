@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Backdrop from '../utils/Backdrop'
 import LeftNavItems from './LeftNavItems'
 import RightNavItems from './RightNavItems'
-import { logout, hideSideDrawer, openModal } from '../../store/actions/actions'
+import { hideSideDrawer, openModal } from '../../store/actions/actions'
 import { selectIsAuth } from '../../store/selectors/authSelectors'
 import { selectIsSideDrawerOpen } from '../../store/selectors/sideDrawerSelectors'
 import * as mq from '../../emotion/breakpoints'
@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
   show: selectIsSideDrawerOpen(state)
 })
 
-const SideDrawer = ({ show, isAuth, openModal, logout, hideSideDrawer }) => {
+const SideDrawer = ({ show, isAuth, openModal, hideSideDrawer }) => {
   const styles = show ? open : closed
 
   return (
@@ -28,7 +28,7 @@ const SideDrawer = ({ show, isAuth, openModal, logout, hideSideDrawer }) => {
         `}
       >
         <LeftNavItems sideDrawer isAuth={isAuth} />
-        <RightNavItems sideDrawer isAuth={isAuth} openModal={openModal} logout={logout} />
+        <RightNavItems sideDrawer isAuth={isAuth} openModal={openModal} />
       </nav>
     </>
   )
@@ -63,5 +63,5 @@ const closed = css`
 
 export default connect(
   mapStateToProps,
-  { logout, hideSideDrawer, openModal }
+  { hideSideDrawer, openModal }
 )(SideDrawer)

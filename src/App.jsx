@@ -16,9 +16,8 @@ import PeopleDashboard from './pages/people/PeopleDashboard'
 import ProfilePage from './pages/people/ProfilePage'
 import ModalManager from './components/modals/ModalManager'
 import containerCss from './emotion/containerCss'
-import { firebaseAuth } from './firebase/firebase'
+import { firebaseAuth, firestore } from './firebase/firebase'
 import { setUser } from './store/actions/actions'
-import { createUserProfile } from './firebase/createUserProfile'
 
 class App extends React.Component {
   componentDidMount () {
@@ -26,12 +25,16 @@ class App extends React.Component {
     const { setUser } = this.props
     this.unsubAuth = firebaseAuth.onAuthStateChanged(async userInAuth => {
       if (!userInAuth) return setUser(null)
-      const userRef = await createUserProfile(userInAuth)
+      const userRef = firestore.doc(`users/${userInAuth.uid}`)
       this.unsubUserSnapshot = userRef.onSnapshot(userSnapshot => {
-        setUser({
-          uid: userSnapshot.id,
-          ...userSnapshot.data()
-        })
+        if (!userSnapshot.exists) {
+          setUser(null)
+        } else {
+          setUser({
+            uid: userSnapshot.id,
+            ...userSnapshot.data()
+          })
+        }
       })
     })
   }

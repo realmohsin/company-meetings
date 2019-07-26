@@ -1,5 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/core'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -14,8 +15,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import anonImg from '../../assets/anonUser.png'
 import * as mq from '../../emotion/breakpoints'
+import { logout } from '../../store/actions/actions'
+import { selectUser } from '../../store/selectors/authSelectors'
 
 // nav item for right/bottom side of navbar as dropdown that reveals authed routes
+
+const mapStateToProps = state => ({
+  user: selectUser(state)
+})
 
 class NavDropdown extends React.Component {
   state = {
@@ -45,12 +52,12 @@ class NavDropdown extends React.Component {
   }
 
   render () {
-    const { content, image, logout, sideDrawer } = this.props
+    const { user, logout, sideDrawer } = this.props
     const { isOpen } = this.state
     return (
       <div css={navDropdown} onClick={this.toggleDropdown} ref={this.navDropdownRef}>
-        <img src={image || anonImg} alt='Nav Item Icon' css={imgCss} />
-        <div css={textBox}>{content}</div>
+        <img src={user.photoURL || anonImg} alt='Nav Item Icon' css={imgCss} />
+        <div css={textBox}>{user.username}</div>
         <FontAwesomeIcon
           icon={sideDrawer ? faCaretRight : faCaretDown}
           css={sideDrawer && sd_caret}
@@ -184,4 +191,7 @@ const sd_caret = css`
   margin-left: auto;
 `
 
-export default NavDropdown
+export default connect(
+  mapStateToProps,
+  { logout }
+)(NavDropdown)

@@ -6,7 +6,7 @@ import Logo from '../Logo'
 import Toggler from '../utils/Toggler'
 import LeftNavItems from './LeftNavItems'
 import RightNavItems from './RightNavItems'
-import { logout, toggleSideDrawer, openModal } from '../../store/actions/actions'
+import { toggleSideDrawer, openModal } from '../../store/actions/actions'
 import { selectIsAuth } from '../../store/selectors/authSelectors'
 import * as mq from '../../emotion/breakpoints'
 import { mainGradient } from '../../emotion/variables'
@@ -67,5 +67,5 @@ const bp1 = css`
 
 export default connect(
   mapStateToProps,
-  { logout, toggleSideDrawer, openModal }
+  { toggleSideDrawer, openModal }
 )(NavBar)

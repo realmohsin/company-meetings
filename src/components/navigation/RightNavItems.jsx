@@ -9,7 +9,7 @@ import buttonCss from '../../emotion/buttonCss'
 // Styles for Navbar start with nb_.
 // Styles for SideDrawer start with sd_.
 
-const RightNavItems = ({ sideDrawer, isAuth, login, logout, openModal }) => {
+const RightNavItems = ({ sideDrawer, isAuth, openModal }) => {
   const rightNav = sideDrawer ? sd_RightNav : nb_RightNav
   const navItem = sideDrawer ? sd_NavItem : nb_NavItem
   const authButton = sideDrawer ? sd_AuthButton : nb_AuthButton
@@ -22,7 +22,7 @@ const RightNavItems = ({ sideDrawer, isAuth, login, logout, openModal }) => {
             ${userDropdown};
           `}
         >
-          <NavDropdown content='Real Mohsin' logout={logout} sideDrawer={sideDrawer} />
+          <NavDropdown sideDrawer={sideDrawer} />
         </div>
       ) : (
         <div css={navItem}>

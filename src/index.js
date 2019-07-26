@@ -31,6 +31,7 @@ window.unsubFromAuthIndexPage = firebaseAuth.onAuthStateChanged(async userInAuth
       )
     } catch (error) {
       console.log('Error Setting User Before App Render: ', error.message)
+      setUser(null)
     }
   }
   ReactDOM.render(application, document.getElementById('root'))
