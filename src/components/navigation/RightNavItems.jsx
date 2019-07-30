@@ -74,6 +74,7 @@ const nb_AuthButton = css`
   background: none;
   border: 2px solid rgba(255, 255, 255, 0.5);
   font-size: 0.9em;
+  margin-left: 1.5rem;
   &:hover {
     border-color: #f9fafb;
   }

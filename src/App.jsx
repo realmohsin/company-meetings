@@ -6,12 +6,12 @@ import { Global, css } from '@emotion/core'
 import * as mq from './emotion/breakpoints'
 import NavBar from './components/navigation/NavBar'
 import SideDrawer from './components/navigation/SideDrawer'
-import MeetingsDashboard from './pages/meetings/MeetingsDashboard'
+import MeetingDashboard from './pages/meetings/MeetingDashboard'
 import TitlePage from './pages/TitlePage'
 import EditMeeting from './pages/meetings/EditMeeting'
 import CreateMeeting from './pages/meetings/CreateMeeting'
 import MeetingPage from './pages/meetings/MeetingPage'
-import MyMeetings from './pages/meetings/MyMeetingsPage'
+import MyMeetingsPage from './pages/meetings/MyMeetingsPage'
 import PeopleDashboard from './pages/people/PeopleDashboard'
 import ProfilePage from './pages/people/ProfilePage'
 import ModalManager from './components/modals/ModalManager'
@@ -58,13 +58,13 @@ class App extends React.Component {
                 <SideDrawer />
                 <div css={containerCss}>
                   <Switch>
-                    <Route exact path='/meetings' component={MeetingsDashboard} />
+                    <Route exact path='/meetings' component={MeetingDashboard} />
                     <Route
                       path='/meetings/edit-meeting/:meetingId'
                       component={EditMeeting}
                     />
                     <Route path='/meetings/create-meeting' component={CreateMeeting} />
-                    <Route path='/meetings/my-meetings' component={MyMeetings} />
+                    <Route path='/meetings/my-meetings' component={MyMeetingsPage} />
                     <Route path='/meetings/:meetingId' component={MeetingPage} />
                     <Route path='/people/:userId' component={ProfilePage} />
                     <Route path='/people' component={PeopleDashboard} />
@@ -90,7 +90,7 @@ const globalStyles = css`
   }
 
   html {
-    font-size: 62.5%;
+    font-size: 67.5%;
     ${mq.bp3} {
       font-size: 56.25%;
     }

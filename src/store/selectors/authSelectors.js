@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect'
 
-export const selectAuth = state => state.auth
+export const selectAuthState = state => state.auth
 
 export const selectUser = createSelector(
-  [selectAuth],
-  auth => auth.user
+  [selectAuthState],
+  authState => authState.user
 )
 
 export const selectIsAuth = createSelector(

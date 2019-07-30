@@ -40,6 +40,7 @@ const navCss = css`
   top: 0;
   background: ${mainGradient};
   color: white;
+  z-index: 500;
   & .active {
     background: rgba(255, 255, 255, 0.08);
   }

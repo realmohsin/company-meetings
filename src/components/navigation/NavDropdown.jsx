@@ -13,10 +13,11 @@ import {
   faCogs,
   faPowerOff
 } from '@fortawesome/free-solid-svg-icons'
-import anonImg from '../../assets/anonUser.png'
+import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 import * as mq from '../../emotion/breakpoints'
 import { logout } from '../../store/actions/actions'
 import { selectUser } from '../../store/selectors/authSelectors'
+import { appIconColor } from '../../emotion/variables'
 
 // nav item for right/bottom side of navbar as dropdown that reveals authed routes
 
@@ -56,7 +57,7 @@ class NavDropdown extends React.Component {
     const { isOpen } = this.state
     return (
       <div css={navDropdown} onClick={this.toggleDropdown} ref={this.navDropdownRef}>
-        <img src={user.photoURL || anonImg} alt='Nav Item Icon' css={imgCss} />
+        <img src={user.photoURL || defaultUserPhoto} alt='Nav Item Icon' css={imgCss} />
         <div css={textBox}>{user.username}</div>
         <FontAwesomeIcon
           icon={sideDrawer ? faCaretRight : faCaretDown}
@@ -178,7 +179,7 @@ const imgCss = css`
 `
 
 const iconBox = css`
-  color: rgba(34, 36, 38, 0.65);
+  color: ${appIconColor};
   width: 20%;
   margin-right: 0.7rem;
 `

@@ -1,5 +1,7 @@
 import { firestore } from './firebase'
+import defaultUserPhoto from '../assets/defaultUserPhoto.png'
 
+// takes user object in firebaseAuth and additional fields to create our user profile in firestore
 export const createUserProfile = async (userInAuth, additionalData) => {
   const userRef = firestore.doc(`users/${userInAuth.uid}`)
   try {
@@ -9,6 +11,7 @@ export const createUserProfile = async (userInAuth, additionalData) => {
         createdAt: new Date(),
         username: userInAuth.displayName,
         email: userInAuth.email,
+        photoURL: userInAuth.photoURL || defaultUserPhoto,
         ...additionalData
       }
       await userRef.set(profile)

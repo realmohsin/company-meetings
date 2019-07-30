@@ -13,4 +13,8 @@ export const appMidColor = '#218aae'
 
 export const appTeal = '#20a7ac'
 
+export const appAqua = '#33C4BD'
+
 export const appBorderColor = 'rgba(34,36,38,.2)'
+
+export const appIconColor = 'rgba(34, 36, 38, 0.65)'

@@ -1,5 +1,25 @@
 Application Notes
 
+
+state shape 
+{
+  auth: {
+    user: null,
+    loading: false,
+    error: null
+  },
+  isSideDrawerOpen: false,
+  modal: {
+    modalType: null,
+    modalProps: null
+  },
+  meetings: {
+    meetings: [],
+    loading: false,
+    error: null
+  }
+}
+
 # Pages
 '/' - titlepage
 
@@ -19,23 +39,16 @@ Application Notes
   hostUid,
   hostPhotoURL,
   createdAt,
+  title,
   date,
   duration,
-  title,
+  department,
   building,
   room,
   attendees
 }
 
-User In AuthService 
-{
-  email,
-  photoURL,
-  phoneNumber,
-  etc
-}
-
-# User Shape in Firestore for Additional Profile Values
+# User Profile
 { 
   createdAt,
   uid,
@@ -52,3 +65,5 @@ user profile will at minimum have uid, username, email, createdAt
 For Auth Errors, replace header with the error instead of jarring error box in the middle of the modal.
 
 set width based positioning for navdropdown, is extremely small when username is small
+
+- reset error state on componentWillUnmount?
