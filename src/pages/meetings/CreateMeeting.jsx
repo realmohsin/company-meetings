@@ -115,10 +115,10 @@ class CreateMeeting extends React.Component {
                 Select a Department
               </option>
               <option value='accounting'>Accounting</option>
-              <option value='human resources'>Human Resources</option>
-              <option value='customer service'>Customer Service</option>
+              <option value='humanResources'>Human Resources</option>
+              <option value='customerService'>Customer Service</option>
               <option value='marketing'>Marketing</option>
-              <option value='research & development'>Research & Development</option>
+              <option value='researchAndDevelopment'>Research & Development</option>
               <option value='production'>Production</option>
             </select>
             <ErrorMessage name='department'>
@@ -145,10 +145,10 @@ class CreateMeeting extends React.Component {
               <option value='' disabled>
                 Select a Building
               </option>
-              <option value='company headquarters'>Company Headquarters</option>
-              <option value='eastern branch'>Eastern Branch</option>
-              <option value='midtown office'>Midtown Office</option>
-              <option value='upstate office'>Upstate Office</option>
+              <option value='companyHeadquarters'>Company Headquarters</option>
+              <option value='easternBranch'>Eastern Branch</option>
+              <option value='midtownBranch'>Midtown Office</option>
+              <option value='upstateBranch'>Upstate Office</option>
             </select>
             <ErrorMessage name='building'>
               {errMsg => <div css={errCss}>{errMsg}</div>}

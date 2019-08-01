@@ -37,7 +37,7 @@ export const register = (username, email, password, formHandlers) => async dispa
   } catch (error) {
     console.log(error)
     _handleFormOnSubmissionErr(error.message, formHandlers)
-    dispatch({ type: REGISTER_ERROR, error })
+    dispatch({ type: REGISTER_ERROR, error: { message: error.message } })
   }
 }
 
@@ -51,7 +51,7 @@ export const login = (email, password, formHandlers) => async dispatch => {
   } catch (error) {
     console.log(error)
     _handleFormOnSubmissionErr('Login Failed', formHandlers)
-    dispatch({ type: LOGIN_ERROR, error })
+    dispatch({ type: LOGIN_ERROR, error: { message: error.message } })
   }
 }
 
@@ -68,7 +68,7 @@ export const googleLogin = formHandlers => async dispatch => {
   } catch (error) {
     console.log(error)
     _handleFormOnSubmissionErr('Login Failed', formHandlers)
-    dispatch({ type: LOGIN_ERROR, error })
+    dispatch({ type: LOGIN_ERROR, error: { message: error.message } })
   }
 }
 

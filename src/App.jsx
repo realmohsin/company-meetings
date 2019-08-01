@@ -60,7 +60,7 @@ class App extends React.Component {
                   <Switch>
                     <Route exact path='/meetings' component={MeetingDashboard} />
                     <Route
-                      path='/meetings/edit-meeting/:meetingId'
+                      path='/meetings/edit/:meetingId'
                       component={EditMeeting}
                     />
                     <Route path='/meetings/create-meeting' component={CreateMeeting} />

@@ -3,6 +3,9 @@ export { openModal, closeModal } from './modalActions'
 export { setUser, register, login, googleLogin, logout } from './authActions'
 export {
   createMeeting,
+  editMeeting,
   fetchMeetingsForDashboard,
-  fetchSelectedMeeting
+  fetchSelectedMeeting,
+  resetSelectedMeeting,
+  resetDashboardState
 } from './meetingActions'

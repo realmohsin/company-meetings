@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import MeetingList from '../../components/meetings/MeetingList'
 import Activity from '../../components/activities/Activity'
 import { pagePadding } from '../../emotion/variables'
-import { fetchMeetingsForDashboard } from '../../store/actions/actions'
+import {
+  fetchMeetingsForDashboard,
+  resetDashboardState
+} from '../../store/actions/actions'
 import {
   selectAllFetchedMeetings,
   selectIsMoreToFetch,
@@ -19,7 +22,12 @@ const mapStateToProps = state => ({
 
 class MeetingDashboard extends React.Component {
   componentDidMount () {
+    console.log('meeting dashboard')
     this.props.fetchMeetingsForDashboard()
+  }
+
+  componentWillUnmount () {
+    this.props.resetDashboardState()
   }
 
   render () {
@@ -47,5 +55,5 @@ const meetingDashboard = css`
 
 export default connect(
   mapStateToProps,
-  { fetchMeetingsForDashboard }
+  { fetchMeetingsForDashboard, resetDashboardState }
 )(MeetingDashboard)

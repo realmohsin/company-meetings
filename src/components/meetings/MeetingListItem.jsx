@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import {Link, withRouter} from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import format from 'date-fns/format'
 import { appBorderColor, appIconColor } from '../../emotion/variables'
 import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
@@ -22,7 +22,9 @@ const MeetingListItem = ({ meeting, history }) => {
           <img src={meeting.hostPhotoURL || defaultUserPhoto} alt='host photo' />
         </div>
         <div css={headerText}>
-          <h2><Link to={`/meetings/${meeting.id}`}>{meeting.title}</Link></h2>
+          <h2>
+            <Link to={`/meetings/${meeting.id}`}>{meeting.title}</Link>
+          </h2>
           <p>
             Hosted by <span>{meeting.hostName}</span>
           </p>
@@ -35,7 +37,7 @@ const MeetingListItem = ({ meeting, history }) => {
       <div css={attendeesCss}>attendees</div>
       <div css={locationCss}>
         <FontAwesomeIcon css={iconCss} icon={faCalendar} />
-        <span>{format(meeting.date.toDate(), 'MMMM do, YYYY')}</span>
+        <span>{format(meeting.date.toDate(), 'MMMM Do, YYYY')}</span>
 
         <FontAwesomeIcon css={iconCss} icon={faClock} />
         <span>
@@ -48,7 +50,12 @@ const MeetingListItem = ({ meeting, history }) => {
           Building: {meeting.building}, Room {meeting.room}
         </span>
 
-        <button onClick={() => history.push(`/meetings/${meeting.id}`)} css={viewButtonCss}>View</button>
+        <button
+          onClick={() => history.push(`/meetings/${meeting.id}`)}
+          css={viewButtonCss}
+        >
+          View
+        </button>
       </div>
     </div>
   )
