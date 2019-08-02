@@ -5,10 +5,16 @@ import format from 'date-fns/format'
 import { pagePadding, appBorderColor, appIconColor } from '../../emotion/variables'
 import {
   selectMeetingsError,
-  selectSelectedMeeting
+  selectSelectedMeeting,
+  selectIsAttendee
 } from '../../store/selectors/meetingSelectors'
 import { selectUser } from '../../store/selectors/authSelectors'
-import { fetchSelectedMeeting, resetSelectedMeeting, joinMeeting, leaveMeeting } from '../../store/actions/actions'
+import {
+  fetchSelectedMeeting,
+  resetSelectedMeeting,
+  joinMeeting,
+  leaveMeeting
+} from '../../store/actions/actions'
 import AttendeesList from '../../components/meetings/AttendeesList'
 import accountingImage from '../../assets/accounting.jpg'
 import customerServiceImage from '../../assets/customerService.jpg'
@@ -37,6 +43,7 @@ const mapDepartmentToImage = {
 const mapStateToProps = state => ({
   user: selectUser(state),
   selectedMeeting: selectSelectedMeeting(state),
+  isAttendee: selectIsAttendee(state),
   error: selectMeetingsError(state)
 })
 
@@ -50,15 +57,22 @@ class MeetingPage extends React.Component {
   }
 
   render () {
-    const { selectedMeeting, error, user, history, joinMeeting, leaveMeeting } = this.props
-    console.log(selectedMeeting)
+    const {
+      selectedMeeting,
+      error,
+      user,
+      isAttendee,
+      history,
+      joinMeeting,
+      leaveMeeting
+    } = this.props
+    console.log('from render of MeetingPage', selectedMeeting)
     if (error) return <div css={meetingPageCss}>Cannot Retreive Meeting</div>
     if (!selectedMeeting) return <div>hello</div>
     const attendees = Object.keys(selectedMeeting.attendees).map(uid => ({
       uid,
       ...selectedMeeting.attendees[uid]
     }))
-    const isAttendee = selectedMeeting.attendees[user.uid]
     return (
       <div css={meetingPageCss}>
         <div css={leftGridContainer}>
@@ -82,9 +96,13 @@ class MeetingPage extends React.Component {
                   Manage Meeting
                 </button>
               ) : isAttendee ? (
-                <button onClick={joinMeeting(selectedMeeting.id)} css={buttonCss}>Cancel My Place</button>
+                <button onClick={() => leaveMeeting(selectedMeeting.id)} css={buttonCss}>
+                  Cancel My Place
+                </button>
               ) : (
-                <button onClick={leaveMeeting(selectedMeeting.id)} css={buttonCss}>Join Meeting</button>
+                <button onClick={() => joinMeeting(selectedMeeting.id)} css={buttonCss}>
+                  Join Meeting
+                </button>
               )}
             </div>
           </section>

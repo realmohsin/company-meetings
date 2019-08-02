@@ -4,6 +4,8 @@ export { setUser, register, login, googleLogin, logout } from './authActions'
 export {
   createMeeting,
   editMeeting,
+  joinMeeting,
+  leaveMeeting,
   fetchMeetingsForDashboard,
   fetchSelectedMeeting,
   resetSelectedMeeting,

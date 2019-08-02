@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import { selectUser } from './authSelectors'
 
 export const selectMeetingsState = state => state.meetings
 
@@ -41,4 +42,10 @@ export const selectIsMoreToFetch = createSelector(
 export const selectSelectedMeeting = createSelector(
   [selectMeetingsState],
   meetingsState => meetingsState.selectedMeeting
+)
+
+export const selectIsAttendee = createSelector(
+  [selectUser, selectSelectedMeeting],
+  (user, selectedMeeting) =>
+    selectedMeeting ? !!selectedMeeting.attendees[user.uid] : false
 )
