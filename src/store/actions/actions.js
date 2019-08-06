@@ -1,6 +1,7 @@
 export { toggleSideDrawer, showSideDrawer, hideSideDrawer } from './sideDrawerActions'
 export { openModal, closeModal } from './modalActions'
 export { setUser, register, login, googleLogin, logout } from './authActions'
+export { updateProfileBasics } from './userActions'
 export {
   createMeeting,
   editMeeting,
@@ -8,6 +9,6 @@ export {
   leaveMeeting,
   fetchMeetingsForDashboard,
   fetchSelectedMeeting,
-  resetSelectedMeeting,
-  resetDashboardState
+  resetDashboardState,
+  cancelMeetingToggle
 } from './meetingActions'

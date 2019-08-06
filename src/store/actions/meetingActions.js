@@ -8,7 +8,6 @@ import {
   FETCH_SELECTED_MEETING_START,
   FETCH_SELECTED_MEETING_SUCCESS,
   FETCH_SELECTED_MEETING_ERROR,
-  RESET_SELECTED_MEETING,
   RESET_DASHBOARD_STATE,
   EDIT_MEETING_START,
   EDIT_MEETING_SUCCESS,
@@ -17,9 +16,12 @@ import {
   JOIN_MEETING_ERROR,
   LEAVE_MEETING_START,
   LEAVE_MEETING_SUCCESS,
-  LEAVE_MEETING_ERROR
+  LEAVE_MEETING_ERROR,
+  CANCEL_MEETING_TOGGLE_START,
+  CANCEL_MEETING_TOGGLE_SUCCESS,
+  CANCEL_MEETING_TOGGLE_ERROR
 } from '../actions/actionTypes'
-import { firestore, firebaseAuth } from '../../firebase/firebase'
+import firebase, { firestore, firebaseAuth } from '../../firebase/firebase'
 import isEqual from 'date-fns/is_equal'
 import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 
@@ -111,6 +113,7 @@ export const editMeeting = (id, values, formHandlers) => async dispatch => {
 }
 
 export const fetchMeetingsForDashboard = () => async (dispatch, getState) => {
+  console.log('from fetchMeetingsForDashboard')
   dispatch({ type: FETCH_DASHBOARD_MEETINGS_START })
   try {
     const meetingsRef = firestore.collection('meetings')
@@ -157,8 +160,6 @@ export const fetchSelectedMeeting = meetingId => async dispatch => {
     dispatch({ type: FETCH_SELECTED_MEETING_ERROR, error: { message: error.message } })
   }
 }
-
-export const resetSelectedMeeting = () => ({ type: RESET_SELECTED_MEETING })
 
 export const joinMeeting = meetingId => async (dispatch, getState) => {
   dispatch({ type: JOIN_MEETING_START })
@@ -209,12 +210,26 @@ export const leaveMeeting = meetingId => async dispatch => {
       throw new Error('Meeting does not exist')
     }
     await meetingRef.update({
-      [`attendees.${user.uid}`]: firestore.FieldValue.delete()
+      [`attendees.${user.uid}`]: firebase.firestore.FieldValue.delete()
     })
     await meeting_attendeeRef.delete()
     dispatch({ type: LEAVE_MEETING_SUCCESS, userUid: user.uid })
   } catch (error) {
     console.log('Error from leaveMeeting: ', error)
     dispatch({ type: LEAVE_MEETING_ERROR, error: { message: error.message } })
+  }
+}
+
+export const cancelMeetingToggle = (cancelled, meetingId) => async dispatch => {
+  dispatch({ type: CANCEL_MEETING_TOGGLE_START })
+  try {
+    const meetingRef = firestore.doc(`/meetings/${meetingId}`)
+    await meetingRef.update({
+      cancelled
+    })
+    dispatch({ type: CANCEL_MEETING_TOGGLE_SUCCESS, cancelled })
+  } catch (error) {
+    console.log('Error from cancelMeetingToggle: ', error)
+    dispatch({ type: CANCEL_MEETING_TOGGLE_ERROR, error: { message: error.message } })
   }
 }

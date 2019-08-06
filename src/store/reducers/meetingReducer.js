@@ -17,7 +17,10 @@ import {
   FETCH_SELECTED_MEETING_START,
   FETCH_SELECTED_MEETING_SUCCESS,
   FETCH_SELECTED_MEETING_ERROR,
-  RESET_DASHBOARD_STATE
+  RESET_DASHBOARD_STATE,
+  CANCEL_MEETING_TOGGLE_START,
+  CANCEL_MEETING_TOGGLE_SUCCESS,
+  CANCEL_MEETING_TOGGLE_ERROR
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -37,12 +40,19 @@ const meetingReducer = (state = initialState, action) => {
     case EDIT_MEETING_START:
     case JOIN_MEETING_START:
     case LEAVE_MEETING_START:
-    case FETCH_SELECTED_MEETING_START:
     case FETCH_DASHBOARD_MEETINGS_START:
+    case CANCEL_MEETING_TOGGLE_START:
       return {
         ...state,
         loading: true,
         error: null
+      }
+    case FETCH_SELECTED_MEETING_START:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        selectedMeeting: null
       }
     case CREATE_MEETING_ERROR:
     case EDIT_MEETING_ERROR:
@@ -50,6 +60,7 @@ const meetingReducer = (state = initialState, action) => {
     case LEAVE_MEETING_ERROR:
     case FETCH_DASHBOARD_MEETINGS_ERROR:
     case FETCH_SELECTED_MEETING_ERROR:
+    case CANCEL_MEETING_TOGGLE_ERROR:
       return {
         ...state,
         loading: false,
@@ -81,7 +92,7 @@ const meetingReducer = (state = initialState, action) => {
         }
       }
     case LEAVE_MEETING_SUCCESS:
-      const attendess = state.selectedMeeting.attendees
+      const attendees = state.selectedMeeting.attendees
       const newAttendees = {}
       for (let key in attendees) {
         if (key !== action.userUid) {
@@ -122,7 +133,14 @@ const meetingReducer = (state = initialState, action) => {
         error: null,
         selectedMeeting: action.meeting
       }
-
+    case CANCEL_MEETING_TOGGLE_SUCCESS:
+      return {
+        ...state,
+        selectedMeeting: {
+          ...state.selectedMeeting,
+          cancelled: action.cancelled
+        }
+      }
     default:
       return state
   }

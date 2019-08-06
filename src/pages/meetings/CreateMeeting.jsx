@@ -59,13 +59,13 @@ class CreateMeeting extends React.Component {
             css={css`
               ${inputBoxCss};
               ${flexInputBox};
+              ${timepickerBoxCss}
             `}
           >
             <label>Start Time: </label>
             <TimePicker
               showSecond={false}
               value={values.startTime}
-              className='timepickerBox'
               onChange={e => setFieldValue('startTime', e)}
               format={'h:mm a'}
               use12Hours
@@ -79,13 +79,13 @@ class CreateMeeting extends React.Component {
             css={css`
               ${inputBoxCss};
               ${flexInputBox};
+              ${timepickerBoxCss}
             `}
           >
             <label>End Time: </label>
             <TimePicker
               showSecond={false}
               value={values.endTime}
-              className='timepickerBox'
               onChange={e => setFieldValue('endTime', e)}
               format={'h:mm a'}
               use12Hours
@@ -229,9 +229,10 @@ const createMeetingPage = css`
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 2rem;
-  & .timepickerBox {
-  }
-  & .rc-time-picker-input {
+`
+
+const timepickerBoxCss = css`
+    & .rc-time-picker-input {
     font-family: inherit;
     letter-spacing: 0.1rem;
     padding: 2rem 1.1rem;

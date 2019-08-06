@@ -11,7 +11,6 @@ import {
 import { selectUser } from '../../store/selectors/authSelectors'
 import {
   fetchSelectedMeeting,
-  resetSelectedMeeting,
   joinMeeting,
   leaveMeeting
 } from '../../store/actions/actions'
@@ -50,10 +49,6 @@ const mapStateToProps = state => ({
 class MeetingPage extends React.Component {
   componentDidMount () {
     this.props.fetchSelectedMeeting(this.props.match.params.meetingId)
-  }
-
-  componentWillUnmount () {
-    this.props.resetSelectedMeeting()
   }
 
   render () {
@@ -212,5 +207,5 @@ const iconCss = css`
 
 export default connect(
   mapStateToProps,
-  { fetchSelectedMeeting, resetSelectedMeeting, joinMeeting, leaveMeeting }
+  { fetchSelectedMeeting, joinMeeting, leaveMeeting }
 )(MeetingPage)

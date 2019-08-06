@@ -16,6 +16,8 @@ const application = (
   </Provider>
 )
 
+window.store = store
+
 window.unsubFromAuthIndexPage = firebaseAuth.onAuthStateChanged(async userInAuth => {
   if (!userInAuth) {
     store.dispatch(setUser(null))

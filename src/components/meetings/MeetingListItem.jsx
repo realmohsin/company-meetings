@@ -14,7 +14,6 @@ import {
 import buttonCss from '../../emotion/buttonCss'
 
 const MeetingListItem = ({ meeting, history }) => {
-  console.log(meeting)
   return (
     <div css={meetingListItem}>
       <div css={headerCss}>

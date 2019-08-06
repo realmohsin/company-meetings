@@ -20,8 +20,6 @@ const _handleFormOnSubmissionErr = (errMsg, formHandlers) => {
 
 export const setUser = user => ({ type: SET_USER, user })
 
-export const unsetUser = () => ({ type: UNSET_USER })
-
 export const register = (username, email, password, formHandlers) => async dispatch => {
   dispatch({ type: REGISTER_START })
   try {

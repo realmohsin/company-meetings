@@ -12,7 +12,7 @@ import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import {
   editMeeting,
   fetchSelectedMeeting,
-  resetSelectedMeeting
+  cancelMeetingToggle
 } from '../../store/actions/actions'
 import buttonCss from '../../emotion/buttonCss'
 import {
@@ -30,10 +30,6 @@ class EditMeeting extends React.Component {
     this.props.fetchSelectedMeeting(this.props.match.params.meetingId)
   }
 
-  componentWillUnmount () {
-    this.props.resetSelectedMeeting()
-  }
-
   render () {
     const {
       values,
@@ -44,7 +40,9 @@ class EditMeeting extends React.Component {
       setFieldValue,
       handleChange,
       history,
-      meetingsError
+      meetingsError,
+      selectedMeeting,
+      cancelMeetingToggle
     } = this.props
     if (meetingsError) return <div css={meetingPageCss}>Cannot Retreive Meeting</div>
     return (
@@ -192,16 +190,31 @@ class EditMeeting extends React.Component {
             </ErrorMessage>
           </div>
           <div css={buttonsBox}>
-            <button type='submit' disabled={isSubmitting || !dirty} css={buttonCss}>
-              Create Meeting
-            </button>
-            <button
-              onClick={() => history.push('/meetings')}
-              disabled={isSubmitting}
-              css={buttonCss}
-            >
-              Cancel
-            </button>
+            <div>
+              <button type='submit' disabled={isSubmitting || !dirty} css={buttonCss}>
+                Create Meeting
+              </button>
+              <button
+                onClick={() => history.push('/meetings')}
+                disabled={isSubmitting}
+                css={buttonCss}
+              >
+                Go Back
+              </button>
+            </div>
+            <div>
+              <button
+                type='button'
+                onClick={(e) =>
+                    cancelMeetingToggle(!selectedMeeting.cancelled, selectedMeeting.id)
+                }
+                css={buttonCss}
+              >
+                {selectedMeeting && selectedMeeting.cancelled
+                  ? 'Reactivate Meeting'
+                  : 'Cancel Meeting'}
+              </button>
+            </div>
           </div>
 
           {errors && errors.submissionError && (
@@ -318,6 +331,8 @@ const selectCss = css`
 
 const buttonsBox = css`
   margin: 4rem auto;
+  display: flex;
+  justify-content: space-between;
   & button {
     margin: 0 2rem;
   }
@@ -334,5 +349,5 @@ const submissionError = css`
 
 export default connect(
   mapStateToProps,
-  { editMeeting, fetchSelectedMeeting, resetSelectedMeeting }
+  { editMeeting, fetchSelectedMeeting, cancelMeetingToggle }
 )(formikEnhancer(EditMeeting))

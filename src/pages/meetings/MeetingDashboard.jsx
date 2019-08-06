@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 
 class MeetingDashboard extends React.Component {
   componentDidMount () {
-    console.log('meeting dashboard')
+    console.log('from meeting dashboard componentDidMount')
     this.props.fetchMeetingsForDashboard()
   }
 

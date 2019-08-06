@@ -14,6 +14,7 @@ import MeetingPage from './pages/meetings/MeetingPage'
 import MyMeetingsPage from './pages/meetings/MyMeetingsPage'
 import PeopleDashboard from './pages/people/PeopleDashboard'
 import ProfilePage from './pages/people/ProfilePage'
+import SettingsDashboard from './pages/settings/SettingsDashboard'
 import ModalManager from './components/modals/ModalManager'
 import containerCss from './emotion/containerCss'
 import { firebaseAuth, firestore } from './firebase/firebase'
@@ -59,15 +60,13 @@ class App extends React.Component {
                 <div css={containerCss}>
                   <Switch>
                     <Route exact path='/meetings' component={MeetingDashboard} />
-                    <Route
-                      path='/meetings/edit/:meetingId'
-                      component={EditMeeting}
-                    />
+                    <Route path='/meetings/edit/:meetingId' component={EditMeeting} />
                     <Route path='/meetings/create-meeting' component={CreateMeeting} />
                     <Route path='/meetings/my-meetings' component={MyMeetingsPage} />
                     <Route path='/meetings/:meetingId' component={MeetingPage} />
                     <Route path='/people/:userId' component={ProfilePage} />
                     <Route path='/people' component={PeopleDashboard} />
+                    <Route path='/settings' component={SettingsDashboard} />
                     <Route render={() => <h1 style={{ marginTop: 58 }}>404</h1>} />
                   </Switch>
                 </div>
