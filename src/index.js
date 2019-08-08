@@ -5,8 +5,9 @@ import { Provider } from 'react-redux'
 import App from './App'
 import store from './store/store'
 import history from './history/history'
-import { firebaseAuth, firestore } from './firebase/firebase'
+import firebase, { firebaseAuth, firestore } from './firebase/firebase'
 import { setUser } from './store/actions/actions'
+
 
 const application = (
   <Provider store={store}>

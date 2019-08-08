@@ -8,9 +8,7 @@ import { pagePadding, appBorderColor } from '../../emotion/variables'
 import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import buttonCss from '../../emotion/buttonCss'
 
-const BasicSettingsPage = props => {
-  console.log('from BasicSettingsPage: ', props)
-  const { values, errors, isSubmitting, setFieldValue } = props
+const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
   return (
     <div>
       <h2>Basic Profile Settings</h2>
@@ -81,9 +79,20 @@ const formikEnhancer = withFormik({
       birthday: user.birthday ? user.birthday.toDate() : new Date()
     }
   },
+  validationSchema: yup.object().shape({
+    username: yup
+      .string()
+      .min(2, 'Username is too short')
+      .required('Username is required'),
+    email: yup
+      .string()
+      .email('Not Valid Email')
+      .required('Email is required'),
+    birthday: yup.date().required('Birthday is required')
+  }),
   async handleSubmit (values, { resetForm, setErrors, setSubmitting, props }) {
-    console.log('from handleSubmit: ', props)
-    props.updateProfileBasics(values, { resetForm, setErrors, setSubmitting })
+    console.log('from handleSubmit of BasicsSettingsPage')
+    // props.updateProfileBasics(values, { resetForm, setErrors, setSubmitting })
   }
 })
 

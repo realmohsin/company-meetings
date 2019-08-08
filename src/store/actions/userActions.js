@@ -1,9 +1,12 @@
 import {
   UPDATE_PROFILE_BASICS_START,
   UPDATE_PROFILE_BASICS_SUCCESS,
-  UPDATE_PROFILE_BASICS_ERROR
+  UPDATE_PROFILE_BASICS_ERROR,
+  UPDATE_PROFILE_ABOUT_START,
+  UPDATE_PROFILE_ABOUT_SUCCESS,
+  UPDATE_PROFILE_ABOUT_ERROR
 } from './actionTypes'
-import { firebaseAuth, firestore } from '../../firebase/firebase'
+import firebase, { firebaseAuth, firestore } from '../../firebase/firebase'
 import history from '../../history/history'
 
 const _handleFormOnDatabaseErr = (errMsg, formHandlers) => {
@@ -63,5 +66,21 @@ export const updateProfileBasics = (values, formHandlers) => async dispatch => {
 export const updateProfileAbout = (values, formHandlers) => async dispatch => {
   dispatch({ type: UPDATE_PROFILE_ABOUT_START })
   try {
-  } catch (error) {}
+    const user = firebaseAuth.currentUser
+    const profileRef = firestore.doc(`/users/${user.uid}`)
+    profileRef.update(values)
+    formHandlers.setSubmitting(false)
+    dispatch({
+      type: UPDATE_PROFILE_ABOUT_SUCCESS,
+      updatedValues: {
+        ...values,
+        lunchBreak: firebase.firestore.Timestamp.fromDate(values.lunchBreak)
+      }
+    })
+    history.push(`/people/${user.uid}`)
+  } catch (error) {
+    console.log('Error from updateProfileAbout: ', error)
+    _handleFormOnDatabaseErr(error.message, formHandlers)
+    dispatch({ type: UPDATE_PROFILE_ABOUT_ERROR, error: { message: error.message } })
+  }
 }

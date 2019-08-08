@@ -4,17 +4,18 @@ import { NavLink, Switch, Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import BasicSettingsPage from './BasicSettingsPage'
 import AboutSettingsPage from './AboutSettingsPage'
+import ChangePasswordPage from './ChangePasswordPage'
 import { pagePadding, appBorderColor } from '../../emotion/variables'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faCogs } from '@fortawesome/free-solid-svg-icons'
 import { selectUser } from '../../store/selectors/authSelectors'
-import { updateProfileBasics } from '../../store/actions/actions'
+import { updateProfileBasics, updateProfileAbout, changePassword } from '../../store/actions/actions'
 
 const mapStateToProps = state => ({
   user: selectUser(state)
 })
 
-const SettingsDashboard = ({ user, updateProfileBasics }) => {
+const SettingsDashboard = ({ user, updateProfileBasics, updateProfileAbout, changePassword }) => {
   return (
     <div css={settingsCss}>
       <div>
@@ -32,7 +33,17 @@ const SettingsDashboard = ({ user, updateProfileBasics }) => {
           />
           <Route
             path='/settings/about'
-            render={props => <AboutSettingsPage user={user} {...props} />}
+            render={props => (
+              <AboutSettingsPage
+                user={user}
+                updateProfileAbout={updateProfileAbout}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path='/settings/change_password'
+            render={props => <ChangePasswordPage user={user} changePassword={changePassword} {...props} />}
           />
         </Switch>
       </div>
@@ -60,7 +71,7 @@ const SettingsDashboard = ({ user, updateProfileBasics }) => {
             <FontAwesomeIcon css={iconCss} icon={faCogs} />
             Account
           </div>
-          <NavLink css={navItem} to='/settings/password_change'>
+          <NavLink css={navItem} to='/settings/change_password'>
             Change Password
           </NavLink>
         </div>
@@ -125,7 +136,7 @@ const navBodyBorder = css`
 
 export default connect(
   mapStateToProps,
-  { updateProfileBasics }
+  { updateProfileBasics, updateProfileAbout, changePassword }
 )(SettingsDashboard)
 
 /*

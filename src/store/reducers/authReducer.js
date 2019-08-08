@@ -9,7 +9,10 @@ import {
   LOGOUT,
   UPDATE_PROFILE_BASICS_START,
   UPDATE_PROFILE_BASICS_SUCCESS,
-  UPDATE_PROFILE_BASICS_ERROR
+  UPDATE_PROFILE_BASICS_ERROR,
+  UPDATE_PROFILE_ABOUT_START,
+  UPDATE_PROFILE_ABOUT_SUCCESS,
+  UPDATE_PROFILE_ABOUT_ERROR
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -28,6 +31,7 @@ const authReducer = (state = initialState, action) => {
     case REGISTER_START:
     case LOGIN_START:
     case UPDATE_PROFILE_BASICS_START:
+    case UPDATE_PROFILE_ABOUT_START:
       return { ...state, error: null, loading: true }
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -36,6 +40,7 @@ const authReducer = (state = initialState, action) => {
     case REGISTER_ERROR:
     case LOGIN_ERROR:
     case UPDATE_PROFILE_BASICS_ERROR:
+    case UPDATE_PROFILE_ABOUT_ERROR:
       return {
         ...state,
         loading: false,
@@ -45,6 +50,16 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: null
+      }
+    case UPDATE_PROFILE_ABOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        user: {
+          ...state.user,
+          ...action.updatedValues
+        }
       }
     default:
       return state

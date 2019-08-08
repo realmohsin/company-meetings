@@ -67,3 +67,12 @@ For Auth Errors, replace header with the error instead of jarring error box in t
 set width based positioning for navdropdown, is extremely small when username is small
 
 - reset error state on componentWillUnmount?
+
+Todo: 
+- change password page
+- photos page
+- activity feed
+- realtime chat for meeting page
+- styling
+- production optimizations
+

@@ -7,10 +7,10 @@ import 'rc-time-picker-date-fns/assets/index.css'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import { pagePadding, appBorderColor } from '../../emotion/variables'
-import { inputBoxCss, inputCss, errCss, selectCss } from '../../emotion/textInputCss'
+import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import buttonCss from '../../emotion/buttonCss'
 
-const BasicSettingsPage = ({
+const AboutSettingsPage = ({
   values,
   errors,
   isSubmitting,
@@ -85,7 +85,9 @@ const BasicSettingsPage = ({
             {errMsg => <div css={errCss}>{errMsg}</div>}
           </ErrorMessage>
         </div>
-
+        <button type='submit' css={authButton} disabled={isSubmitting}>
+          Edit Profile
+        </button>
         {errors && errors.submissionError && (
           <div css={submissionError}>{errors.submissionError}</div>
         )}
@@ -95,34 +97,20 @@ const BasicSettingsPage = ({
 }
 
 const formikEnhancer = withFormik({
-  enableReinitialize: true,
   mapPropsToValues ({ user }) {
     return {
-      username: user.username,
-      email: user.email,
-      birthday: new Date()
+      jobTitle: user.jobTitle || '',
+      department: user.department || '',
+      lunchBreak: user.lunchBreak ? user.lunchBreak.toDate() : new Date()
     }
   },
   validationSchema: yup.object().shape({
-    username: yup
-      .string()
-      .min(2, 'Username is too short')
-      .required('Username is required'),
-    email: yup
-      .string()
-      .email('Not Valid Email')
-      .required('Email is required'),
-    date: yup.date().required('Date is required')
+    jobTitle: yup.string().required('Job Title is required'),
+    department: yup.string().required('Department is required'),
+    lunchBreak: yup.date().required('Lunch Break time is required')
   }),
   async handleSubmit (values, { resetForm, setErrors, setSubmitting, props }) {
-    const newMeeting = await props.createMeeting(values, {
-      resetForm,
-      setErrors,
-      setSubmitting
-    })
-    if (newMeeting) {
-      props.history.push('/meetings')
-    }
+    props.updateProfileAbout(values, { resetForm, setErrors, setSubmitting })
   }
 })
 
@@ -195,4 +183,10 @@ const timepickerBoxCss = css`
   }
 `
 
-export default formikEnhancer(BasicSettingsPage)
+const selectCss = css`
+  width: 100%;
+  font-family: inherit;
+`
+
+export default formikEnhancer(AboutSettingsPage)
+

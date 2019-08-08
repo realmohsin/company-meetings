@@ -67,7 +67,7 @@ const RegisterModal = ({
           <label
             css={css`
               ${labelCss};
-              ${values.email.length > 0 && shrunkLabelCss};
+              ${values.password.length > 0 && shrunkLabelCss};
             `}
           >
             Password

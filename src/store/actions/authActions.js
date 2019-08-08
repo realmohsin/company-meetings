@@ -6,11 +6,15 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
-  LOGOUT
+  LOGOUT,
+  CHANGE_PASSWORD_START,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_ERROR
 } from './actionTypes'
 import { firebaseAuth, googleProvider } from '../../firebase/firebase'
 import { closeModal } from './modalActions'
 import { createUserProfile } from '../../firebase/createUserProfile'
+import history from '../../history/history'
 
 const _handleFormOnSubmissionErr = (errMsg, formHandlers) => {
   formHandlers.resetForm()
@@ -76,5 +80,20 @@ export const logout = () => async dispatch => {
     dispatch({ type: LOGOUT })
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const changePassword = (password, formHandlers) => async dispatch => {
+  dispatch({ type: CHANGE_PASSWORD_START })
+  try {
+    const user = firebaseAuth.currentUser
+    await user.updatePassword(password)
+    formHandlers.setSubmitting(false)
+    dispatch({ type: CHANGE_PASSWORD_SUCCESS })
+    history.push(`/people/${user.uid}`)
+  } catch (error) {
+    console.log('error from changePassword: ', error.message)
+    _handleFormOnSubmissionErr('Changing Password Failed', formHandlers)
+    dispatch({ type: CHANGE_PASSWORD_ERROR, error: { message: error.message } })
   }
 }

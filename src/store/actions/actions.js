@@ -1,7 +1,14 @@
 export { toggleSideDrawer, showSideDrawer, hideSideDrawer } from './sideDrawerActions'
 export { openModal, closeModal } from './modalActions'
-export { setUser, register, login, googleLogin, logout } from './authActions'
-export { updateProfileBasics } from './userActions'
+export {
+  setUser,
+  register,
+  login,
+  googleLogin,
+  logout,
+  changePassword
+} from './authActions'
+export { updateProfileBasics, updateProfileAbout } from './userActions'
 export {
   createMeeting,
   editMeeting,

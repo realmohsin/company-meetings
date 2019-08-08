@@ -12,6 +12,7 @@ export const createUserProfile = async (userInAuth, additionalData) => {
         username: userInAuth.displayName,
         email: userInAuth.email,
         photoURL: userInAuth.photoURL || defaultUserPhoto,
+        authMethod: userInAuth.providerData[0].providerId,
         ...additionalData
       }
       await userRef.set(profile)
