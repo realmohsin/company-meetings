@@ -49,7 +49,7 @@ const ChangePasswordPage = ({ user, values, errors, isSubmitting }) => {
               ${values.password_confirm.length > 0 && shrunkLabelCss};
             `}
           >
-            Password
+            Confirm Password
           </label>
           <ErrorMessage name='password_confirm'>
             {errMsg => <div css={errCss}>{errMsg}</div>}
@@ -83,7 +83,7 @@ const formikEnhancer = withFormik({
       .required('Password Confirmation is required')
   }),
   handleSubmit (values, { resetForm, setErrors, setSubmitting, props }) {
-    props.changePassword(values.password, {resetForm, setErrors, setSubmitting})
+    props.changePassword(values.password, { resetForm, setErrors, setSubmitting })
   }
 })
 

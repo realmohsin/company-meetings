@@ -13,6 +13,11 @@ import {
   selectIsMoreToFetch,
   selectMeetingsError
 } from '../../store/selectors/meetingSelectors'
+import {
+  onSuccessActivityListener,
+  onErrorActivityListener
+} from '../../store/actions/actions'
+import { firestore } from '../../firebase/firebase'
 
 const mapStateToProps = state => ({
   meetings: selectAllFetchedMeetings(state),
@@ -22,12 +27,23 @@ const mapStateToProps = state => ({
 
 class MeetingDashboard extends React.Component {
   componentDidMount () {
-    console.log('from meeting dashboard componentDidMount')
-    this.props.fetchMeetingsForDashboard()
+    console.log('from meeting dashboard componentDidMount, props: ', this.props)
+    const {
+      fetchMeetingsForDashboard,
+      onSuccessActivityListener,
+      onErrorActivityListener
+    } = this.props
+    fetchMeetingsForDashboard()
+    this.unsubActivitiesObserver = firestore
+      .collection('activities')
+      .orderBy('timestamp', 'desc')
+      .limit(5)
+      .onSnapshot(onSuccessActivityListener, onErrorActivityListener)
   }
 
   componentWillUnmount () {
     this.props.resetDashboardState()
+    this.unsubActivitiesObserver()
   }
 
   render () {
@@ -55,5 +71,10 @@ const meetingDashboard = css`
 
 export default connect(
   mapStateToProps,
-  { fetchMeetingsForDashboard, resetDashboardState }
+  {
+    fetchMeetingsForDashboard,
+    resetDashboardState,
+    onSuccessActivityListener,
+    onErrorActivityListener
+  }
 )(MeetingDashboard)

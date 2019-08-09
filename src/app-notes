@@ -69,7 +69,7 @@ set width based positioning for navdropdown, is extremely small when username is
 - reset error state on componentWillUnmount?
 
 Todo: 
-- change password page
+✔️ change password page
 - photos page
 - activity feed
 - realtime chat for meeting page
