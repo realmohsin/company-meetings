@@ -4,9 +4,24 @@ import {
   UPDATE_PROFILE_BASICS_ERROR,
   UPDATE_PROFILE_ABOUT_START,
   UPDATE_PROFILE_ABOUT_SUCCESS,
-  UPDATE_PROFILE_ABOUT_ERROR
+  UPDATE_PROFILE_ABOUT_ERROR,
+  ADD_PROFILE_PHOTO_START,
+  ADD_PROFILE_PHOTO_SUCCESS,
+  ADD_PROFILE_PHOTO_ERROR,
+  SET_USER_PHOTOS,
+  SET_MAIN_PHOTO_START,
+  SET_MAIN_PHOTO_SUCCESS,
+  SET_MAIN_PHOTO_ERROR,
+  DELETE_PHOTO_START,
+  DELETE_PHOTO_SUCCESS,
+  DELETE_PHOTO_ERROR
 } from './actionTypes'
-import firebase, { firebaseAuth, firestore } from '../../firebase/firebase'
+import cuid from 'cuid'
+import firebase, {
+  firebaseAuth,
+  firebaseStorage,
+  firestore
+} from '../../firebase/firebase'
 import history from '../../history/history'
 
 const _handleFormOnDatabaseErr = (errMsg, formHandlers) => {
@@ -14,6 +29,8 @@ const _handleFormOnDatabaseErr = (errMsg, formHandlers) => {
   formHandlers.setErrors({ submissionError: errMsg })
   formHandlers.setSubmitting(false)
 }
+
+export const setUserPhotos = photos => ({ type: SET_USER_PHOTOS, photos })
 
 export const updateProfileBasics = (values, formHandlers) => async dispatch => {
   dispatch({ type: UPDATE_PROFILE_BASICS_START })
@@ -82,5 +99,104 @@ export const updateProfileAbout = (values, formHandlers) => async dispatch => {
     console.log('Error from updateProfileAbout: ', error)
     _handleFormOnDatabaseErr(error.message, formHandlers)
     dispatch({ type: UPDATE_PROFILE_ABOUT_ERROR, error: { message: error.message } })
+  }
+}
+
+export const addPhotoToProfile = imageBlob => async dispatch => {
+  dispatch({ type: ADD_PROFILE_PHOTO_START })
+  try {
+    const user = firebaseAuth.currentUser
+    const imageName = cuid()
+    const storageRef = firebaseStorage.ref()
+    const imageRef = storageRef.child(`${user.uid}/profilePhotos/${imageName}`)
+    await imageRef.put(imageBlob)
+    const downloadURL = await imageRef.getDownloadURL()
+
+    const userProfileRef = firestore.collection('users').doc(user.uid)
+    const photosSubCollectionRef = userProfileRef.collection('photos')
+    await photosSubCollectionRef.add({
+      photoName: imageName,
+      url: downloadURL
+    })
+    const photosSnapshot = await photosSubCollectionRef.get()
+    if (photosSnapshot.size === 1) {
+      dispatch(setMainPhoto(downloadURL))
+    }
+    dispatch({ type: ADD_PROFILE_PHOTO_SUCCESS })
+  } catch (error) {
+    console.log('error from addPhotoToProfile: ', error.message)
+    dispatch({ type: ADD_PROFILE_PHOTO_ERROR, error: { message: error.message } })
+  }
+}
+
+export const setMainPhoto = imageURL => async dispatch => {
+  dispatch({ type: SET_MAIN_PHOTO_START })
+  try {
+    const user = firebaseAuth.currentUser
+    const userProfileRef = firestore.collection('users').doc(user.uid)
+
+    await user.updateProfile({
+      photoURL: imageURL
+    })
+
+    const batch = firestore.batch()
+    batch.update(userProfileRef, {
+      photoURL: imageURL
+    })
+
+    const meetingAttendeeQuerySnap = await firestore
+      .collection('meeting_attendee')
+      .where('userUid', '==', user.uid)
+      .where('meetingDate', '>', new Date(Date.now()))
+      .get()
+
+    for (let i = 0; i < meetingAttendeeQuerySnap.length; i++) {
+      const meetingId = meetingAttendeeQuerySnap.docs[i].data().meetingId
+      const meetingRef = firestore.doc(`/meetings/${meetingId}`)
+      batch.update(meetingRef, {
+        [`attendees.${user.uid}.photoURL`]: imageURL
+      })
+      const meetingSnap = meetingRef.get()
+      if (meetingSnap.data().hostUid === user.uid) {
+        batch.update(meetingRef, {
+          hostPhotoURL: imageURL
+        })
+      }
+    }
+    await batch.commit()
+    dispatch({ type: SET_MAIN_PHOTO_SUCCESS })
+  } catch (error) {
+    console.log('error from setMainPhoto: ', error.message)
+    dispatch({ type: SET_MAIN_PHOTO_ERROR, error: { message: error.message } })
+  }
+}
+
+export const deletePhotoFromProfile = (id, photoName, imageURL) => async dispatch => {
+  dispatch({ type: DELETE_PHOTO_START })
+  try {
+    const user = firebaseAuth.currentUser
+
+    const storageRef = firebaseStorage.ref()
+    const imageRef = storageRef.child(`${user.uid}/profilePhotos/${photoName}`)
+    await imageRef.delete()
+
+    const userProfileRef = firestore.doc(`/users/${user.uid}`)
+    const userProfileSnap = await userProfileRef.get()
+    const userPhotoURL = userProfileSnap.data().photoURL
+    console.log('userPhotoURL: ', userPhotoURL, 'imageURL: ', imageURL)
+    if (userPhotoURL === imageURL) {
+      await userProfileRef.update({
+        photoURL: ''
+      })
+    }
+
+    await userProfileRef
+      .collection('photos')
+      .doc(id)
+      .delete()
+    dispatch({ type: DELETE_PHOTO_SUCCESS })
+  } catch (error) {
+    console.log('error from deletePhotoFromProfile: ', error.message)
+    dispatch({ type: DELETE_PHOTO_ERROR })
   }
 }

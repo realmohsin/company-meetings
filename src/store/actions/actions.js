@@ -8,7 +8,14 @@ export {
   logout,
   changePassword
 } from './authActions'
-export { updateProfileBasics, updateProfileAbout } from './userActions'
+export {
+  updateProfileBasics,
+  updateProfileAbout,
+  addPhotoToProfile,
+  setUserPhotos,
+  setMainPhoto,
+  deletePhotoFromProfile
+} from './userActions'
 export {
   createMeeting,
   editMeeting,

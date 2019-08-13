@@ -1,5 +1,6 @@
 import {
   SET_USER,
+  SET_USER_PHOTOS,
   REGISTER_START,
   REGISTER_SUCCESS,
   REGISTER_ERROR,
@@ -14,9 +15,11 @@ import {
   UPDATE_PROFILE_ABOUT_SUCCESS,
   UPDATE_PROFILE_ABOUT_ERROR
 } from '../actions/actionTypes'
+import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 
 const initialState = {
   user: null,
+  photos: [],
   loading: false,
   error: null
 }
@@ -24,9 +27,17 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
+      if (action.user && action.user.photoURL === '') {
+        action.user.photoURL = defaultUserPhoto
+      }
       return {
         ...state,
         user: action.user
+      }
+    case SET_USER_PHOTOS:
+      return {
+        ...state,
+        photos: action.photos
       }
     case REGISTER_START:
     case LOGIN_START:

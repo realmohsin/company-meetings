@@ -11,3 +11,8 @@ export const selectIsAuth = createSelector(
   [selectUser],
   user => !!user
 )
+
+export const selectPhotos = createSelector(
+  [selectAuthState],
+  authState => authState.photos
+)

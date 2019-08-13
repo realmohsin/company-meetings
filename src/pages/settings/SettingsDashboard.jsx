@@ -9,75 +9,127 @@ import { pagePadding, appBorderColor } from '../../emotion/variables'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faCogs } from '@fortawesome/free-solid-svg-icons'
 import { selectUser } from '../../store/selectors/authSelectors'
-import { updateProfileBasics, updateProfileAbout, changePassword } from '../../store/actions/actions'
+import {
+  updateProfileBasics,
+  updateProfileAbout,
+  changePassword,
+  setUserPhotos
+} from '../../store/actions/actions'
+import PhotoSettingsPage from './PhotoSettingsPage'
+import { firestore } from '../../firebase/firebase'
 
 const mapStateToProps = state => ({
   user: selectUser(state)
 })
 
-const SettingsDashboard = ({ user, updateProfileBasics, updateProfileAbout, changePassword }) => {
-  return (
-    <div css={settingsCss}>
-      <div>
-        <Switch>
-          <Redirect exact from='/settings' to='/settings/basic' />
-          <Route
-            path='/settings/basic'
-            render={props => (
-              <BasicSettingsPage
-                user={user}
-                updateProfileBasics={updateProfileBasics}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path='/settings/about'
-            render={props => (
-              <AboutSettingsPage
-                user={user}
-                updateProfileAbout={updateProfileAbout}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path='/settings/change_password'
-            render={props => <ChangePasswordPage user={user} changePassword={changePassword} {...props} />}
-          />
-        </Switch>
-      </div>
-      <div>
-        <div css={navSection}>
-          <div css={headerBorder}>
-            <div css={header}>
-              <FontAwesomeIcon css={iconCss} icon={faUser} /> Profile
+class SettingsDashboard extends React.Component {
+  componentDidMount () {
+    this.unsubProfilePhotosObserver = firestore
+      .collection('users')
+      .doc(`${this.props.user.uid}`)
+      .collection('photos')
+      .onSnapshot(querySnapshot => {
+        if (querySnapshot.size === 0) {
+          this.props.setUserPhotos([])
+        }
+        const photos = []
+        querySnapshot.forEach(docSnapshot => {
+          console.log('from onSnapshot of photos ', docSnapshot)
+          photos.push({
+            ...docSnapshot.data(),
+            id: docSnapshot.id
+          })
+        })
+        this.props.setUserPhotos(photos)
+      })
+  }
+
+  componentWillUnmount () {
+    this.setUserPhotos([])
+    this.unsubProfilePhotosObserver()
+  }
+
+  render () {
+    const { user, updateProfileBasics, updateProfileAbout, changePassword } = this.props
+    return (
+      <div css={settingsCss}>
+        <div>
+          <Switch>
+            <Redirect exact from='/settings' to='/settings/basic' />
+            <Route
+              path='/settings/basic'
+              render={props => (
+                <BasicSettingsPage
+                  user={user}
+                  updateProfileBasics={updateProfileBasics}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path='/settings/about'
+              render={props => (
+                <AboutSettingsPage
+                  user={user}
+                  updateProfileAbout={updateProfileAbout}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path='/settings/change_password'
+              render={props => (
+                <ChangePasswordPage
+                  user={user}
+                  changePassword={changePassword}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path='/settings/photos'
+              render={props => (
+                <PhotoSettingsPage
+                  user={user}
+                  updateProfileAbout={updateProfileAbout}
+                  {...props}
+                />
+              )}
+            />
+          </Switch>
+        </div>
+        <div>
+          <div css={navSection}>
+            <div css={headerBorder}>
+              <div css={header}>
+                <FontAwesomeIcon css={iconCss} icon={faUser} /> Profile
+              </div>
+            </div>
+            <div css={navBodyBorder}>
+              <NavLink css={navItem} to='/settings/basic'>
+                Basics
+              </NavLink>
+              <NavLink css={navItem} to='/settings/about'>
+                About Me
+              </NavLink>
+              <NavLink css={navItem} to='/settings/photos'>
+                My Photos
+              </NavLink>
             </div>
           </div>
-          <div css={navBodyBorder}>
-            <NavLink css={navItem} to='/settings/basic'>
-              Basics
-            </NavLink>
-            <NavLink css={navItem} to='/settings/about'>
-              About Me
-            </NavLink>
-            <NavLink css={navItem} to='/settings/photos'>
-              My Photos
+          <div css={navSection}>
+            <div css={header}>
+              <FontAwesomeIcon css={iconCss} icon={faCogs} />
+              Account
+            </div>
+            <NavLink css={navItem} to='/settings/change_password'>
+              Change Password
             </NavLink>
           </div>
-        </div>
-        <div css={navSection}>
-          <div css={header}>
-            <FontAwesomeIcon css={iconCss} icon={faCogs} />
-            Account
-          </div>
-          <NavLink css={navItem} to='/settings/change_password'>
-            Change Password
-          </NavLink>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 const settingsCss = css`
@@ -136,7 +188,7 @@ const navBodyBorder = css`
 
 export default connect(
   mapStateToProps,
-  { updateProfileBasics, updateProfileAbout, changePassword }
+  { updateProfileBasics, updateProfileAbout, changePassword, setUserPhotos }
 )(SettingsDashboard)
 
 /*

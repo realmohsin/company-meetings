@@ -20,4 +20,6 @@ const googleProvider = new firebase.auth.GoogleAuthProvider()
 
 const firestore = firebase.firestore()
 
-export { firebase as default, firebaseAuth, googleProvider, firestore }
+const firebaseStorage = firebase.storage()
+
+export { firebase as default, firebaseAuth, googleProvider, firestore, firebaseStorage }
