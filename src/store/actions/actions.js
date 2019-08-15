@@ -24,6 +24,7 @@ export {
   fetchMeetingsForDashboard,
   fetchSelectedMeeting,
   resetDashboardState,
-  cancelMeetingToggle
+  cancelMeetingToggle,
+  addMeetingComment
 } from './meetingActions'
 export { onSuccessActivityListener, onErrorActivityListener } from './activityActions'

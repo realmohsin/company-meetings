@@ -19,7 +19,10 @@ import {
   LEAVE_MEETING_ERROR,
   CANCEL_MEETING_TOGGLE_START,
   CANCEL_MEETING_TOGGLE_SUCCESS,
-  CANCEL_MEETING_TOGGLE_ERROR
+  CANCEL_MEETING_TOGGLE_ERROR,
+  ADD_MEETING_COMMENT_START,
+  ADD_MEETING_COMMENT_SUCCESS,
+  ADD_MEETING_COMMENT_ERROR
 } from '../actions/actionTypes'
 import firebase, { firestore, firebaseAuth } from '../../firebase/firebase'
 import isEqual from 'date-fns/is_equal'
@@ -231,5 +234,34 @@ export const cancelMeetingToggle = (cancelled, meetingId) => async dispatch => {
   } catch (error) {
     console.log('Error from cancelMeetingToggle: ', error)
     dispatch({ type: CANCEL_MEETING_TOGGLE_ERROR, error: { message: error.message } })
+  }
+}
+
+export const addMeetingComment = (text, parentId, formHandlers) => async (
+  dispatch,
+  getState
+) => {
+  dispatch({ type: ADD_MEETING_COMMENT_START })
+  try {
+    const meetingId = getState().meetings.selectedMeeting.id
+    const user = firebaseAuth.currentUser
+    const commentsRef = firestore
+      .collection('meetingComments')
+      .doc(meetingId)
+      .collection('comments')
+    await commentsRef.add({
+      meetingId,
+      uid: user.uid,
+      parentId,
+      username: user.displayName,
+      photoURL: user.photoURL,
+      text,
+      date: new Date()
+    })
+    formHandlers.setSubmitting(false)
+    dispatch({ type: ADD_MEETING_COMMENT_SUCCESS })
+  } catch (error) {
+    console.log('error from addMeetingComment: ', error)
+    dispatch({ type: ADD_MEETING_COMMENT_ERROR, error: { message: error.message } })
   }
 }

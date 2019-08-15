@@ -97,7 +97,7 @@ const globalStyles = css`
 
   body {
     font-size: 2rem;
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     background: #eaeaea;
   }
 

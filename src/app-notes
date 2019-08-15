@@ -1,7 +1,7 @@
 Application Notes
 
 
-state shape 
+early state shape 
 {
   auth: {
     user: null,
@@ -68,12 +68,25 @@ set width based positioning for navdropdown, is extremely small when username is
 
 - reset error state on componentWillUnmount?
 
+- add reducer cases for error actiontypes
+
 Todo: 
 ✔️ change password page
-- photos page
+✔️ photos page
 ✔️ activity feed
 - realtime chat for meeting page
 - styling
 - production optimizations
 
-there will be a bug concerning deleting a photo. attendees list might reference photoURLs in storage that are deleted. 
+comment
+{
+  id: '',
+  meetingId: '',
+  uid: '',
+  parentId: 0,
+  displayName: ''
+  photoURL: '',
+  text: '',
+  date: ''
+}
+

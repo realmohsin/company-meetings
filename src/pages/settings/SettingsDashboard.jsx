@@ -45,7 +45,7 @@ class SettingsDashboard extends React.Component {
   }
 
   componentWillUnmount () {
-    this.setUserPhotos([])
+    this.props.setUserPhotos([])
     this.unsubProfilePhotosObserver()
   }
 

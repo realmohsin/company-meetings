@@ -15,6 +15,7 @@ import {
   leaveMeeting
 } from '../../store/actions/actions'
 import AttendeesList from '../../components/meetings/AttendeesList'
+import MeetingChat from '../../components/meetings/MeetingChat'
 import accountingImage from '../../assets/accounting.jpg'
 import customerServiceImage from '../../assets/customerService.jpg'
 import humanResourcesImage from '../../assets/humanResources.jpg'
@@ -118,7 +119,9 @@ class MeetingPage extends React.Component {
               </span>
             </div>
           </section>
-          <div>chat</div>
+          <div>
+            <MeetingChat meetingId={selectedMeeting.id} />
+          </div>
         </div>
         <AttendeesList attendees={attendees} />
       </div>
