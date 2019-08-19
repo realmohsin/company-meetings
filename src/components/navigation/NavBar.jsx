@@ -34,13 +34,14 @@ const NavBar = ({ isAuth, logout, toggleSideDrawer, openModal }) => {
 }
 
 const navCss = css`
+  font-size: 1.8rem;
   height: 5.8rem;
   width: 100%;
   position: fixed;
   top: 0;
   background: ${mainGradient};
   color: white;
-  z-index: 500;
+  z-index: 50;
   & .active {
     background: rgba(255, 255, 255, 0.08);
   }

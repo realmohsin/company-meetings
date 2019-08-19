@@ -27,8 +27,13 @@ const SideDrawer = ({ show, isAuth, openModal, hideSideDrawer }) => {
           ${styles};
         `}
       >
-        <LeftNavItems sideDrawer isAuth={isAuth} />
-        <RightNavItems sideDrawer isAuth={isAuth} openModal={openModal} />
+        <LeftNavItems sideDrawer isAuth={isAuth} hideSideDrawer={hideSideDrawer} />
+        <RightNavItems
+          sideDrawer
+          isAuth={isAuth}
+          openModal={openModal}
+          hideSideDrawer={hideSideDrawer}
+        />
       </nav>
     </>
   )

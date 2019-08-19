@@ -11,7 +11,7 @@ import buttonCss from '../../emotion/buttonCss'
 // Styles for Navbar start with nb_.
 // Styles for SideDrawer start with sd_.
 
-const LeftNavItems = ({ sideDrawer, isAuth }) => {
+const LeftNavItems = ({ sideDrawer, isAuth, hideSideDrawer }) => {
   const leftNav = sideDrawer ? sd_LeftNav : nb_LeftNav
   const navItem = sideDrawer ? sd_NavItem : nb_NavItem
   const logoCss = sideDrawer ? sd_Logo : nb_Logo
@@ -25,12 +25,21 @@ const LeftNavItems = ({ sideDrawer, isAuth }) => {
           <Logo />
         </div>
       </NavLink>
-      <NavLink exact to='/meetings' css={navItem}>
+      <NavLink
+        exact
+        to='/meetings'
+        css={navItem}
+        onClick={() => sideDrawer && hideSideDrawer()}
+      >
         Meetings
       </NavLink>
       {isAuth && (
         <>
-          <NavLink to='/people' css={navItem}>
+          <NavLink
+            to='/people'
+            css={navItem}
+            onClick={() => sideDrawer && hideSideDrawer()}
+          >
             People
           </NavLink>
           <div
@@ -41,7 +50,10 @@ const LeftNavItems = ({ sideDrawer, isAuth }) => {
           >
             <button
               css={meetingButton}
-              onClick={() => history.push('/meetings/create-meeting')}
+              onClick={() => {
+                history.push('/meetings/create-meeting')
+                if (sideDrawer) hideSideDrawer()
+              }}
             >
               Create Meeting
             </button>

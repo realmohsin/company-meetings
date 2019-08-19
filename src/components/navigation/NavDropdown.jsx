@@ -17,7 +17,7 @@ import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 import * as mq from '../../emotion/breakpoints'
 import { logout } from '../../store/actions/actions'
 import { selectUser } from '../../store/selectors/authSelectors'
-import { appIconColor } from '../../emotion/variables'
+import { appIconColor, appAqua } from '../../emotion/variables'
 
 // nav item for right/bottom side of navbar as dropdown that reveals authed routes
 
@@ -53,7 +53,7 @@ class NavDropdown extends React.Component {
   }
 
   render () {
-    const { user, logout, sideDrawer } = this.props
+    const { user, logout, sideDrawer, hideSideDrawer } = this.props
     const { isOpen } = this.state
     return (
       <div css={navDropdown} onClick={this.toggleDropdown} ref={this.navDropdownRef}>
@@ -65,31 +65,40 @@ class NavDropdown extends React.Component {
         />
         {isOpen && (
           <ul css={dropdownEle}>
-            <Link to='/people/profile/userIdHere'>
+            <Link
+              to='/people/profile/userIdHere'
+              onClick={() => sideDrawer && hideSideDrawer()}
+            >
               <div css={iconBox}>
                 <FontAwesomeIcon icon={faUser} />
               </div>
               <div>My Profile</div>
             </Link>
-            <Link to='/people'>
+            <Link to='/people' onClick={() => sideDrawer && hideSideDrawer()}>
               <div css={iconBox}>
                 <FontAwesomeIcon icon={faUsers} css={tooBigIcon} />
               </div>
               <div>My Network</div>
             </Link>
-            <Link to='/meetings/create-meeting'>
+            <Link
+              to='/meetings/create-meeting'
+              onClick={() => sideDrawer && hideSideDrawer()}
+            >
               <div css={iconBox}>
                 <FontAwesomeIcon icon={faPlus} />
               </div>
               <div> Create Meeting</div>
             </Link>
-            <Link to='/meetings/my-meetings'>
+            <Link
+              to='/meetings/my-meetings'
+              onClick={() => sideDrawer && hideSideDrawer()}
+            >
               <div css={iconBox}>
                 <FontAwesomeIcon icon={faCalendar} />
               </div>
               <div> My Meetings</div>
             </Link>
-            <Link to='/settings'>
+            <Link to='/settings' onClick={() => sideDrawer && hideSideDrawer()}>
               <div css={iconBox}>
                 <FontAwesomeIcon icon={faCogs} css={tooBigIcon} />
               </div>
@@ -109,18 +118,16 @@ class NavDropdown extends React.Component {
 }
 
 const dropdownEle = css`
-  font-size: 0.9em;
   color: black;
   list-style: none;
   position: absolute;
-  top: 94%;
-  left: 14%;
-  right: -15%;
+  top: 118%;
+  left: -10%;
+  right: -10%;
   background: white;
-  border: 1px solid rgba(34, 36, 38, 0.15);
   border-top: transparent;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.25);
-  border-radius: 0.3rem;
+  box-shadow: 0px 3px 10px -3px rgba(34, 36, 38, 0.65);
+  border-radius: 0.6rem;
   &::before {
     content: '';
     background: white;
@@ -131,6 +138,7 @@ const dropdownEle = css`
     height: 2rem;
     transform: rotate(-45deg);
     z-index: -10;
+    box-shadow: 0 0px 7px 0 rgba(34, 36, 38, 0.25);
   }
   & a {
     padding: 1rem 1.6rem;
@@ -140,14 +148,17 @@ const dropdownEle = css`
     background: rgba(0, 0, 0, 0.08);
   }
   ${mq.bp1} {
-    top: -333%;
-    right: -62%;
-    left: 105%;
-    border-top: 1px solid rgba(34, 36, 38, 0.15);
+    font-size: 0.7em;
+    top: -273%;
+    right: -40%;
+    left: 78%;
+    border: 1px solid rgba(34, 36, 38, 0.15);
     border-left: transparent;
+    box-shadow: none;
     &::before {
       top: 71%;
       left: -3%;
+      box-shadow: none;
     }
   }
 `
@@ -182,6 +193,9 @@ const iconBox = css`
   color: ${appIconColor};
   width: 20%;
   margin-right: 0.7rem;
+  ${mq.bp1} {
+    margin-right: 0;
+  }
 `
 
 const tooBigIcon = css`
@@ -189,7 +203,7 @@ const tooBigIcon = css`
 `
 
 const sd_caret = css`
-  margin-left: auto;
+  margin-right: 6rem;
 `
 
 export default connect(

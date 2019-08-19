@@ -90,8 +90,8 @@ const globalStyles = css`
 
   html {
     font-size: 67.5%;
-    ${mq.bp3} {
-      font-size: 56.25%;
+    ${mq.bp2} {
+      font-size: 60.25%;
     }
   }
 
