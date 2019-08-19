@@ -37,17 +37,40 @@ const topDiv = css`
   justify-content: center;
   align-items: center;
   padding-bottom: 4rem;
+  text-align: center;
+  @media (max-width: 620px) {
+    flex-direction: column-reverse;
+  }
 `
 
 const title = css`
   font-weight: normal;
   font-size: 8rem;
+  @media (max-width: 900px) {
+    font-size: 6rem;
+  }
+  @media (max-width: 620px) {
+    font-size: 5rem;
+    padding: 3rem;
+  }
+  @media (max-width: 520px) {
+    font-size: 4rem;
+  }
 `
 
 const logoCss = css`
   height: 13rem;
   width: 13rem;
   margin-right: 4rem;
+  @media (max-width: 900px) {
+    height: 8rem;
+    width: 8rem;
+    margin-right: 0;
+  }
+  @media (max-width: 620px) {
+    height: 10rem;
+    width: 10rem;
+  }
 `
 
 const titleButton = css`
@@ -63,6 +86,9 @@ const titleButton = css`
   }
   &:hover i {
     color: rgb(33, 138, 174);
+  }
+  @media (max-width: 620px) {
+    font-size: 1.8rem;
   }
 `
 
