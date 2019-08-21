@@ -133,7 +133,7 @@ class MeetingPage extends React.Component {
 
 const meetingPageCss = css`
   ${pagePadding};
-  padding-top: 10rem;
+  padding-top: 30rem;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 2rem;

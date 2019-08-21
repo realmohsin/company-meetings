@@ -10,6 +10,9 @@ const buttonCss = css`
   user-select: none;
   font: inherit;
   background: #218aae;
+  &:hover {
+    background: #196f83;
+  }
   &:disabled {
     cursor: not-allowed;
     background: red;

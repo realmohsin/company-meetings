@@ -116,7 +116,6 @@ export const editMeeting = (id, values, formHandlers) => async dispatch => {
 }
 
 export const fetchMeetingsForDashboard = () => async (dispatch, getState) => {
-  console.log('from fetchMeetingsForDashboard')
   dispatch({ type: FETCH_DASHBOARD_MEETINGS_START })
   try {
     const meetingsRef = firestore.collection('meetings')

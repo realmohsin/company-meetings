@@ -7,10 +7,16 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
-import { pagePadding, appBorderColor } from '../../emotion/variables'
+import {
+  pagePadding,
+  appBorderColor,
+  appColor2,
+  appColor1
+} from '../../emotion/variables'
 import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import { createMeeting } from '../../store/actions/actions'
 import buttonCss from '../../emotion/buttonCss'
+import Button from '../../components/utils/Button'
 
 class CreateMeeting extends React.Component {
   render () {
@@ -26,165 +32,173 @@ class CreateMeeting extends React.Component {
     } = this.props
     return (
       <div css={createMeetingPage}>
-        <Form css={formCss} autoComplete='off'>
-          <div
-            css={css`
-              ${inputBoxCss};
-              ${flexInputBox};
-            `}
-          >
-            <label>Title</label>
-            <Field type='text' name='title' css={inputCss} />
-
-            <ErrorMessage name='title'>
-              {errMsg => <div css={errCss}>{errMsg}</div>}
-            </ErrorMessage>
-          </div>
-
-          <div
-            css={css`
-              ${inputBoxCss};
-              ${flexInputBox};
-              ${datePickerBox};
-            `}
-          >
-            <label>Date: </label>
-            <DatePicker selected={values.date} onChange={e => setFieldValue('date', e)} />
-            <ErrorMessage name='startTime'>
-              {errMsg => <div css={errCss}>{errMsg}</div>}
-            </ErrorMessage>
-          </div>
-
-          <div
-            css={css`
-              ${inputBoxCss};
-              ${flexInputBox};
-              ${timepickerBoxCss}
-            `}
-          >
-            <label>Start Time: </label>
-            <TimePicker
-              showSecond={false}
-              value={values.startTime}
-              onChange={e => setFieldValue('startTime', e)}
-              format={'h:mm a'}
-              use12Hours
-            />
-            <ErrorMessage name='startTime'>
-              {errMsg => <div css={errCss}>{errMsg}</div>}
-            </ErrorMessage>
-          </div>
-
-          <div
-            css={css`
-              ${inputBoxCss};
-              ${flexInputBox};
-              ${timepickerBoxCss}
-            `}
-          >
-            <label>End Time: </label>
-            <TimePicker
-              showSecond={false}
-              value={values.endTime}
-              onChange={e => setFieldValue('endTime', e)}
-              format={'h:mm a'}
-              use12Hours
-            />
-            <ErrorMessage name='endTime'>
-              {errMsg => <div css={errCss}>{errMsg}</div>}
-            </ErrorMessage>
-          </div>
-
-          <div
-            css={css`
-              ${inputBoxCss};
-              ${flexInputBox};
-            `}
-          >
-            <label>Department: </label>
-            <select
-              name='department'
+        <div>
+          <h1 css={title}>Create New Meeting</h1>
+          <Form css={formCss} autoComplete='off'>
+            <div
               css={css`
-                ${inputCss};
-                ${selectCss};
+                ${inputBoxCss};
+                ${flexInputBox};
               `}
-              value={values.department}
-              onChange={handleChange}
             >
-              <option value='' disabled>
-                Select a Department
-              </option>
-              <option value='accounting'>Accounting</option>
-              <option value='humanResources'>Human Resources</option>
-              <option value='customerService'>Customer Service</option>
-              <option value='marketing'>Marketing</option>
-              <option value='researchAndDevelopment'>Research & Development</option>
-              <option value='production'>Production</option>
-            </select>
-            <ErrorMessage name='department'>
-              {errMsg => <div css={errCss}>{errMsg}</div>}
-            </ErrorMessage>
-          </div>
+              <label>Title</label>
+              <Field type='text' name='title' css={inputCss} />
 
-          <div
-            css={css`
-              ${inputBoxCss};
-              ${flexInputBox};
-            `}
-          >
-            <label>Building: </label>
-            <select
-              name='building'
+              <ErrorMessage name='title'>
+                {errMsg => <div css={errCss}>{errMsg}</div>}
+              </ErrorMessage>
+            </div>
+
+            <div
               css={css`
-                ${inputCss};
-                ${selectCss};
+                ${inputBoxCss};
+                ${flexInputBox};
+                ${datePickerBox};
               `}
-              value={values.building}
-              onChange={handleChange}
             >
-              <option value='' disabled>
-                Select a Building
-              </option>
-              <option value='companyHeadquarters'>Company Headquarters</option>
-              <option value='easternBranch'>Eastern Branch</option>
-              <option value='midtownBranch'>Midtown Office</option>
-              <option value='upstateBranch'>Upstate Office</option>
-            </select>
-            <ErrorMessage name='building'>
-              {errMsg => <div css={errCss}>{errMsg}</div>}
-            </ErrorMessage>
-          </div>
+              <label>Date: </label>
+              <DatePicker
+                selected={values.date}
+                onChange={e => setFieldValue('date', e)}
+              />
+              <ErrorMessage name='startTime'>
+                {errMsg => <div css={errCss}>{errMsg}</div>}
+              </ErrorMessage>
+            </div>
 
-          <div
-            css={css`
-              ${inputBoxCss};
-              ${flexInputBox};
-            `}
-          >
-            <label>Room</label>
-            <Field type='text' name='room' css={inputCss} />
-
-            <ErrorMessage name='room'>
-              {errMsg => <div css={errCss}>{errMsg}</div>}
-            </ErrorMessage>
-          </div>
-          <div css={buttonsBox}>
-            <button type='submit' disabled={isSubmitting || !dirty} css={buttonCss}>
-              Create Meeting
-            </button>
-            <button
-              onClick={() => history.push('/meetings')}
-              disabled={isSubmitting}
-              css={buttonCss}
+            <div
+              css={css`
+                ${inputBoxCss};
+                ${flexInputBox};
+                ${timepickerBoxCss}
+              `}
             >
-              Cancel
-            </button>
-          </div>
+              <label>Start Time: </label>
+              <TimePicker
+                showSecond={false}
+                value={values.startTime}
+                onChange={e => setFieldValue('startTime', e)}
+                format={'h:mm a'}
+                use12Hours
+              />
+              <ErrorMessage name='startTime'>
+                {errMsg => <div css={errCss}>{errMsg}</div>}
+              </ErrorMessage>
+            </div>
 
-          {errors && errors.submissionError && (
-            <div css={submissionError}>{errors.submissionError}</div>
-          )}
-        </Form>
+            <div
+              css={css`
+                ${inputBoxCss};
+                ${flexInputBox};
+                ${timepickerBoxCss}
+              `}
+            >
+              <label>End Time: </label>
+              <TimePicker
+                showSecond={false}
+                value={values.endTime}
+                onChange={e => setFieldValue('endTime', e)}
+                format={'h:mm a'}
+                use12Hours
+              />
+              <ErrorMessage name='endTime'>
+                {errMsg => <div css={errCss}>{errMsg}</div>}
+              </ErrorMessage>
+            </div>
+
+            <div
+              css={css`
+                ${inputBoxCss};
+                ${flexInputBox};
+              `}
+            >
+              <label>Department: </label>
+              <select
+                name='department'
+                css={css`
+                  ${inputCss};
+                  ${selectCss};
+                `}
+                value={values.department}
+                onChange={handleChange}
+              >
+                <option value='' disabled>
+                  Select a Department
+                </option>
+                <option value='Accounting'>Accounting</option>
+                <option value='Human Resources'>Human Resources</option>
+                <option value='Customer Service'>Customer Service</option>
+                <option value='Marketing'>Marketing</option>
+                <option value='Research & Development'>Research & Development</option>
+                <option value='Production'>Production</option>
+              </select>
+              <ErrorMessage name='department'>
+                {errMsg => <div css={errCss}>{errMsg}</div>}
+              </ErrorMessage>
+            </div>
+
+            <div
+              css={css`
+                ${inputBoxCss};
+                ${flexInputBox};
+              `}
+            >
+              <label>Location: </label>
+              <select
+                name='building'
+                css={css`
+                  ${inputCss};
+                  ${selectCss};
+                `}
+                value={values.building}
+                onChange={handleChange}
+              >
+                <option value='' disabled>
+                  Select a Location
+                </option>
+                <option value='Company Headquarters'>Company Headquarters</option>
+                <option value='Eastern Branch'>Eastern Branch</option>
+                <option value='Midtown Building'>Midtown Building</option>
+                <option value='Western Branch'>Western Branch</option>
+              </select>
+              <ErrorMessage name='building'>
+                {errMsg => <div css={errCss}>{errMsg}</div>}
+              </ErrorMessage>
+            </div>
+
+            <div
+              css={css`
+                ${inputBoxCss};
+                ${flexInputBox};
+              `}
+            >
+              <label>Room</label>
+              <Field type='text' name='room' css={inputCss} />
+
+              <ErrorMessage name='room'>
+                {errMsg => <div css={errCss}>{errMsg}</div>}
+              </ErrorMessage>
+            </div>
+            <div css={buttonsBox}>
+              <Button
+                type='submit'
+                disabled={isSubmitting || !dirty}
+                color='green'
+                content='Create Meeting'
+              />
+              <Button
+                color='red'
+                onClick={() => history.push('/meetings')}
+                disabled={isSubmitting}
+                content='Cancel'
+              />
+            </div>
+
+            {errors && errors.submissionError && (
+              <div css={submissionError}>{errors.submissionError}</div>
+            )}
+          </Form>
+        </div>
       </div>
     )
   }
@@ -232,7 +246,7 @@ const createMeetingPage = css`
 `
 
 const timepickerBoxCss = css`
-    & .rc-time-picker-input {
+  & .rc-time-picker-input {
     font-family: inherit;
     letter-spacing: 0.1rem;
     padding: 2rem 1.1rem;
@@ -250,9 +264,10 @@ const formCss = css``
 const flexInputBox = css`
   display: flex;
   & > label {
+    color: ${appColor2};
     display: flex;
     align-items: center;
-    width: 10rem;
+    width: 15rem;
   }
   & > span {
     width: 100%;
@@ -293,9 +308,10 @@ const selectCss = css`
 `
 
 const buttonsBox = css`
-  margin: 4rem auto;
+  margin: 6rem auto;
+  padding-left: 12.5rem;
   & button {
-    margin: 0 2rem;
+    margin-right: 2rem;
   }
 `
 
@@ -306,6 +322,12 @@ const submissionError = css`
   text-align: center;
   padding: 1rem 0;
   margin-top: 2rem;
+`
+
+const title = css`
+  color: ${appColor1};
+  text-decoration: underline;
+  padding: 0 0 2rem 6rem;
 `
 
 export default connect(

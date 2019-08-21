@@ -9,8 +9,9 @@ import {
 export const onSuccessActivityListener = querySnapshot => dispatch => {
   dispatch({ type: ACTIVITY_LISTENER_CALLBACK_START })
   const activities = []
-  querySnapshot.forEach(docSnapshot => activities.push(docSnapshot.data()))
-  console.log(activities)
+  querySnapshot.forEach(docSnapshot =>
+    activities.push({ ...docSnapshot.data(), id: docSnapshot.id })
+  )
   dispatch({ type: ACTIVITY_LISTENER_CALLBACK_SUCCESS, activities })
 }
 

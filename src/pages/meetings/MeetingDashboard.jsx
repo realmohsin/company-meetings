@@ -27,7 +27,6 @@ const mapStateToProps = state => ({
 
 class MeetingDashboard extends React.Component {
   componentDidMount () {
-    console.log('from meeting dashboard componentDidMount, props: ', this.props)
     const {
       fetchMeetingsForDashboard,
       onSuccessActivityListener,
@@ -66,7 +65,7 @@ const meetingDashboard = css`
   ${pagePadding};
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-gap: 2rem;
+  grid-gap: 4rem;
 `
 
 export default connect(

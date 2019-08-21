@@ -17,7 +17,13 @@ import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 import * as mq from '../../emotion/breakpoints'
 import { logout } from '../../store/actions/actions'
 import { selectUser } from '../../store/selectors/authSelectors'
-import { appIconColor, appAqua } from '../../emotion/variables'
+import {
+  appIconColor,
+  appAqua,
+  appColor2,
+  appColor1,
+  appBorderColor
+} from '../../emotion/variables'
 
 // nav item for right/bottom side of navbar as dropdown that reveals authed routes
 
@@ -123,14 +129,14 @@ const dropdownEle = css`
   position: absolute;
   top: 118%;
   left: -10%;
-  right: -10%;
+  right: 0%;
   background: white;
   border-top: transparent;
   box-shadow: 0px 3px 10px -3px rgba(34, 36, 38, 0.65);
   border-radius: 0.6rem;
   &::before {
     content: '';
-    background: white;
+    background: ${appColor2};
     position: absolute;
     top: -0.25em;
     left: 1em;
@@ -190,9 +196,9 @@ const imgCss = css`
 `
 
 const iconBox = css`
-  color: ${appIconColor};
+  color: white;
   width: 20%;
-  margin-right: 0.7rem;
+  margin-left: 1rem;
   ${mq.bp1} {
     margin-right: 0;
   }
