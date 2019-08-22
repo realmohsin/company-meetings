@@ -134,7 +134,7 @@ class SettingsDashboard extends React.Component {
 
 const settingsCss = css`
   ${pagePadding};
-  padding: 10rem 0;
+  margin-top: 3rem;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-gap: 2rem;

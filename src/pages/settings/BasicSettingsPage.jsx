@@ -4,14 +4,20 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
-import { pagePadding, appBorderColor } from '../../emotion/variables'
+import {
+  pagePadding,
+  appBorderColor,
+  appColor1,
+  appColor2
+} from '../../emotion/variables'
 import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import buttonCss from '../../emotion/buttonCss'
+import Button from '../../components/utils/Button'
 
 const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
   return (
     <div>
-      <h2>Basic Profile Settings</h2>
+      <h1 css={title}>Edit Basic Settings</h1>
       <Form css={formCss} autoComplete='off'>
         <div
           css={css`
@@ -19,7 +25,7 @@ const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
             ${flexInputBox};
           `}
         >
-          <label>Username</label>
+          <label>Name: </label>
           <Field type='text' name='username' css={inputCss} />
 
           <ErrorMessage name='username'>
@@ -33,7 +39,7 @@ const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
             ${flexInputBox};
           `}
         >
-          <label>Email</label>
+          <label>Email:</label>
           <Field type='email' name='email' css={inputCss} />
 
           <ErrorMessage name='email'>
@@ -58,9 +64,14 @@ const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
             {errMsg => <div css={errCss}>{errMsg}</div>}
           </ErrorMessage>
         </div>
-        <button type='submit' css={authButton} disabled={isSubmitting}>
-          Edit Profile
-        </button>
+        <div css={buttonsBox}>
+          <Button
+            type='submit'
+            color='appColor2'
+            disabled={isSubmitting}
+            content='Edit Profile'
+          />
+        </div>
 
         {errors && errors.submissionError && (
           <div css={submissionError}>{errors.submissionError}</div>
@@ -96,6 +107,12 @@ const formikEnhancer = withFormik({
   }
 })
 
+const title = css`
+  color: ${appColor2};
+  text-decoration: underline;
+  padding: 0 0 2rem 6rem;
+`
+
 const formCss = css`
   width: 80%;
 `
@@ -103,9 +120,10 @@ const formCss = css`
 const flexInputBox = css`
   display: flex;
   & > label {
+    color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
-    width: 10rem;
+    width: 15rem;
   }
   & > span {
     width: 100%;
@@ -140,11 +158,12 @@ const datePickerBox = css`
   }
 `
 
-const authButton = css`
-  ${buttonCss};
-  margin-top: 1.9rem;
-  padding: 1rem 0;
-  width: 100%;
+const buttonsBox = css`
+  margin: 6rem auto;
+  padding-left: 12.5rem;
+  & button {
+    margin-right: 2rem;
+  }
 `
 
 const submissionError = css`

@@ -41,7 +41,7 @@ class CreateMeeting extends React.Component {
                 ${flexInputBox};
               `}
             >
-              <label>Title</label>
+              <label>Title:</label>
               <Field type='text' name='title' css={inputCss} />
 
               <ErrorMessage name='title'>
@@ -172,7 +172,7 @@ class CreateMeeting extends React.Component {
                 ${flexInputBox};
               `}
             >
-              <label>Room</label>
+              <label>Room:</label>
               <Field type='text' name='room' css={inputCss} />
 
               <ErrorMessage name='room'>
