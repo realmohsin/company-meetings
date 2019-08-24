@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
-import { appBorderColor } from '../../emotion/variables'
+import { appBorderColor, appColor1, appColor2 } from '../../emotion/variables'
 import buttonCss from '../../emotion/buttonCss'
 import PhotoDropzone from '../../components/photoSettings/PhotoDropzone'
 import CropperInput from '../../components/photoSettings/CropperInput'
@@ -12,6 +12,7 @@ import {
   deletePhotoFromProfile
 } from '../../store/actions/actions'
 import { selectPhotos, selectUser } from '../../store/selectors/authSelectors'
+import Button from '../../components/utils/Button'
 
 const mapStateToProps = state => ({
   user: selectUser(state),
@@ -83,12 +84,8 @@ const PhotoSettingsPage = ({
                   style={{ minWidth: '200px', minHeight: '200px', overflow: 'hidden' }}
                 />
                 <div css={buttonContainer}>
-                  <button onClick={handleUploadImage} css={buttonCss}>
-                    ✔️
-                  </button>
-                  <button onClick={handleCancelCrop} css={buttonCss}>
-                    ❌
-                  </button>
+                  <Button onClick={handleUploadImage} content='✔️' />
+                  <Button onClick={handleCancelCrop} content='❌' />
                 </div>
               </>
             )}
@@ -108,8 +105,7 @@ const PhotoSettingsPage = ({
 }
 
 const photoSettingsCss = css`
-  width: 84rem;
-  height: 90rem;
+  height: 76rem;
   border: 1px solid ${appBorderColor};
   border-radius: 0.4rem;
   background: white;
@@ -119,20 +115,26 @@ const photoSettingsCss = css`
 `
 
 const headerCss = css`
-  height: 3.5rem;
-  line-height: 3.5rem;
+  height: 12%;
+  font-size: 4rem;
+  color: ${appColor2};
+  text-decoration: underline;
+  font-weight: bold;
   border-bottom: 1px solid ${appBorderColor};
+  display: flex;
+  align-items: center;
+  padding-left: 5rem;
 `
 
 const rowOneCss = css`
   border-bottom: 1px solid ${appBorderColor};
-  height: 30.5rem;
+  height: 44%;
   display: flex;
   justify-content: space-around;
   & h4 {
     font-size: 1.4rem;
     color: #00b5ad;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
   & > div {
     width: 22rem;
@@ -145,12 +147,17 @@ const previewContainer = css`
   height: 21rem;
 `
 
-const rowTwoCss = css``
+const rowTwoCss = css`
+  height: 44%;
+  display: flex;
+  align-items: center;
+`
 
 const buttonContainer = css`
+  width: 18.5rem;
   margin: 2rem 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 `
 
 export default connect(

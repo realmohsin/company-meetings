@@ -59,6 +59,7 @@ const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
             selected={values.birthday}
             onChange={e => setFieldValue('birthday', e)}
             showYearDropdown
+            scrollableYearDropdown
           />
           <ErrorMessage name='birthday'>
             {errMsg => <div css={errCss}>{errMsg}</div>}
@@ -103,7 +104,7 @@ const formikEnhancer = withFormik({
   }),
   async handleSubmit (values, { resetForm, setErrors, setSubmitting, props }) {
     console.log('from handleSubmit of BasicsSettingsPage')
-    // props.updateProfileBasics(values, { resetForm, setErrors, setSubmitting })
+    props.updateProfileBasics(values, { resetForm, setErrors, setSubmitting })
   }
 })
 

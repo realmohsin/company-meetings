@@ -55,12 +55,12 @@ const AboutSettingsPage = ({
             <option value='' disabled>
               Select a Department
             </option>
-            <option value='accounting'>Accounting</option>
-            <option value='humanResources'>Human Resources</option>
-            <option value='customerService'>Customer Service</option>
-            <option value='marketing'>Marketing</option>
-            <option value='researchAndDevelopment'>Research & Development</option>
-            <option value='production'>Production</option>
+            <option value='Accounting'>Accounting</option>
+            <option value='Human Resources'>Human Resources</option>
+            <option value='Customer Service'>Customer Service</option>
+            <option value='Marketing'>Marketing</option>
+            <option value='Research & Development'>Research & Development</option>
+            <option value='Production'>Production</option>
           </select>
           <ErrorMessage name='department'>
             {errMsg => <div css={errCss}>{errMsg}</div>}

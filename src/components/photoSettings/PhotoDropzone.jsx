@@ -42,11 +42,11 @@ const PhotoDropzone = ({ setFiles }) => {
 
 const dropzoneCss = css`
   width: 100%;
-  height: 16rem;
+  height: 18rem;
   border: dashed 3px #888;
   border-radius: 0.5rem;
   text-align: center;
-  padding-top: 2.5rem;
+  padding-top: 3.5rem;
 `
 
 const dropzoneActive = css`

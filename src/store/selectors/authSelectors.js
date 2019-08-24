@@ -16,3 +16,8 @@ export const selectPhotos = createSelector(
   [selectAuthState],
   authState => authState.photos
 )
+
+export const selectProfileMeetings = createSelector(
+  [selectAuthState],
+  authState => authState.profileMeetings
+)

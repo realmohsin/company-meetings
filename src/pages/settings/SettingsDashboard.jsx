@@ -98,7 +98,8 @@ class SettingsDashboard extends React.Component {
             />
           </Switch>
         </div>
-        <div>
+
+        <div css={navGridSection}>
           <div css={navSection}>
             <div css={headerBorder}>
               <div css={header}>
@@ -141,6 +142,7 @@ const settingsCss = css`
 `
 
 const navSection = css`
+  justify-self: center;
   color: #dcddde;
   font-size: 2rem;
   width: 20rem;
@@ -150,6 +152,10 @@ const navSection = css`
   & .active {
     background: rgba(0, 0, 0, 0.03);
   }
+`
+
+const navGridSection = css`
+  justify-self: center;
 `
 
 const header = css`

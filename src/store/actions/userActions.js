@@ -14,7 +14,13 @@ import {
   SET_MAIN_PHOTO_ERROR,
   DELETE_PHOTO_START,
   DELETE_PHOTO_SUCCESS,
-  DELETE_PHOTO_ERROR
+  DELETE_PHOTO_ERROR,
+  FETCH_PROFILE_PHOTOS_START,
+  FETCH_PROFILE_PHOTOS_SUCCESS,
+  FETCH_PROFILE_PHOTOS_ERROR,
+  FETCH_PROFILE_MEETINGS_START,
+  FETCH_PROFILE_MEETINGS_SUCCESS,
+  FETCH_PROFILE_MEETINGS_ERROR
 } from './actionTypes'
 import cuid from 'cuid'
 import firebase, {
@@ -197,6 +203,105 @@ export const deletePhotoFromProfile = (id, photoName, imageURL) => async dispatc
     dispatch({ type: DELETE_PHOTO_SUCCESS })
   } catch (error) {
     console.log('error from deletePhotoFromProfile: ', error.message)
-    dispatch({ type: DELETE_PHOTO_ERROR })
+    dispatch({ type: DELETE_PHOTO_ERROR, error: { message: error.message } })
+  }
+}
+
+export const fetchProfilePhotos = () => async (dispatch, getState) => {
+  dispatch({ type: FETCH_PROFILE_PHOTOS_START })
+  try {
+    const uid = firebaseAuth.currentUser.uid
+    const photosQuerySnapshot = await firestore
+      .doc(`/users/${uid}`)
+      .collection('photos')
+      .get()
+    if (photosQuerySnapshot.size === 0) {
+      dispatch({ type: FETCH_PROFILE_PHOTOS_SUCCESS })
+      dispatch(setUserPhotos([]))
+    } else {
+      const photos = []
+      photosQuerySnapshot.forEach(docSnapshot => {
+        photos.push({
+          ...docSnapshot.data(),
+          id: docSnapshot.id
+        })
+      })
+      dispatch({ type: FETCH_PROFILE_PHOTOS_SUCCESS })
+      dispatch(setUserPhotos(photos))
+    }
+  } catch (error) {
+    console.log('error from fetchProfilePhotos: ', error.message)
+    dispatch({ type: FETCH_PROFILE_PHOTOS_ERROR, error: { message: error.message } })
+  }
+}
+
+export const fetchProfileMeetings = () => async dispatch => {
+  dispatch({ type: FETCH_PROFILE_MEETINGS_START })
+  try {
+    const uid = firebaseAuth.currentUser.uid
+    const meetingAttendeeRef = firestore.collection('meeting_attendee')
+    const meetingsRef = firestore.collection('meetings')
+    const profileMeetings = {
+      upcomingMeetings: [],
+      attendedMeetings: [],
+      hostedMeetings: []
+    }
+
+    const upcomingMeetingsSnap = await meetingAttendeeRef
+      .where('userUid', '==', uid)
+      .where('date', '>=', new Date())
+      .orderBy('date')
+      .limit(3)
+      .get()
+    upcomingMeetingsSnap.forEach(async docSnap => {
+      const meetingId = docSnap.data().meetingId
+      const meetingSnap = await meetingsRef.doc(meetingId).get()
+      const meeting = meetingSnap.data()
+      profileMeetings.upcomingMeetings.push({
+        meetingTitle: meeting.title,
+        meetingId: meetingSnap.id,
+        meetingDate: meeting.date
+      })
+    })
+
+    const attendedMeetingsSnap = await meetingAttendeeRef
+      .where('userUid', '==', uid)
+      .where('date', '<=', new Date())
+      .orderBy('date')
+      .limit(3)
+      .get()
+    attendedMeetingsSnap.forEach(async docSnap => {
+      const meetingId = docSnap.data().meetingId
+      const meetingSnap = await meetingsRef.doc(meetingId).get()
+      const meeting = meetingSnap.data()
+      profileMeetings.attendedMeetings.push({
+        meetingTitle: meeting.title,
+        meetingId: meetingSnap.id,
+        meetingDate: meeting.date
+      })
+    })
+
+    const hostedMeetingsSnap = await meetingAttendeeRef
+      .where('userUid', '==', uid)
+      .where('host', '==', true)
+      .where('date', '<=', new Date())
+      .orderBy('date')
+      .limit(3)
+      .get()
+    hostedMeetingsSnap.forEach(async docSnap => {
+      const meetingId = docSnap.data().meetingId
+      const meetingSnap = await meetingsRef.doc(meetingId).get()
+      const meeting = meetingSnap.data()
+      profileMeetings.hostedMeetings.push({
+        meetingTitle: meeting.title,
+        meetingId: meetingSnap.id,
+        meetingDate: meeting.date
+      })
+    })
+
+    dispatch({ type: FETCH_PROFILE_MEETINGS_SUCCESS, profileMeetings })
+  } catch (error) {
+    console.log('error from fetchProfileMeetings: ', error.message)
+    dispatch({ type: FETCH_PROFILE_MEETINGS_ERROR, error: { message: error.message } })
   }
 }

@@ -98,12 +98,21 @@ const setMainButton = css`
   border: 1px solid green;
   border-bottom-left-radius: 0.8rem;
   color: green;
+  font-size: 1.5rem;
+  &:hover {
+    color: white;
+    background: green;
+  }
 `
 
 const trashButton = css`
   color: red;
   border: 1px solid red;
   border-bottom-right-radius: 0.8rem;
+  &:hover {
+    color: white;
+    background: red;
+  }
 `
 
 export default PhotoList

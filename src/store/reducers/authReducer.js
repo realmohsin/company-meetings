@@ -13,13 +13,19 @@ import {
   UPDATE_PROFILE_BASICS_ERROR,
   UPDATE_PROFILE_ABOUT_START,
   UPDATE_PROFILE_ABOUT_SUCCESS,
-  UPDATE_PROFILE_ABOUT_ERROR
+  UPDATE_PROFILE_ABOUT_ERROR,
+  FETCH_PROFILE_MEETINGS_START,
+  FETCH_PROFILE_MEETINGS_SUCCESS,
+  FETCH_PROFILE_MEETINGS_ERROR,
+  FETCH_PROFILE_PHOTOS_START,
+  FETCH_PROFILE_PHOTOS_ERROR
 } from '../actions/actionTypes'
 import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 
 const initialState = {
   user: null,
   photos: [],
+  profileMeetings: null,
   loading: false,
   error: null
 }
@@ -43,6 +49,8 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_START:
     case UPDATE_PROFILE_BASICS_START:
     case UPDATE_PROFILE_ABOUT_START:
+    case FETCH_PROFILE_MEETINGS_START:
+    case FETCH_PROFILE_PHOTOS_START:
       return { ...state, error: null, loading: true }
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -52,6 +60,8 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_ERROR:
     case UPDATE_PROFILE_BASICS_ERROR:
     case UPDATE_PROFILE_ABOUT_ERROR:
+    case FETCH_PROFILE_PHOTOS_ERROR:
+    case FETCH_PROFILE_MEETINGS_ERROR:
       return {
         ...state,
         loading: false,
@@ -71,6 +81,13 @@ const authReducer = (state = initialState, action) => {
           ...state.user,
           ...action.updatedValues
         }
+      }
+    case FETCH_PROFILE_MEETINGS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        profileMeetings: action.profileMeetings
       }
     default:
       return state
