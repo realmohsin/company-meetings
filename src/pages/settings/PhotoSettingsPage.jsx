@@ -59,7 +59,11 @@ const PhotoSettingsPage = ({
         <div>
           <h4>STEP 1 - ADD PHOTO</h4>
           <div>
-            <PhotoDropzone setFiles={setFiles} />
+            {photos.length < 3 ? (
+              <PhotoDropzone setFiles={setFiles} />
+            ) : (
+              <div css={maxPhotosStyles}>Maximum Photos Reached</div>
+            )}
           </div>
         </div>
         <div>
@@ -158,6 +162,11 @@ const buttonContainer = css`
   margin: 2rem 0;
   display: flex;
   justify-content: space-between;
+`
+
+const maxPhotosStyles = css`
+  margin-top: 5rem;
+  color: red;
 `
 
 export default connect(

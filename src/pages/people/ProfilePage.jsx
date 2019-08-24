@@ -19,6 +19,8 @@ import ProfileMeetings from '../../components/profile/ProfileMeetings'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 import format from 'date-fns/format'
 import ProfilePhotos from '../../components/profile/ProfilePhotos'
+import departments from '../../data/departments'
+import Ribbon from '../../components/utils/Ribbon'
 
 const mapStateToProps = state => ({
   user: selectUser(state),
@@ -34,10 +36,18 @@ class ProfilePage extends React.Component {
 
   render () {
     const { user, photos, profileMeetings } = this.props
-    console.log('from ProfilePage', photos)
     return (
       <div css={profilePageCss}>
         <div css={header}>
+          {user.department && (
+            <Ribbon
+              color={departments[user.department].color}
+              fontSize='20px'
+              css={ribbonPosition}
+            >
+              {user.department}
+            </Ribbon>
+          )}
           <div css={imgContainer}>
             <img src={user.photoURL} alt='avatar' />
           </div>
@@ -106,6 +116,7 @@ const profilePageCss = css`
 `
 
 const header = css`
+  position: relative;
   grid-column-start: 1;
   grid-column-end: 3;
   background: white;
@@ -198,6 +209,11 @@ const photosGridSection = css`
   & h4 {
     font-size: 4rem;
   }
+`
+
+const ribbonPosition = css`
+  right: -2.1rem;
+  top: 4rem;
 `
 
 export default connect(

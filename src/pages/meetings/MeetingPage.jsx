@@ -16,12 +16,6 @@ import {
 } from '../../store/actions/actions'
 import AttendeesList from '../../components/meetings/AttendeesList'
 import MeetingChat from '../../components/meetings/MeetingChat'
-import accountingImage from '../../assets/accounting.jpg'
-import customerServiceImage from '../../assets/customerService.jpg'
-import humanResourcesImage from '../../assets/humanResources.jpg'
-import marketingImage from '../../assets/marketing.png'
-import productionImage from '../../assets/production.jpg'
-import researchAndDevelopmentImage from '../../assets/researchAndDevelopment.jpg'
 import buttonCss from '../../emotion/buttonCss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -30,15 +24,16 @@ import {
   faMapMarker,
   faCalendar
 } from '@fortawesome/free-solid-svg-icons'
+import departments from '../../data/departments'
 
-const mapDepartmentToImage = {
-  accounting: accountingImage,
-  customerService: customerServiceImage,
-  humanResources: humanResourcesImage,
-  marketing: marketingImage,
-  production: productionImage,
-  researchAndDevelopment: researchAndDevelopmentImage
-}
+// const mapDepartmentToImage = {
+//   accounting: accountingImage,
+//   customerService: customerServiceImage,
+//   humanResources: humanResourcesImage,
+//   marketing: marketingImage,
+//   production: productionImage,
+//   researchAndDevelopment: researchAndDevelopmentImage
+// }
 
 const mapStateToProps = state => ({
   user: selectUser(state),
@@ -73,9 +68,16 @@ class MeetingPage extends React.Component {
       <div css={meetingPageCss}>
         <div css={leftGridContainer}>
           <section css={headerCss}>
-            <div css={imgContainer}>
+            <div
+              css={css`
+                ${imgContainer};
+                &::before {
+                  background: ${departments[selectedMeeting.department].rgba};
+                }
+              `}
+            >
               <img
-                src={mapDepartmentToImage[selectedMeeting.department]}
+                src={departments[selectedMeeting.department].imageURL}
                 alt='department'
               />
               <div>
@@ -133,7 +135,6 @@ class MeetingPage extends React.Component {
 
 const meetingPageCss = css`
   ${pagePadding};
-  padding-top: 30rem;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 2rem;
@@ -154,10 +155,18 @@ const imgContainer = css`
   position: relative;
   height: 30rem;
   width: 100%;
+  overflow: hidden;
   & img {
     width: 100%;
-    height: 100%;
-    filter: brightness(30%);
+  }
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
   & > div {
     position: absolute;

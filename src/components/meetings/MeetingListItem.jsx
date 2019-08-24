@@ -22,13 +22,18 @@ import buttonCss from '../../emotion/buttonCss'
 import Ribbon from '../utils/Ribbon'
 import Button from '../utils/Button'
 import AttendeeIcon from './AttendeeIcon'
+import departments from '../../data/departments'
 
 const MeetingListItem = ({ meeting, history }) => {
   const attendeesMap = meeting.attendees
   const attendees = Object.keys(attendeesMap).map(id => ({ ...attendeesMap[id], id }))
   return (
     <div css={meetingListItem}>
-      <Ribbon color='blue' fontSize='20px' css={ribbonPosition}>
+      <Ribbon
+        color={departments[meeting.department].color}
+        fontSize='20px'
+        css={ribbonPosition}
+      >
         {meeting.department}
       </Ribbon>
       <div css={headerCss}>
@@ -120,11 +125,11 @@ const headerText = css`
     font-size: 3.5rem;
     font-weight: bold;
     margin-bottom: 0.8rem;
-    color: ${appColor1};
+    color: ${appColor2};
     text-decoration: underline;
   }
   & h2:hover {
-    color: ${appColor1Hover};
+    color: ${appColor2Hover};
   }
   & p {
     font-size: 1.6rem;
@@ -163,9 +168,9 @@ const locationCss = css`
 `
 
 const iconCss = css`
-  color: ${appColor2};
+  color: ${appColor1};
   margin: 0 1rem;
-  font-size: 2.4rem;
+  font-size: 3rem;
 `
 
 const viewButtonCss = css`

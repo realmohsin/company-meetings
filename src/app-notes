@@ -74,7 +74,7 @@ Todo:
 ✔️ change password page
 ✔️ photos page
 ✔️ activity feed
-- realtime chat for meeting page
+✔️ realtime chat for meeting page
 - styling
 - production optimizations
 
@@ -104,3 +104,39 @@ Member Since:
 
 CSS question to figure out - how to split a section into two blocks - side by side. flex, grid, inline-block, which one is best? does grid have flaws?
 
+Accounting
+Human Resources
+Customer Service
+Marketing
+Research & Development
+Production
+
+
+const departments = {
+  'Accounting': {
+    color: 'blue',
+    imageURL:  ''
+  },
+  'Human Resources': {
+    color: 'green',
+    imageURL:  ''
+  },
+  'Customer Service': {
+    color: 'yellow',
+    imageURL:  ''
+  },
+  'Marketing': {
+    color: 'orange',
+    imageURL:  ''
+  },
+  'Research & Development': {
+    color: 'purple'
+    imageURL: ''
+  },
+  'Production': {
+    color: 'pink',
+    imageURL:  ''
+  }
+}
+
+only show upcoming meetings?
