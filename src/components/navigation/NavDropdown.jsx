@@ -22,7 +22,9 @@ import {
   appAqua,
   appColor2,
   appColor1,
-  appBorderColor
+  appBorderColor,
+  darkTextColor,
+  appColor2Hover
 } from '../../emotion/variables'
 
 // nav item for right/bottom side of navbar as dropdown that reveals authed routes
@@ -38,13 +40,13 @@ class NavDropdown extends React.Component {
 
   navDropdownRef = React.createRef()
 
-  componentDidMount () {
-    document.addEventListener('mousedown', this.handleClickOutside)
-  }
+  // componentDidMount () {
+  //   document.addEventListener('mousedown', this.handleClickOutside)
+  // }
 
-  componentWillUnmount () {
-    document.removeEventListener('mousedown', this.handleClickOutside)
-  }
+  // componentWillUnmount () {
+  //   document.removeEventListener('mousedown', this.handleClickOutside)
+  // }
 
   handleClickOutside = e => {
     if (this.navDropdownRef.current && !this.navDropdownRef.current.contains(e.target)) {
@@ -55,7 +57,16 @@ class NavDropdown extends React.Component {
   }
 
   toggleDropdown = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }))
+    this.setState(
+      state => ({ isOpen: !state.isOpen }),
+      () => {
+        if (this.state.isOpen) {
+          document.addEventListener('mousedown', this.handleClickOutside)
+        } else if (!this.state.isOpen) {
+          document.removeEventListener('mousedown', this.handleClickOutside)
+        }
+      }
+    )
   }
 
   render () {
@@ -80,12 +91,6 @@ class NavDropdown extends React.Component {
               </div>
               <div>My Profile</div>
             </Link>
-            <Link to='/people' onClick={() => sideDrawer && hideSideDrawer()}>
-              <div css={iconBox}>
-                <FontAwesomeIcon icon={faUsers} css={tooBigIcon} />
-              </div>
-              <div>My Network</div>
-            </Link>
             <Link
               to='/meetings/create-meeting'
               onClick={() => sideDrawer && hideSideDrawer()}
@@ -94,15 +99,6 @@ class NavDropdown extends React.Component {
                 <FontAwesomeIcon icon={faPlus} />
               </div>
               <div> Create Meeting</div>
-            </Link>
-            <Link
-              to='/meetings/my-meetings'
-              onClick={() => sideDrawer && hideSideDrawer()}
-            >
-              <div css={iconBox}>
-                <FontAwesomeIcon icon={faCalendar} />
-              </div>
-              <div> My Meetings</div>
             </Link>
             <Link to='/settings' onClick={() => sideDrawer && hideSideDrawer()}>
               <div css={iconBox}>
@@ -124,22 +120,22 @@ class NavDropdown extends React.Component {
 }
 
 const dropdownEle = css`
-  color: black;
+  color: white;
   list-style: none;
   position: absolute;
-  top: 118%;
-  left: -10%;
-  right: 0%;
-  background: white;
+  top: 7rem;
+  right: 0.5rem;
+  width: 19rem;
+  background: ${appColor2Hover};
   border-top: transparent;
   box-shadow: 0px 3px 10px -3px rgba(34, 36, 38, 0.65);
   border-radius: 0.6rem;
   &::before {
     content: '';
-    background: ${appColor2};
+    background: ${appColor2Hover};
     position: absolute;
     top: -0.25em;
-    left: 1em;
+    left: 2em;
     width: 2rem;
     height: 2rem;
     transform: rotate(-45deg);
@@ -147,17 +143,25 @@ const dropdownEle = css`
     box-shadow: 0 0px 7px 0 rgba(34, 36, 38, 0.25);
   }
   & a {
-    padding: 1rem 1.6rem;
+    padding: 1.4rem 1.8rem;
     display: flex;
   }
+  & a:first-of-type {
+    border-radius: 0.6rem 0.6rem 0 0;
+  }
+  & a:last-of-type {
+    padding-bottom: 1.8rem;
+    border-radius: 0 0 0.6rem 0.6rem;
+  }
   & a:hover {
-    background: rgba(0, 0, 0, 0.08);
+    background-color: white;
+    color: ${appColor2Hover};
   }
   ${mq.bp1} {
     font-size: 0.7em;
-    top: -273%;
-    right: -40%;
-    left: 78%;
+    top: -14rem;
+    right: 0rem;
+    width: 18rem;
     border: 1px solid rgba(34, 36, 38, 0.15);
     border-left: transparent;
     box-shadow: none;
@@ -196,9 +200,8 @@ const imgCss = css`
 `
 
 const iconBox = css`
-  color: white;
   width: 20%;
-  margin-left: 1rem;
+  margin-left: 0.75rem;
   ${mq.bp1} {
     margin-right: 0;
   }

@@ -111,4 +111,4 @@ const globalStyles = css`
 export default connect(
   null,
   { setUser }
-)(process.env.NODE_ENV === 'developmentFAIL' ? hot(App) : App)
+)(process.env.NODE_ENV === 'development' ? hot(App) : App)
