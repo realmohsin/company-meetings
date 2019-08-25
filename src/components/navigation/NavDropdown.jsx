@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCaretDown,
-  faCaretRight,
+  faCaretUp,
   faPlus,
   faCalendar,
   faUsers,
@@ -77,7 +77,7 @@ class NavDropdown extends React.Component {
         <img src={user.photoURL || defaultUserPhoto} alt='Nav Item Icon' css={imgCss} />
         <div css={textBox}>{user.username}</div>
         <FontAwesomeIcon
-          icon={sideDrawer ? faCaretRight : faCaretDown}
+          icon={sideDrawer ? faCaretUp : faCaretDown}
           css={sideDrawer && sd_caret}
         />
         {isOpen && (
@@ -159,15 +159,15 @@ const dropdownEle = css`
   }
   ${mq.bp1} {
     font-size: 0.7em;
-    top: -14rem;
-    right: 0rem;
+    top: -19.5rem;
+    right: -7rem;
     width: 18rem;
     border: 1px solid rgba(34, 36, 38, 0.15);
-    border-left: transparent;
+    border-bottom: transparent;
     box-shadow: none;
     &::before {
-      top: 71%;
-      left: -3%;
+      top: 94%;
+      left: 46.5%;
       box-shadow: none;
     }
   }
@@ -181,22 +181,22 @@ const navDropdown = css`
   padding: 0 2rem;
   cursor: pointer;
   ${mq.bp1} {
-    padding: 1rem 2rem;
-    justify-content: center;
+    font-size: 0.95em;
+    padding: 0 1rem 0 2rem;
   }
 `
 
 const textBox = css`
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+  ${mq.bp1} {
+    margin-right: auto;
+  }
 `
 
 const imgCss = css`
   width: 3.2rem;
   height: 3.2rem;
   border-radius: 50%;
-  ${mq.bp1} {
-    margin-left: auto;
-  }
 `
 
 const iconBox = css`
@@ -211,9 +211,7 @@ const tooBigIcon = css`
   transform: scale(0.94) translateX(-4px);
 `
 
-const sd_caret = css`
-  margin-right: 6rem;
-`
+const sd_caret = css``
 
 export default connect(
   mapStateToProps,

@@ -94,7 +94,7 @@ const sd_NavItem = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 8rem;
+  margin-bottom: 2rem;
 `
 
 const sd_AuthButton = css`
