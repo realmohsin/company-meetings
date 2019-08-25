@@ -23,7 +23,16 @@ const ProfilePhotos = ({ photos }) => {
   return (
     <>
       <h4 css={photoTitleBox}>Photos</h4>
-      <div css={photosContainers}>
+      <div
+        css={css`
+          ${photosContainer};
+          ${!photos.length &&
+            css`
+              justify-content: center;
+            `}
+        `}
+      >
+        {photos.length === 0 && <p>No Photos</p>}
         {photos &&
           photos.map(photo => (
             <PhotoItem src={photo.url} alt='profile-photos' key={photo.id} />
@@ -33,7 +42,7 @@ const ProfilePhotos = ({ photos }) => {
   )
 }
 
-const photosContainers = css`
+const photosContainer = css`
   display: flex;
   align-items: center;
   padding: 0 2rem;

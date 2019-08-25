@@ -88,7 +88,7 @@ const body = css`
 `
 
 const formContainer = css`
-  padding: 4rem 1rem 2rem;
+  padding: 1rem 1rem 2rem;
 `
 
 export default MeetingChat

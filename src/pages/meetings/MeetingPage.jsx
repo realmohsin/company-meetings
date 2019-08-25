@@ -2,7 +2,12 @@ import React from 'react'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
 import format from 'date-fns/format'
-import { pagePadding, appBorderColor, appIconColor } from '../../emotion/variables'
+import {
+  pagePadding,
+  appBorderColor,
+  appIconColor,
+  darkTextColor
+} from '../../emotion/variables'
 import {
   selectMeetingsError,
   selectSelectedMeeting,
@@ -19,21 +24,13 @@ import MeetingChat from '../../components/meetings/MeetingChat'
 import buttonCss from '../../emotion/buttonCss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBuilding,
+  faArrow,
   faClock,
   faMapMarker,
   faCalendar
 } from '@fortawesome/free-solid-svg-icons'
 import departments from '../../data/departments'
-
-// const mapDepartmentToImage = {
-//   accounting: accountingImage,
-//   customerService: customerServiceImage,
-//   humanResources: humanResourcesImage,
-//   marketing: marketingImage,
-//   production: productionImage,
-//   researchAndDevelopment: researchAndDevelopmentImage
-// }
+import Button from '../../components/utils/Button'
 
 const mapStateToProps = state => ({
   user: selectUser(state),
@@ -94,9 +91,11 @@ class MeetingPage extends React.Component {
                   Manage Meeting
                 </button>
               ) : isAttendee ? (
-                <button onClick={() => leaveMeeting(selectedMeeting.id)} css={buttonCss}>
-                  Cancel My Place
-                </button>
+                <Button
+                  onClick={() => leaveMeeting(selectedMeeting.id)}
+                  content='Cancel My Place'
+                  color='red'
+                />
               ) : (
                 <button onClick={() => joinMeeting(selectedMeeting.id)} css={buttonCss}>
                   Join Meeting
@@ -105,20 +104,26 @@ class MeetingPage extends React.Component {
             </div>
           </section>
           <section css={detailsCss}>
-            <div css={detailSection}>
-              <FontAwesomeIcon css={iconCss} icon={faBuilding} />
+            <div
+              css={css`
+                ${detailSection};
+                color: ${departments[selectedMeeting.department].hex};
+                font-size: 3.2rem;
+              `}
+            >
+              <FontAwesomeIcon css={iconCss} icon={faArrow} />
               {selectedMeeting.department}
             </div>
             <div css={detailSection}>
-              <FontAwesomeIcon css={iconCss} icon={faCalendar} />
-              <span>{format(selectedMeeting.date.toDate(), 'MMMM Do, YYYY')}</span>
-            </div>
-            <div css={detailSection}>
-              <FontAwesomeIcon css={iconCss} icon={faClock} />
+              <span>{format(selectedMeeting.date.toDate(), 'MMMM Do, YYYY')}</span> at{' '}
               <span>
                 {format(selectedMeeting.startTime.toDate(), 'h:mm A')} to{' '}
                 {format(selectedMeeting.endTime.toDate(), 'h:mm A')}
               </span>
+            </div>
+            <div css={detailSection}>
+              <span>{selectedMeeting.building}</span> in{' '}
+              <span>Room: {selectedMeeting.room}</span>
             </div>
           </section>
           <div>
@@ -135,9 +140,11 @@ class MeetingPage extends React.Component {
 
 const meetingPageCss = css`
   ${pagePadding};
+  color: ${darkTextColor};
+  padding-top: 11rem;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-gap: 2rem;
+  grid-gap: 4rem;
 `
 
 const leftGridContainer = css`
@@ -150,12 +157,14 @@ const headerCss = css`
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
   height: 40rem;
   width: 100%;
+  overflow: hidden;
 `
 const imgContainer = css`
   position: relative;
   height: 30rem;
   width: 100%;
   overflow: hidden;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
   & img {
     width: 100%;
   }
@@ -180,7 +189,7 @@ const imgContainer = css`
     font-size: 4rem;
   }
   & p {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 `
 
@@ -188,7 +197,7 @@ const headerBottom = css`
   display: flex;
   height: 10rem;
   align-items: center;
-  padding-left: 3rem;
+  padding-left: 7rem;
   background: #fff;
 `
 
@@ -197,9 +206,9 @@ const detailsCss = css`
   border-radius: 0.6rem;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   background: #fff;
-  height: 30rem;
+  height: 29rem;
   width: 100%;
-  margin: 5rem 0;
+  margin: 3rem 0;
 `
 
 const detailSection = css`
@@ -208,12 +217,19 @@ const detailSection = css`
   width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 3rem;
+  padding-left: 5rem;
+  &:first-of-type {
+    padding-left: 7rem;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+  }
+  & span {
+    margin: 0 2rem;
+  }
 `
 
 const iconCss = css`
   color: ${appIconColor};
-  margin: 0 1rem;
+  margin: 0 3rem;
   font-size: 2.3rem;
 `
 

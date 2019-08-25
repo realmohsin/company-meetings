@@ -122,7 +122,7 @@ export const fetchMeetingsForDashboard = () => async (dispatch, getState) => {
     let query
     const dashboardState = getState().meetings.dashboard
     if (dashboardState.willBeInitialFetch) {
-      query = meetingsRef.orderBy('date').limit(2)
+      query = meetingsRef.orderBy('date').startAfter(new Date()).limit(2)
     } else {
       const newlyFetchedMeetings = dashboardState.newlyFetchedMeetings
       const lastMeetingInState = newlyFetchedMeetings[newlyFetchedMeetings.length - 1]
@@ -258,9 +258,11 @@ export const addMeetingComment = (text, parentId, formHandlers) => async (
       date: new Date()
     })
     formHandlers.setSubmitting(false)
+    formHandlers.resetForm()
     dispatch({ type: ADD_MEETING_COMMENT_SUCCESS })
   } catch (error) {
     console.log('error from addMeetingComment: ', error)
+    _handleFormOnDatabaseErr(error.message, formHandlers)
     dispatch({ type: ADD_MEETING_COMMENT_ERROR, error: { message: error.message } })
   }
 }

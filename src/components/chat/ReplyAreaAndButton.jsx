@@ -12,7 +12,7 @@ import { addMeetingComment } from '../../store/actions/actions'
 const ReplyAreaAndButton = ({ meetingId, parentId, addMeetingComment }) => {
   return (
     <Form css={formCss}>
-      <Field name='comment' component='textarea' rows='6' css={textAreaCss} />
+      <Field name='comment' component='textarea' rows='7' css={textAreaCss} />
       <button
         css={css`
           ${buttonCss};

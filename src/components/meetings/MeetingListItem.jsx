@@ -8,7 +8,8 @@ import {
   appColor1,
   appColor1Hover,
   appColor2,
-  appColor2Hover
+  appColor2Hover,
+  darkTextColor
 } from '../../emotion/variables'
 import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -99,7 +100,7 @@ const meetingListItem = css`
   background: white;
   border: 1px solid ${appBorderColor};
   box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.15);
-  color: rgba(34, 36, 38, 0.75);
+  color: ${darkTextColor};
 `
 
 const headerCss = css`
