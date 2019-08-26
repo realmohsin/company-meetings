@@ -25,7 +25,10 @@ class App extends React.Component {
     window.unsubFromAuthIndexPage()
     const { setUser } = this.props
     this.unsubAuth = firebaseAuth.onAuthStateChanged(async userInAuth => {
-      if (!userInAuth) return setUser(null)
+      if (!userInAuth) {
+        this.unsubUserSnapshot && this.unsubUserSnapshot()
+        return setUser(null)
+      }
       const userRef = firestore.doc(`users/${userInAuth.uid}`)
       this.unsubUserSnapshot = userRef.onSnapshot(userSnapshot => {
         if (!userSnapshot.exists) {

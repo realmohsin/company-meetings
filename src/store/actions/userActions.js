@@ -207,7 +207,7 @@ export const deletePhotoFromProfile = (id, photoName, imageURL) => async dispatc
   }
 }
 
-export const fetchProfilePhotos = () => async (dispatch, getState) => {
+export const fetchProfilePhotos = uid => async (dispatch, getState) => {
   dispatch({ type: FETCH_PROFILE_PHOTOS_START })
   try {
     const uid = firebaseAuth.currentUser.uid
@@ -235,7 +235,7 @@ export const fetchProfilePhotos = () => async (dispatch, getState) => {
   }
 }
 
-export const fetchProfileMeetings = () => async dispatch => {
+export const fetchProfileMeetings = uid => async dispatch => {
   dispatch({ type: FETCH_PROFILE_MEETINGS_START })
   try {
     const uid = firebaseAuth.currentUser.uid
