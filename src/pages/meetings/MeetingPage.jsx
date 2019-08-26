@@ -6,7 +6,8 @@ import {
   pagePadding,
   appBorderColor,
   appIconColor,
-  darkTextColor
+  darkTextColor,
+  appBoxShadow
 } from '../../emotion/variables'
 import {
   selectMeetingsError,
@@ -154,14 +155,14 @@ const leftGridContainer = css`
 const headerCss = css`
   border: 1px solid ${appBorderColor};
   border-radius: 0.6rem;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
-  height: 40rem;
+  box-shadow: ${appBoxShadow};
+  height: 30rem;
   width: 100%;
   overflow: hidden;
 `
 const imgContainer = css`
   position: relative;
-  height: 30rem;
+  height: 20rem;
   width: 100%;
   overflow: hidden;
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
@@ -204,7 +205,7 @@ const headerBottom = css`
 const detailsCss = css`
   border: 1px solid ${appBorderColor};
   border-radius: 0.6rem;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: ${appBoxShadow};
   background: #fff;
   height: 29rem;
   width: 100%;

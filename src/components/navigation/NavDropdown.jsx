@@ -7,8 +7,6 @@ import {
   faCaretDown,
   faCaretUp,
   faPlus,
-  faCalendar,
-  faUsers,
   faUser,
   faCogs,
   faPowerOff
@@ -85,6 +83,7 @@ class NavDropdown extends React.Component {
             <Link
               to='/people/profile/userIdHere'
               onClick={() => sideDrawer && hideSideDrawer()}
+              css={!sideDrawer && firstLinkStyles}
             >
               <div css={iconBox}>
                 <FontAwesomeIcon icon={faUser} />
@@ -106,7 +105,7 @@ class NavDropdown extends React.Component {
               </div>
               <div>Settings</div>
             </Link>
-            <a onClick={logout}>
+            <a onClick={logout} css={sideDrawer && lastLinkStyles}>
               <div css={iconBox}>
                 <FontAwesomeIcon icon={faPowerOff} />
               </div>
@@ -127,21 +126,9 @@ const dropdownEle = css`
   right: 0.5rem;
   width: 19rem;
   background: ${appColor2Hover};
-  border-top: transparent;
   box-shadow: 0px 3px 10px -3px rgba(34, 36, 38, 0.65);
+  border-top: transparent;
   border-radius: 0.6rem;
-  &::before {
-    content: '';
-    background: ${appColor2Hover};
-    position: absolute;
-    top: -0.25em;
-    left: 2em;
-    width: 2rem;
-    height: 2rem;
-    transform: rotate(-45deg);
-    z-index: -10;
-    box-shadow: 0 0px 7px 0 rgba(34, 36, 38, 0.25);
-  }
   & a {
     padding: 1.4rem 1.8rem;
     display: flex;
@@ -157,19 +144,54 @@ const dropdownEle = css`
     background-color: white;
     color: ${appColor2Hover};
   }
+  @media (max-width: 750px) {
+    &::before {
+      display: block;
+    }
+  }
   ${mq.bp1} {
     font-size: 0.7em;
     top: -19.5rem;
     right: -7rem;
     width: 18rem;
     border: 1px solid rgba(34, 36, 38, 0.15);
-    border-bottom: transparent;
+    border: transparent;
     box-shadow: none;
-    &::before {
-      top: 94%;
-      left: 46.5%;
-      box-shadow: none;
-    }
+  }
+`
+
+const firstLinkStyles = css`
+  border-top: transparent;
+  &::after {
+    content: '';
+    background: ${appColor2Hover};
+    position: absolute;
+    top: -0.25em;
+    left: 2em;
+    width: 2rem;
+    height: 2rem;
+    transform: rotate(-45deg);
+    z-index: 9;
+  }
+  &:hover::after {
+    background: white;
+  }
+`
+
+const lastLinkStyles = css`
+  &::before {
+    content: '';
+    background: ${appColor2Hover};
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    transform: rotate(-45deg);
+    z-index: -10;
+    top: 94%;
+    left: 46.5%;
+  }
+  &:hover::before {
+    background: white;
   }
 `
 

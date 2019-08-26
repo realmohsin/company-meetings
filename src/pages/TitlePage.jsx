@@ -48,6 +48,7 @@ const title = css`
   font-size: 8rem;
   @media (max-width: 900px) {
     font-size: 6rem;
+    padding-left: 3rem;
   }
   @media (max-width: 620px) {
     font-size: 5rem;

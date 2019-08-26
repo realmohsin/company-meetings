@@ -61,7 +61,7 @@ const Ribbon = styled.div`
   border-radius: 0.3em 0em 0em 0.3em;
   background-color: ${props => colors[props.color].color};
   color: white;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.7);
   &::after {
     content: '';
     position: absolute;

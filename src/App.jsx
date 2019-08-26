@@ -90,7 +90,16 @@ const globalStyles = css`
 
   html {
     font-size: 67.5%;
-    ${mq.bp2} {
+    @media (max-width: 1124px) {
+      font-size: 65.25%;
+    }
+    @media (max-width: 1090px) {
+      font-size: 63.25%;
+    }
+    @media (max-width: 1060px) {
+      font-size: 62.25%;
+    }
+    @media (max-width: 985px) {
       font-size: 60.25%;
     }
   }

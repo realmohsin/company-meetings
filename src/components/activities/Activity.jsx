@@ -33,6 +33,37 @@ const ActivitySegment = styled(Segment)`
     color: white;
     border-radius: 5px 5px 0 0;
   }
+  @media (max-width: 1500px) {
+    left: 64vw;
+  }
+  @media (max-width: 1400px) {
+    left: 65vw;
+  }
+  @media (max-width: 1295px) {
+    width: 30rem;
+    left: 66vw;
+  }
+  @media (max-width: 1225px) {
+    left: 65vw;
+  }
+  @media (max-width: 1200px) {
+    left: 64vw;
+  }
+  @media (max-width: 1145px) {
+    left: 62vw;
+  }
+  @media (max-width: 1020px) {
+    width: 28rem;
+  }
+  @media (max-width: 925px) {
+    position: static;
+    width: 34rem;
+    margin: 5rem auto;
+    left: 0;
+  }
+  @media (max-width: 435px) {
+    width: auto;
+  }
 `
 
 const Activity = ({ activities, error }) => {

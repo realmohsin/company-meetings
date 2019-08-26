@@ -5,7 +5,7 @@ import MeetingListItem from './MeetingListItem'
 
 const MeetingList = ({ meetings, isMoreToFetch, fetchMeetingsForDashboard }) => {
   return (
-    <div>
+    <div css={meetingListCss}>
       {meetings && meetings.length !== 0 && (
         <InfiniteScroll
           pageStart={0}

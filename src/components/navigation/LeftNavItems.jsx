@@ -114,6 +114,7 @@ const nb_MeetingButton = css`
   border: 2px solid #fff;
   font-weight: bold;
   background: #21ba45;
+  white-space: nowrap;
   &:hover {
     background: #16ab39;
   }

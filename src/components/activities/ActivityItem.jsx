@@ -17,10 +17,13 @@ const ActivityItemStyled = styled.div`
   &:last-of-type {
     border-radius: 0 0 5px 5px;
   }
+  @media (max-width: 425px) {
+    padding: 1.5rem 1.5rem 1rem 0.5rem;
+  }
 `
 
 const MeetingTextStyled = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   color: rgba(0, 0, 0, 0.8);
   & span {
     color: ${appColor2};
@@ -48,7 +51,8 @@ const NewMeetingActivityText = ({ hostName, title, timestamp }) => (
 const MeetingCancelledActivityText = ({ hostName, title, timestamp }) => (
   <MeetingTextStyled>
     <p>
-      Meeting Cancelled! <span>{hostName}</span> has cancelled <span>{title}</span>.
+      <strong>Meeting Cancelled!</strong> <span>{hostName}</span> has cancelled{' '}
+      <span>{title}</span>.
     </p>
     <p>{distanceInWordsToNow(timestamp.toDate())} ago</p>
   </MeetingTextStyled>

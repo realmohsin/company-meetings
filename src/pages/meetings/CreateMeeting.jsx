@@ -217,7 +217,10 @@ const formikEnhancer = withFormik({
     }
   },
   validationSchema: yup.object().shape({
-    title: yup.string().required('Title is required'),
+    title: yup
+      .string()
+      .max(30, 'Title is too long')
+      .required('Title is required'),
     date: yup.date().required('Date is required'),
     startTime: yup.date().required('Start time is required'),
     endTime: yup.date().required('End time is required'),

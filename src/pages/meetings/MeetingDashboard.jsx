@@ -49,12 +49,12 @@ class MeetingDashboard extends React.Component {
     const { meetings, isMoreToFetch, fetchMeetingsForDashboard } = this.props
     return (
       <div css={meetingDashboard}>
+        <Activity />
         <MeetingList
           meetings={meetings}
           isMoreToFetch={isMoreToFetch}
           fetchMeetingsForDashboard={fetchMeetingsForDashboard}
         />
-        <Activity />
       </div>
     )
   }
@@ -66,6 +66,15 @@ const meetingDashboard = css`
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 4rem;
+  @media (max-width: 1400px) {
+    grid-gap: 2rem;
+  }
+  @media (max-width: 1295px) {
+    grid-template-columns: 2.4fr 1fr;
+  }
+  @media (max-width: 930px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 export default connect(
