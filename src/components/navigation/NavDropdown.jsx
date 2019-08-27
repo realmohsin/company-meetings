@@ -81,7 +81,7 @@ class NavDropdown extends React.Component {
         {isOpen && (
           <ul css={dropdownEle}>
             <Link
-              to='/people/profile/userIdHere'
+              to={`/people/${user.uid}`}
               onClick={() => sideDrawer && hideSideDrawer()}
               css={!sideDrawer && firstLinkStyles}
             >

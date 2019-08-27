@@ -16,7 +16,8 @@ export {
   setMainPhoto,
   deletePhotoFromProfile,
   fetchProfilePhotos,
-  fetchProfileMeetings
+  fetchProfileMeetings,
+  fetchSomeoneElsesProfile
 } from './userActions'
 export {
   createMeeting,

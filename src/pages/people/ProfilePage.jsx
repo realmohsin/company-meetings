@@ -9,11 +9,16 @@ import {
   appColor2,
   appColor1
 } from '../../emotion/variables'
-import { fetchProfileMeetings, fetchProfilePhotos } from '../../store/actions/actions'
+import {
+  fetchProfileMeetings,
+  fetchProfilePhotos,
+  fetchSomeoneElsesProfile
+} from '../../store/actions/actions'
 import {
   selectUser,
   selectProfileMeetings,
-  selectPhotos
+  selectPhotos,
+  selectSomeoneElsesProfile
 } from '../../store/selectors/authSelectors'
 import ProfileMeetings from '../../components/profile/ProfileMeetings'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
@@ -21,84 +26,122 @@ import format from 'date-fns/format'
 import ProfilePhotos from '../../components/profile/ProfilePhotos'
 import departments from '../../data/departments'
 import Ribbon from '../../components/utils/Ribbon'
+import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 
 const mapStateToProps = state => ({
   user: selectUser(state),
+  someoneElsesProfile: selectSomeoneElsesProfile(state),
   profileMeetings: selectProfileMeetings(state),
   photos: selectPhotos(state)
 })
 
 class ProfilePage extends React.Component {
   componentDidMount () {
-    this.props.fetchProfileMeetings()
-    this.props.fetchProfilePhotos()
+    const {
+      user,
+      match,
+      fetchProfileMeetings,
+      fetchProfilePhotos,
+      fetchSomeoneElsesProfile
+    } = this.props
+    const uid = match.params.userId
+    fetchProfileMeetings(uid)
+    fetchProfilePhotos(uid)
+    if (uid === user.uid) return
+    fetchSomeoneElsesProfile(uid)
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.match.params.userId === this.props.match.params.userId) return
+    const {
+      fetchSomeoneElsesProfile,
+      fetchProfileMeetings,
+      fetchProfilePhotos,
+      match
+    } = this.props
+    const uid = match.params.userId
+    fetchSomeoneElsesProfile(uid)
+    fetchProfileMeetings(uid)
+    fetchProfilePhotos(uid)
+  }
+
+  componentWillUnmount () {
+    console.log('from componentWillUnmount')
   }
 
   render () {
-    const { user, photos, profileMeetings } = this.props
+    const { user, photos, profileMeetings, match, someoneElsesProfile } = this.props
+    const profile = match.params.userId === user.uid ? user : someoneElsesProfile
+    console.log('from render:', profile)
     return (
       <div css={profilePageCss}>
-        <div css={header}>
-          {user.department && (
-            <Ribbon
-              color={departments[user.department].color}
-              fontSize='20px'
-              css={ribbonPosition}
-            >
-              {user.department}
-            </Ribbon>
-          )}
-          <div css={imgContainer}>
-            <img src={user.photoURL} alt='avatar' />
-          </div>
-          <div css={headerLeft}>
-            <h3>{user.username}</h3>
-            <p>{user.email}</p>
-          </div>
-        </div>
-        <div css={details}>
-          <h4>About</h4>
-          <div css={detailsBody}>
-            <div>
-              <p>
-                <span>Job Title:</span> {user.jobTitle || 'Information Unavailable'}
-              </p>
-              <p>
-                <span>Department:</span> {user.department || 'Information Unavailable'}{' '}
-              </p>
-              <p>
-                <span>Birthday:</span>{' '}
-                {user.birthday
-                  ? format(user.birthday.toDate(), 'MMMM Do, YYYY')
-                  : 'Information Unavailable'}
-              </p>
+        {profile && (
+          <>
+            <div css={header}>
+              {profile.department && (
+                <Ribbon
+                  color={departments[profile.department].color}
+                  fontSize='20px'
+                  css={ribbonPosition}
+                >
+                  {profile.department}
+                </Ribbon>
+              )}
+              <div css={imgContainer}>
+                <img src={profile.photoURL || defaultUserPhoto} alt='avatar' />
+              </div>
+              <div css={headerLeft}>
+                <h3>{profile.username}</h3>
+                <p>{profile.email}</p>
+              </div>
             </div>
+            <div css={details}>
+              <h4>About</h4>
+              <div css={detailsBody}>
+                <div>
+                  <p>
+                    <span>Job Title:</span>{' '}
+                    {profile.jobTitle || 'Information Unavailable'}
+                  </p>
+                  <p>
+                    <span>Department:</span>{' '}
+                    {profile.department || 'Information Unavailable'}{' '}
+                  </p>
+                  <p>
+                    <span>Birthday:</span>{' '}
+                    {profile.birthday
+                      ? format(profile.birthday.toDate(), 'MMMM Do, YYYY')
+                      : 'Information Unavailable'}
+                  </p>
+                </div>
 
-            <div>
-              <p>
-                <span>Member For: </span>
-                {user.createdAt
-                  ? distanceInWordsToNow(user.createdAt.toDate())
-                  : 'Information Unavailable'}
-              </p>
-              <p>
-                <span>Hours:</span> {user.hours || 'Information Unavailable'}
-              </p>
-              <p>
-                <span>Lunch Break:</span>{' '}
-                {user.lunchBreak
-                  ? format(user.lunchBreak.toDate(), 'h:mm aa')
-                  : '12:00 pm'}
-              </p>
+                <div>
+                  <p>
+                    <span>Member For: </span>
+                    {profile.createdAt
+                      ? distanceInWordsToNow(profile.createdAt.toDate())
+                      : 'Information Unavailable'}
+                  </p>
+                  <p>
+                    <span>Hours:</span> {profile.hours || 'Information Unavailable'}
+                  </p>
+                  <p>
+                    <span>Lunch Break:</span>{' '}
+                    {profile.lunchBreak
+                      ? format(profile.lunchBreak.toDate(), 'h:mm aa')
+                      : '12:00 pm'}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div css={editBox}>
-          <ProfileMeetings profileMeetings={profileMeetings} />
-        </div>
-        <div css={photosGridSection}>
-          <ProfilePhotos photos={photos} />
-        </div>
+            <div css={editBox}>
+              <ProfileMeetings profileMeetings={profileMeetings} />
+            </div>
+            <div css={photosGridSection}>
+              <ProfilePhotos photos={photos} />
+            </div>
+          </>
+        )}
       </div>
     )
   }
@@ -218,5 +261,5 @@ const ribbonPosition = css`
 
 export default connect(
   mapStateToProps,
-  { fetchProfileMeetings, fetchProfilePhotos }
+  { fetchProfileMeetings, fetchProfilePhotos, fetchSomeoneElsesProfile }
 )(ProfilePage)

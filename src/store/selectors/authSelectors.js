@@ -7,6 +7,11 @@ export const selectUser = createSelector(
   authState => authState.user
 )
 
+export const selectSomeoneElsesProfile = createSelector(
+  [selectAuthState],
+  authState => authState.someoneElsesProfile
+)
+
 export const selectIsAuth = createSelector(
   [selectUser],
   user => !!user

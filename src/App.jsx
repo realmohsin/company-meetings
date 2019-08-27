@@ -68,7 +68,6 @@ class App extends React.Component {
                     <Route path='/meetings/my-meetings' component={MyMeetingsPage} />
                     <Route path='/meetings/:meetingId' component={MeetingPage} />
                     <Route path='/people/:userId' component={ProfilePage} />
-                    <Route path='/people' component={PeopleDashboard} />
                     <Route path='/settings' component={SettingsDashboard} />
                     <Route render={() => <h1 style={{ marginTop: 58 }}>404</h1>} />
                   </Switch>

@@ -20,7 +20,10 @@ import {
   FETCH_PROFILE_PHOTOS_ERROR,
   FETCH_PROFILE_MEETINGS_START,
   FETCH_PROFILE_MEETINGS_SUCCESS,
-  FETCH_PROFILE_MEETINGS_ERROR
+  FETCH_PROFILE_MEETINGS_ERROR,
+  FETCH_SOMEONE_ELSE_PROFILE_START,
+  FETCH_SOMEONE_ELSE_PROFILE_SUCCESS,
+  FETCH_SOMEONE_ELSE_PROFILE_ERROR
 } from './actionTypes'
 import cuid from 'cuid'
 import firebase, {
@@ -207,10 +210,29 @@ export const deletePhotoFromProfile = (id, photoName, imageURL) => async dispatc
   }
 }
 
+export const fetchSomeoneElsesProfile = uid => async dispatch => {
+  dispatch({ type: FETCH_SOMEONE_ELSE_PROFILE_START })
+  try {
+    const someoneElsesProfileSnap = await firestore.doc(`/users/${uid}`).get()
+    dispatch({
+      type: FETCH_SOMEONE_ELSE_PROFILE_SUCCESS,
+      someoneElsesProfile: {
+        ...someoneElsesProfileSnap.data(),
+        uid
+      }
+    })
+  } catch (error) {
+    console.log('error from fetchSomeoneElsesProfile: ', error.message)
+    dispatch({
+      type: FETCH_SOMEONE_ELSE_PROFILE_ERROR,
+      error: { message: error.message }
+    })
+  }
+}
+
 export const fetchProfilePhotos = uid => async (dispatch, getState) => {
   dispatch({ type: FETCH_PROFILE_PHOTOS_START })
   try {
-    const uid = firebaseAuth.currentUser.uid
     const photosQuerySnapshot = await firestore
       .doc(`/users/${uid}`)
       .collection('photos')
@@ -238,7 +260,6 @@ export const fetchProfilePhotos = uid => async (dispatch, getState) => {
 export const fetchProfileMeetings = uid => async dispatch => {
   dispatch({ type: FETCH_PROFILE_MEETINGS_START })
   try {
-    const uid = firebaseAuth.currentUser.uid
     const meetingAttendeeRef = firestore.collection('meeting_attendee')
     const meetingsRef = firestore.collection('meetings')
     const profileMeetings = {

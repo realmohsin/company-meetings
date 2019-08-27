@@ -41,7 +41,10 @@ const MeetingListItem = ({ meeting, history }) => {
             <Link to={`/meetings/${meeting.id}`}>{meeting.title}</Link>
           </h2>
           <p>
-            Hosted by <span>{meeting.hostName}</span>
+            Hosted by{' '}
+            <Link to={`/people/${meeting.hostUid}`}>
+              <span>{meeting.hostName}</span>
+            </Link>
           </p>
         </div>
       </div>

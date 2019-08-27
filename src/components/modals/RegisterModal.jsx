@@ -105,7 +105,7 @@ const formikEnhancer = withFormik({
     username: yup
       .string()
       .min(2, 'Username is too short')
-      .max(21, 'Username is too long')
+      .max(18, 'Username is too long')
       .required('Username is required'),
     email: yup
       .string()
