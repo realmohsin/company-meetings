@@ -5,17 +5,18 @@ import Backdrop from '../utils/Backdrop'
 import LeftNavItems from './LeftNavItems'
 import RightNavItems from './RightNavItems'
 import { hideSideDrawer, openModal } from '../../store/actions/actions'
-import { selectIsAuth } from '../../store/selectors/authSelectors'
+import { selectIsAuth, selectUser } from '../../store/selectors/authSelectors'
 import { selectIsSideDrawerOpen } from '../../store/selectors/sideDrawerSelectors'
 import * as mq from '../../emotion/breakpoints'
 import { mainGradient } from '../../emotion/variables'
 
 const mapStateToProps = state => ({
+  user: selectUser(state),
   isAuth: selectIsAuth(state),
   show: selectIsSideDrawerOpen(state)
 })
 
-const SideDrawer = ({ show, isAuth, openModal, hideSideDrawer }) => {
+const SideDrawer = ({ show, isAuth, user, openModal, hideSideDrawer }) => {
   const styles = show ? open : closed
 
   return (
@@ -27,7 +28,12 @@ const SideDrawer = ({ show, isAuth, openModal, hideSideDrawer }) => {
           ${styles};
         `}
       >
-        <LeftNavItems sideDrawer isAuth={isAuth} hideSideDrawer={hideSideDrawer} />
+        <LeftNavItems
+          sideDrawer
+          isAuth={isAuth}
+          user={user}
+          hideSideDrawer={hideSideDrawer}
+        />
         <RightNavItems
           sideDrawer
           isAuth={isAuth}

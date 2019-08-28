@@ -9,7 +9,8 @@ import {
   faPlus,
   faUser,
   faCogs,
-  faPowerOff
+  faPowerOff,
+  faColumns
 } from '@fortawesome/free-solid-svg-icons'
 import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 import * as mq from '../../emotion/breakpoints'
@@ -90,6 +91,12 @@ class NavDropdown extends React.Component {
               </div>
               <div>My Profile</div>
             </Link>
+            <Link to='/meetings' onClick={() => sideDrawer && hideSideDrawer()}>
+              <div css={iconBox}>
+                <FontAwesomeIcon icon={faColumns} />
+              </div>
+              <div>Dashboard</div>
+            </Link>
             <Link
               to='/meetings/create-meeting'
               onClick={() => sideDrawer && hideSideDrawer()}
@@ -99,6 +106,7 @@ class NavDropdown extends React.Component {
               </div>
               <div> Create Meeting</div>
             </Link>
+
             <Link to='/settings' onClick={() => sideDrawer && hideSideDrawer()}>
               <div css={iconBox}>
                 <FontAwesomeIcon icon={faCogs} css={tooBigIcon} />
@@ -117,6 +125,41 @@ class NavDropdown extends React.Component {
     )
   }
 }
+
+const navDropdown = css`
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 2rem;
+  cursor: pointer;
+  ${mq.bp1} {
+    font-size: 0.95em;
+    padding: 0 1rem 0 2rem;
+  }
+`
+
+const textBox = css`
+  padding: 0 1.5rem;
+  ${mq.bp1} {
+    padding: 1.5rem;
+    margin-right: auto;
+  }
+`
+
+const imgCss = css`
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+`
+
+const iconBox = css`
+  width: 20%;
+  margin-left: 0.75rem;
+  ${mq.bp1} {
+    margin-right: 0;
+  }
+`
 
 const dropdownEle = css`
   color: white;
@@ -157,6 +200,9 @@ const dropdownEle = css`
     border: 1px solid rgba(34, 36, 38, 0.15);
     border: transparent;
     box-shadow: none;
+    & a {
+      padding: 1.2rem 1.8rem;
+    }
   }
 `
 
@@ -192,40 +238,6 @@ const lastLinkStyles = css`
   }
   &:hover::before {
     background: white;
-  }
-`
-
-const navDropdown = css`
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 0 2rem;
-  cursor: pointer;
-  ${mq.bp1} {
-    font-size: 0.95em;
-    padding: 0 1rem 0 2rem;
-  }
-`
-
-const textBox = css`
-  padding: 0 1.5rem;
-  ${mq.bp1} {
-    margin-right: auto;
-  }
-`
-
-const imgCss = css`
-  width: 3.2rem;
-  height: 3.2rem;
-  border-radius: 50%;
-`
-
-const iconBox = css`
-  width: 20%;
-  margin-left: 0.75rem;
-  ${mq.bp1} {
-    margin-right: 0;
   }
 `
 

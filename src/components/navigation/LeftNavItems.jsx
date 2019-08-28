@@ -11,13 +11,12 @@ import buttonCss from '../../emotion/buttonCss'
 // Styles for Navbar start with nb_.
 // Styles for SideDrawer start with sd_.
 
-const LeftNavItems = ({ sideDrawer, isAuth, hideSideDrawer }) => {
+const LeftNavItems = ({ sideDrawer, isAuth, user, hideSideDrawer }) => {
   const leftNav = sideDrawer ? sd_LeftNav : nb_LeftNav
   const navItem = sideDrawer ? sd_NavItem : nb_NavItem
   const logoCss = sideDrawer ? sd_Logo : nb_Logo
   const meetingButton = sideDrawer ? sd_MeetingButton : nb_MeetingButton
   const meetingButtonBox = sideDrawer ? sd_MeetingButtonBox : nb_MeetingButtonBox
-
   return (
     <div css={leftNav}>
       <NavLink exact to='/' css={navItem}>
@@ -33,14 +32,14 @@ const LeftNavItems = ({ sideDrawer, isAuth, hideSideDrawer }) => {
       >
         Meetings
       </NavLink>
-      {isAuth && (
+      {isAuth && user && (
         <>
           <NavLink
-            to='/people'
+            to={`/people/${user && user.uid}`}
             css={navItem}
             onClick={() => sideDrawer && hideSideDrawer()}
           >
-            People
+            Profile
           </NavLink>
           <div
             css={css`
@@ -131,7 +130,7 @@ let sd_LeftNav = css`
 `
 
 let sd_NavItem = css`
-  padding: 1.4rem 0;
+  padding: 1.2rem 0;
   display: flex;
   justify-content: center;
   &:hover {
@@ -151,7 +150,7 @@ const sd_MeetingButtonBox = css`
 const sd_MeetingButton = css`
   ${nb_MeetingButton};
   padding: 0.8rem 1.6rem;
-  margin: 1.4rem 1rem;
+  margin: 1.3rem 1rem;
   font-weight: normal;
 `
 

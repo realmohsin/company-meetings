@@ -12,7 +12,7 @@ import {
 import format from 'date-fns/format'
 
 const ProfileMeetingsStyled = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   height: 100%;
   & h3 {
     color: ${appColor1};

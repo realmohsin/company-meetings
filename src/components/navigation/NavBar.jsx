@@ -7,16 +7,17 @@ import Toggler from '../utils/Toggler'
 import LeftNavItems from './LeftNavItems'
 import RightNavItems from './RightNavItems'
 import { toggleSideDrawer, openModal } from '../../store/actions/actions'
-import { selectIsAuth } from '../../store/selectors/authSelectors'
+import { selectIsAuth, selectUser } from '../../store/selectors/authSelectors'
 import * as mq from '../../emotion/breakpoints'
 import { mainGradient } from '../../emotion/variables'
 import containerCss from '../../emotion/containerCss'
 
 const mapStateToProps = state => ({
+  user: selectUser(state),
   isAuth: selectIsAuth(state)
 })
 
-const NavBar = ({ isAuth, logout, toggleSideDrawer, openModal }) => {
+const NavBar = ({ isAuth, user, logout, toggleSideDrawer, openModal }) => {
   return (
     <nav css={navCss}>
       <div css={container}>
@@ -26,7 +27,7 @@ const NavBar = ({ isAuth, logout, toggleSideDrawer, openModal }) => {
             <Logo />
           </div>
         </NavLink>
-        <LeftNavItems isAuth={isAuth} />
+        <LeftNavItems isAuth={isAuth} user={user} />
         <RightNavItems isAuth={isAuth} openModal={openModal} logout={logout} />
       </div>
     </nav>

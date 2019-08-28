@@ -67,6 +67,11 @@ const userDropdown = css`
   &:hover {
     background: rgba(255, 255, 255, 0.08);
   }
+  @media (max-width: 835px) {
+    &:hover {
+      background: none;
+    }
+  }
 `
 
 const nb_AuthButton = css`
