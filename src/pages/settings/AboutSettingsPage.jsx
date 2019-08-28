@@ -6,7 +6,12 @@ import TimePicker, { formatTime } from 'rc-time-picker-date-fns'
 import 'rc-time-picker-date-fns/assets/index.css'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
-import { pagePadding, appBorderColor, appColor2 } from '../../emotion/variables'
+import {
+  pagePadding,
+  appBorderColor,
+  appColor2,
+  appColor1Hover
+} from '../../emotion/variables'
 import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import buttonCss from '../../emotion/buttonCss'
 import Button from '../../components/utils/Button'
@@ -19,9 +24,9 @@ const AboutSettingsPage = ({
   handleChange
 }) => {
   return (
-    <div>
+    <div css={aboutSettingsPage}>
       <h1 css={title}>About Me</h1>
-      <Form css={formCss} autoComplete='off'>
+      <Form autoComplete='off'>
         <div
           css={css`
             ${inputBoxCss};
@@ -151,14 +156,36 @@ const formikEnhancer = withFormik({
   }
 })
 
-const title = css`
-  color: ${appColor2};
-  text-decoration: underline;
-  padding: 0 0 2rem 6rem;
+// styles
+
+const aboutSettingsPage = css`
+  margin: 0 auto;
+  width: 90%;
+  @media (max-width: 1100px) {
+    width: 75%;
+  }
+  @media (max-width: 800px) {
+    width: 85%;
+  }
+  @media (max-width: 600px) {
+    width: 90%;
+  }
+  @media (max-width: 575px) {
+    width: 100%;
+  }
+  @media (max-width: 500px) {
+    font-size: 0.9em;
+  }
 `
 
-const formCss = css`
-  width: 80%;
+const title = css`
+  color: ${appColor1Hover};
+  text-decoration: underline;
+  margin-bottom: 4rem;
+  text-align: center;
+  @media (max-width: 355px) {
+    font-size: 29px;
+  }
 `
 
 const flexInputBox = css`
@@ -171,34 +198,6 @@ const flexInputBox = css`
   }
   & > span {
     width: 100%;
-  }
-`
-
-const datePickerBox = css`
-  & input {
-    width: 100%;
-    background: white;
-    color: gray;
-    font-size: 1.8rem;
-    padding: 1rem;
-    border: 1px solid ${appBorderColor};
-    border-radius: 0.5rem;
-    font-family: inherit;
-  }
-  & .react-datepicker-wrapper {
-    width: 100%;
-  }
-
-  & .react-datepicker__input-container {
-    width: 100%;
-  }
-  & .react-datepicker-popper {
-    transform: translate(100px, 90px) scale(1.5) !important;
-    will-change: auto !important;
-  }
-
-  & .react-datepicker {
-    font-family: inherit !important;
   }
 `
 

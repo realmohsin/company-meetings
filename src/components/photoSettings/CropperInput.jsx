@@ -27,7 +27,7 @@ class CropperInput extends Component {
       <Cropper
         ref={this.cropperRef}
         src={imagePreview}
-        style={{ height: 220, width: 220 }}
+        style={{ height: 210, width: 210 }}
         preview='.img-preview' // the classname of the div of the cropped image
         aspectRatio={1}
         viewMode={1}

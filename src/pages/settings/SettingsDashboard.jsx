@@ -53,7 +53,7 @@ class SettingsDashboard extends React.Component {
     const { user, updateProfileBasics, updateProfileAbout, changePassword } = this.props
     return (
       <div css={settingsCss}>
-        <div>
+        <div css={contentGridSection}>
           <Switch>
             <Redirect exact from='/settings' to='/settings/basic' />
             <Route
@@ -106,7 +106,7 @@ class SettingsDashboard extends React.Component {
                 <FontAwesomeIcon css={iconCss} icon={faUser} /> Profile
               </div>
             </div>
-            <div css={navBodyBorder}>
+            <div css={navBody}>
               <NavLink css={navItem} to='/settings/basic'>
                 Basics
               </NavLink>
@@ -118,14 +118,20 @@ class SettingsDashboard extends React.Component {
               </NavLink>
             </div>
           </div>
+
           <div css={navSection}>
-            <div css={header}>
-              <FontAwesomeIcon css={iconCss} icon={faCogs} />
-              Account
+            <div css={headerBorder}>
+              <div css={header}>
+                <FontAwesomeIcon css={iconCss} icon={faCogs} />
+                Account
+              </div>
             </div>
-            <NavLink css={navItem} to='/settings/change_password'>
-              Change Password
-            </NavLink>
+
+            <div css={navBody}>
+              <NavLink css={navItem} to='/settings/change_password'>
+                Change Password
+              </NavLink>
+            </div>
           </div>
         </div>
       </div>
@@ -133,16 +139,46 @@ class SettingsDashboard extends React.Component {
   }
 }
 
+// styles
+
 const settingsCss = css`
   ${pagePadding};
   margin-top: 3rem;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-gap: 2rem;
+  @media (max-width: 1050px) {
+    padding-top: 5rem;
+  }
+`
+
+const contentGridSection = css`
+  @media (max-width: 1050px) {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+`
+
+const navGridSection = css`
+  justify-self: center;
+  @media (max-width: 1050px) {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    display: flex;
+    justify-content: space-between;
+    justify-self: stretch;
+  }
+  @media (max-width: 665px) {
+    display: block;
+    justify-self: center;
+  }
 `
 
 const navSection = css`
-  justify-self: center;
   color: #dcddde;
   font-size: 2rem;
   width: 20rem;
@@ -152,10 +188,9 @@ const navSection = css`
   & .active {
     background: rgba(0, 0, 0, 0.03);
   }
-`
-
-const navGridSection = css`
-  justify-self: center;
+  @media (max-width: 1050px) {
+    width: 28rem;
+  }
 `
 
 const header = css`
@@ -164,6 +199,13 @@ const header = css`
   height: 4.4rem;
   border-bottom: 1px solid ${appBorderColor};
   background-color: #535353;
+`
+
+const navBody = css`
+  border: 1px solid ${appBorderColor};
+  @media (max-width: 1050px) {
+    display: flex;
+  }
 `
 
 const navItem = css`
@@ -178,6 +220,13 @@ const navItem = css`
     cursor: pointer;
     background: rgba(0, 0, 0, 0.03);
   }
+  @media (max-width: 1050px) {
+    flex: 1;
+    text-align: center;
+    &:not(:last-of-type) {
+      border-right: 1px solid ${appBorderColor};
+    }
+  }
 `
 
 const iconCss = css`
@@ -186,10 +235,6 @@ const iconCss = css`
 
 const headerBorder = css`
   border: 1px solid #535353;
-`
-
-const navBodyBorder = css`
-  border: 1px solid ${appBorderColor};
 `
 
 export default connect(

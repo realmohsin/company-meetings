@@ -7,7 +7,13 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
-import { pagePadding, appBorderColor, appColor1, appColor2, appColor1Hover } from '../../emotion/variables'
+import {
+  pagePadding,
+  appBorderColor,
+  appColor1,
+  appColor2,
+  appColor1Hover
+} from '../../emotion/variables'
 import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import {
   editMeeting,
@@ -58,12 +64,13 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Title</label>
-              <div>              <Field type='text' name='title' css={inputCss} />
-
-<ErrorMessage name='title'>
-  {errMsg => <div css={errCss}>{errMsg}</div>}
-</ErrorMessage></div>
-
+              <div>
+                {' '}
+                <Field type='text' name='title' css={inputCss} />
+                <ErrorMessage name='title'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -74,14 +81,16 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Date: </label>
-              <div>              <DatePicker
-                selected={values.date}
-                onChange={e => setFieldValue('date', e)}
-              />
-              <ErrorMessage name='startTime'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage></div>
-
+              <div>
+                {' '}
+                <DatePicker
+                  selected={values.date}
+                  onChange={e => setFieldValue('date', e)}
+                />
+                <ErrorMessage name='startTime'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -92,18 +101,20 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Start Time: </label>
-              <div>              <TimePicker
-                showSecond={false}
-                value={values.startTime}
-                className='timepickerBox'
-                onChange={e => setFieldValue('startTime', e)}
-                format={'h:mm a'}
-                use12Hours
-              />
-              <ErrorMessage name='startTime'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage></div>
-
+              <div>
+                {' '}
+                <TimePicker
+                  showSecond={false}
+                  value={values.startTime}
+                  className='timepickerBox'
+                  onChange={e => setFieldValue('startTime', e)}
+                  format={'h:mm a'}
+                  use12Hours
+                />
+                <ErrorMessage name='startTime'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -114,18 +125,20 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>End Time: </label>
-              <div>              <TimePicker
-                showSecond={false}
-                value={values.endTime}
-                className='timepickerBox'
-                onChange={e => setFieldValue('endTime', e)}
-                format={'h:mm a'}
-                use12Hours
-              />
-              <ErrorMessage name='endTime'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage></div>
-
+              <div>
+                {' '}
+                <TimePicker
+                  showSecond={false}
+                  value={values.endTime}
+                  className='timepickerBox'
+                  onChange={e => setFieldValue('endTime', e)}
+                  format={'h:mm a'}
+                  use12Hours
+                />
+                <ErrorMessage name='endTime'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -135,29 +148,31 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Department: </label>
-              <div>              <select
-                name='department'
-                css={css`
-                  ${inputCss};
-                  ${selectCss};
-                `}
-                value={values.department}
-                onChange={handleChange}
-              >
-                <option value='' disabled>
-                  Select a Department
-                </option>
-                <option value='Accounting'>Accounting</option>
-                <option value='Human Resources'>Human Resources</option>
-                <option value='Customer Service'>Customer Service</option>
-                <option value='Marketing'>Marketing</option>
-                <option value='Research & Development'>Research & Development</option>
-                <option value='production'>Production</option>
-              </select>
-              <ErrorMessage name='department'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage></div>
-
+              <div>
+                {' '}
+                <select
+                  name='department'
+                  css={css`
+                    ${inputCss};
+                    ${selectCss};
+                  `}
+                  value={values.department}
+                  onChange={handleChange}
+                >
+                  <option value='' disabled>
+                    Select a Department
+                  </option>
+                  <option value='Accounting'>Accounting</option>
+                  <option value='Human Resources'>Human Resources</option>
+                  <option value='Customer Service'>Customer Service</option>
+                  <option value='Marketing'>Marketing</option>
+                  <option value='Research & Development'>Research & Development</option>
+                  <option value='production'>Production</option>
+                </select>
+                <ErrorMessage name='department'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -167,27 +182,29 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Location: </label>
-              <div>             <select
-                name='building'
-                css={css`
-                  ${inputCss};
-                  ${selectCss};
-                `}
-                value={values.building}
-                onChange={handleChange}
-              >
-                <option value='' disabled>
-                  Select a Location
-                </option>
-                <option value='Company Headquarters'>Company Headquarters</option>
-                <option value='Eastern Branch'>Eastern Branch</option>
-                <option value='Midtown Building'>Midtown Building</option>
-                <option value='Western Branch'>Western Branch</option>
-              </select>
-              <ErrorMessage name='building'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage></div>
- 
+              <div>
+                {' '}
+                <select
+                  name='building'
+                  css={css`
+                    ${inputCss};
+                    ${selectCss};
+                  `}
+                  value={values.building}
+                  onChange={handleChange}
+                >
+                  <option value='' disabled>
+                    Select a Location
+                  </option>
+                  <option value='Company Headquarters'>Company Headquarters</option>
+                  <option value='Eastern Branch'>Eastern Branch</option>
+                  <option value='Midtown Building'>Midtown Building</option>
+                  <option value='Western Branch'>Western Branch</option>
+                </select>
+                <ErrorMessage name='building'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -197,12 +214,13 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Room</label>
-              <div>              <Field type='text' name='room' css={inputCss} />
-
-<ErrorMessage name='room'>
-  {errMsg => <div css={errCss}>{errMsg}</div>}
-</ErrorMessage></div>
-
+              <div>
+                {' '}
+                <Field type='text' name='room' css={inputCss} />
+                <ErrorMessage name='room'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div css={buttonsBox}>
@@ -285,7 +303,7 @@ const formikEnhancer = withFormik({
 const createMeetingPage = css`
   ${pagePadding};
   margin: 3rem auto;
-  width: 60%;
+  width: 70%;
   @media (max-width: 1100px) {
     width: 75%;
   }
@@ -335,7 +353,7 @@ const flexInputBox = css`
 `
 
 const datePickerBox = css`
- & input {
+  & input {
     width: 100%;
     background: white;
     color: gray;
@@ -395,7 +413,7 @@ const buttonsBox = css`
   display: flex;
   justify-content: space-between;
   margin: 6rem auto;
-  padding-left: 12.5rem;
+  padding-left: 15.5rem;
   & button:not(:last-of-type) {
     margin-right: 2rem;
   }

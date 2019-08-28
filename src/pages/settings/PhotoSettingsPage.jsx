@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
-import { appBorderColor, appColor1, appColor2 } from '../../emotion/variables'
+import {
+  appBorderColor,
+  appColor1,
+  appColor2,
+  appColor1Hover,
+  appBoxShadow
+} from '../../emotion/variables'
 import buttonCss from '../../emotion/buttonCss'
 import PhotoDropzone from '../../components/photoSettings/PhotoDropzone'
 import CropperInput from '../../components/photoSettings/CropperInput'
@@ -54,49 +60,9 @@ const PhotoSettingsPage = ({
 
   return (
     <div css={photoSettingsCss}>
-      <header css={headerCss}>My Photos</header>
-      <div css={rowOneCss}>
-        <div>
-          <h4>STEP 1 - ADD PHOTO</h4>
-          <div>
-            {photos.length < 3 ? (
-              <PhotoDropzone setFiles={setFiles} />
-            ) : (
-              <div css={maxPhotosStyles}>Maximum Photos Reached</div>
-            )}
-          </div>
-        </div>
-        <div>
-          <h4>STEP 2 - RESIZE IMAGE</h4>
-          <div>
-            {files.length > 0 && (
-              <CropperInput
-                setCroppedImage={setCroppedImage}
-                imagePreview={files[0].preview}
-              />
-            )}
-          </div>
-        </div>
-        <div>
-          <h4>STEP 3 - PREVIEW & UPLOAD</h4>
-          <div css={previewContainer}>
-            {/* The styles below seem necessary */}
-            {files.length > 0 && (
-              <>
-                <div
-                  className='img-preview'
-                  style={{ minWidth: '200px', minHeight: '200px', overflow: 'hidden' }}
-                />
-                <div css={buttonContainer}>
-                  <Button onClick={handleUploadImage} content='✔️' />
-                  <Button onClick={handleCancelCrop} content='❌' />
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-      <div css={rowTwoCss}>
+      <h1 css={headerCss}>My Photos</h1>
+
+      <div css={uploadedSection}>
         <PhotoList
           user={user}
           photos={photos}
@@ -104,68 +70,133 @@ const PhotoSettingsPage = ({
           deletePhotoFromProfile={deletePhotoFromProfile}
         />
       </div>
+
+      <div css={inputsContainer}>
+        <div css={photoInputComponent}>
+          <h2>STEP 1 - ADD PHOTO</h2>
+          <div>
+            <div css={dropzoneContainer}>
+              {photos.length < 3 ? (
+                <PhotoDropzone setFiles={setFiles} />
+              ) : (
+                <div css={maxPhotosStyles}>Maximum Photos Reached</div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div css={photoInputComponent}>
+          <h2>STEP 2 - RESIZE IMAGE</h2>
+          <div>
+            <div>
+              {files.length > 0 && (
+                <CropperInput
+                  setCroppedImage={setCroppedImage}
+                  imagePreview={files[0].preview}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div css={photoInputComponent}>
+          <h2>STEP 3 - PREVIEW & UPLOAD</h2>
+          <div>
+            {/* The styles below seem necessary */}
+            <div>
+              {files.length > 0 && (
+                <>
+                  <div
+                    className='img-preview'
+                    style={{ minWidth: '210px', minHeight: '210px', overflow: 'hidden' }}
+                  />
+                  <div css={buttonContainer}>
+                    <Button onClick={handleUploadImage} content='✔️' />
+                    <Button onClick={handleCancelCrop} content='❌' />
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
 
-const photoSettingsCss = css`
-  height: 76rem;
-  border: 1px solid ${appBorderColor};
-  border-radius: 0.4rem;
-  background: white;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-`
+// styles
+
+const photoSettingsCss = css``
 
 const headerCss = css`
-  height: 12%;
-  font-size: 4rem;
-  color: ${appColor2};
+  color: ${appColor1Hover};
   text-decoration: underline;
-  font-weight: bold;
-  border-bottom: 1px solid ${appBorderColor};
-  display: flex;
-  align-items: center;
-  padding-left: 5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  @media (max-width: 600px) {
+    margin-bottom: 1px;
+  }
+  @media (max-width: 355px) {
+    font-size: 29px;
+  }
 `
 
-const rowOneCss = css`
-  border-bottom: 1px solid ${appBorderColor};
-  height: 44%;
+const inputsContainer = css`
+  border: 1px solid ${appBorderColor};
+  border-radius: 0.4rem;
+  box-shadow: ${appBoxShadow};
+  background: white;
   display: flex;
-  justify-content: space-around;
-  & h4 {
-    font-size: 1.4rem;
-    color: #00b5ad;
-    margin-bottom: 3rem;
+  padding: 2rem 0.5rem;
+  margin-bottom: 5rem;
+  & h2 {
+    font-size: 1.7rem;
+    color: ${appColor1Hover};
+    margin: 1.5rem 0 2.5rem;
+  }
+  @media (max-width: 800px) {
+    display: block;
+  }
+`
+
+const photoInputComponent = css`
+  flex: 1;
+  & h2 {
+    text-align: center;
   }
   & > div {
-    width: 22rem;
-    margin: 2rem;
+    height: 275px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `
 
-const previewContainer = css`
-  width: 21rem;
-  height: 21rem;
+const dropzoneContainer = css`
+  width: 210px;
+  height: 210px;
 `
 
-const rowTwoCss = css`
-  height: 44%;
-  display: flex;
-  align-items: center;
+const uploadedSection = css`
+  ${'' /* border: 1px solid ${appBorderColor};
+  border-radius: 0.5rem;
+  background: white;
+  box-shadow: ${appBoxShadow}; */}
+  margin-bottom: 2rem;
 `
 
 const buttonContainer = css`
-  width: 18.5rem;
-  margin: 2rem 0;
+  margin-top: 1.5rem;
+  font-size: 1.7rem;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 `
 
 const maxPhotosStyles = css`
-  margin-top: 5rem;
+  margin: 20% auto;
+  text-align: center;
   color: red;
 `
 

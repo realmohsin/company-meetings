@@ -139,11 +139,15 @@ const departments = {
   }
 }
 
-
-render new pages from the top library
-
-photo uploading sync bug?
-photo bugs
-
+optional things to do:
 split meetings part of profile into 3 side by side sections on max width
 - refactor createmeeting and editmeeting to share duplicate code
+
+
+last major things to do:
+- settings css
+- meeting page css
+- guard routes & guard modal
+- photo uploading bug
+- new pages from the top library add
+

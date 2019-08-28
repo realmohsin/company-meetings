@@ -8,7 +8,8 @@ import {
   pagePadding,
   appBorderColor,
   appColor1,
-  appColor2
+  appColor2,
+  appColor1Hover
 } from '../../emotion/variables'
 import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import buttonCss from '../../emotion/buttonCss'
@@ -16,9 +17,9 @@ import Button from '../../components/utils/Button'
 
 const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
   return (
-    <div>
+    <div css={basicSettingsPage}>
       <h1 css={title}>Edit Basic Settings</h1>
-      <Form css={formCss} autoComplete='off'>
+      <Form autoComplete='off'>
         <div
           css={css`
             ${inputBoxCss};
@@ -108,14 +109,24 @@ const formikEnhancer = withFormik({
   }
 })
 
-const title = css`
-  color: ${appColor2};
-  text-decoration: underline;
-  padding: 0 0 2rem 6rem;
+// styles
+
+const basicSettingsPage = css`
+  margin: 0 auto;
+  width: 90%;
+  @media (max-width: 500px) {
+    font-size: 0.9em;
+  }
 `
 
-const formCss = css`
-  width: 80%;
+const title = css`
+  color: ${appColor1Hover};
+  text-decoration: underline;
+  margin-bottom: 4rem;
+  text-align: center;
+  @media (max-width: 355px) {
+    font-size: 29px;
+  }
 `
 
 const flexInputBox = css`

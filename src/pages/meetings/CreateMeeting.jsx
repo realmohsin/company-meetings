@@ -258,7 +258,7 @@ const formikEnhancer = withFormik({
 const createMeetingPage = css`
   ${pagePadding};
   margin: 3rem auto;
-  width: 60%;
+  width: 70%;
   @media (max-width: 1100px) {
     width: 75%;
   }
@@ -366,7 +366,7 @@ const selectCss = css`
 
 const buttonsBox = css`
   margin: 6rem auto;
-  padding-left: 12.1rem;
+  padding-left: 15.5rem;
   & button {
     margin-right: 2rem;
   }
