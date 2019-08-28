@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
-import { pagePadding, appBorderColor, appColor1, appColor2 } from '../../emotion/variables'
+import { pagePadding, appBorderColor, appColor1, appColor2, appColor1Hover } from '../../emotion/variables'
 import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import {
   editMeeting,
@@ -50,7 +50,7 @@ class EditMeeting extends React.Component {
       <div css={createMeetingPage}>
         <div>
           <h1 css={title}>Edit Meeting</h1>
-          <Form css={formCss} autoComplete='off'>
+          <Form autoComplete='off'>
             <div
               css={css`
                 ${inputBoxCss};
@@ -58,11 +58,12 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Title</label>
-              <Field type='text' name='title' css={inputCss} />
+              <div>              <Field type='text' name='title' css={inputCss} />
 
-              <ErrorMessage name='title'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+<ErrorMessage name='title'>
+  {errMsg => <div css={errCss}>{errMsg}</div>}
+</ErrorMessage></div>
+
             </div>
 
             <div
@@ -73,23 +74,25 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Date: </label>
-              <DatePicker
+              <div>              <DatePicker
                 selected={values.date}
                 onChange={e => setFieldValue('date', e)}
               />
               <ErrorMessage name='startTime'>
                 {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              </ErrorMessage></div>
+
             </div>
 
             <div
               css={css`
                 ${inputBoxCss};
                 ${flexInputBox};
+                ${timepickerBoxCss}
               `}
             >
               <label>Start Time: </label>
-              <TimePicker
+              <div>              <TimePicker
                 showSecond={false}
                 value={values.startTime}
                 className='timepickerBox'
@@ -99,17 +102,19 @@ class EditMeeting extends React.Component {
               />
               <ErrorMessage name='startTime'>
                 {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              </ErrorMessage></div>
+
             </div>
 
             <div
               css={css`
                 ${inputBoxCss};
                 ${flexInputBox};
+                ${timepickerBoxCss}
               `}
             >
               <label>End Time: </label>
-              <TimePicker
+              <div>              <TimePicker
                 showSecond={false}
                 value={values.endTime}
                 className='timepickerBox'
@@ -119,7 +124,8 @@ class EditMeeting extends React.Component {
               />
               <ErrorMessage name='endTime'>
                 {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              </ErrorMessage></div>
+
             </div>
 
             <div
@@ -129,7 +135,7 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Department: </label>
-              <select
+              <div>              <select
                 name='department'
                 css={css`
                   ${inputCss};
@@ -150,7 +156,8 @@ class EditMeeting extends React.Component {
               </select>
               <ErrorMessage name='department'>
                 {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              </ErrorMessage></div>
+
             </div>
 
             <div
@@ -160,7 +167,7 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Location: </label>
-              <select
+              <div>             <select
                 name='building'
                 css={css`
                   ${inputCss};
@@ -179,7 +186,8 @@ class EditMeeting extends React.Component {
               </select>
               <ErrorMessage name='building'>
                 {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              </ErrorMessage></div>
+ 
             </div>
 
             <div
@@ -189,40 +197,13 @@ class EditMeeting extends React.Component {
               `}
             >
               <label>Room</label>
-              <Field type='text' name='room' css={inputCss} />
+              <div>              <Field type='text' name='room' css={inputCss} />
 
-              <ErrorMessage name='room'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
-            </div>
+<ErrorMessage name='room'>
+  {errMsg => <div css={errCss}>{errMsg}</div>}
+</ErrorMessage></div>
 
-            {/* <div css={buttonsBox}>
-            <div>
-              <button type='submit' disabled={isSubmitting || !dirty} css={buttonCss}>
-                Create Meeting
-              </button>
-              <button
-                onClick={() => history.push('/meetings')}
-                disabled={isSubmitting}
-                css={buttonCss}
-              >
-                Go Back
-              </button>
             </div>
-            <div>
-              <button
-                type='button'
-                onClick={e =>
-                  cancelMeetingToggle(!selectedMeeting.cancelled, selectedMeeting.id)
-                }
-                css={buttonCss}
-              >
-                {selectedMeeting && selectedMeeting.cancelled
-                  ? 'Reactivate Meeting'
-                  : 'Cancel Meeting'}
-              </button>
-            </div>
-          </div> */}
 
             <div css={buttonsBox}>
               <div>
@@ -303,26 +284,24 @@ const formikEnhancer = withFormik({
 
 const createMeetingPage = css`
   ${pagePadding};
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 2rem;
-  & .timepickerBox {
+  margin: 3rem auto;
+  width: 60%;
+  @media (max-width: 1100px) {
+    width: 75%;
   }
-  & .rc-time-picker-input {
-    font-family: inherit;
-    letter-spacing: 0.1rem;
-    padding: 2rem 1.1rem;
-    font-size: 1.8rem;
+  @media (max-width: 800px) {
+    width: 85%;
+  }
+  @media (max-width: 600px) {
+    width: 90%;
+  }
+  @media (max-width: 575px) {
+    width: 100%;
+  }
+  @media (max-width: 500px) {
+    font-size: 0.9em;
   }
 `
-
-const headerCss = css`
-  text-align: center;
-  margin-top: 4rem;
-`
-
-const formCss = css``
 
 const flexInputBox = css`
   display: flex;
@@ -330,15 +309,33 @@ const flexInputBox = css`
     color: ${appColor2};
     display: flex;
     align-items: center;
-    width: 15rem;
+    width: 20%;
   }
-  & > span {
+  & > div {
+    flex: 1;
+  }
+  & span {
     width: 100%;
+  }
+  @media (max-width: 720px) {
+    & label {
+      width: 25%;
+    }
+  }
+  @media (max-width: 475px) {
+    & label {
+      width: 32%;
+    }
+  }
+  @media (max-width: 355px) {
+    & label {
+      width: 35%;
+    }
   }
 `
 
 const datePickerBox = css`
-  & input {
+ & input {
     width: 100%;
     background: white;
     color: gray;
@@ -356,12 +353,36 @@ const datePickerBox = css`
     width: 100%;
   }
   & .react-datepicker-popper {
-    transform: translate(100px, 90px) scale(1.5) !important;
+    transform: translate(14rem, 13rem) scale(2) !important;
     will-change: auto !important;
   }
 
   & .react-datepicker {
     font-family: inherit !important;
+  }
+  @media (max-width: 475px) {
+    & .react-datepicker-popper {
+      transform: translate(9rem, 11rem) scale(1.8) !important;
+    }
+  }
+  @media (max-width: 375px) {
+    & .react-datepicker-popper {
+      transform: translate(7rem, 11rem) scale(1.8) !important;
+    }
+  }
+  @media (max-width: 335px) {
+    & .react-datepicker-popper {
+      transform: translate(6rem, 11rem) scale(1.8) !important;
+    }
+  }
+`
+
+const timepickerBoxCss = css`
+  & .rc-time-picker-input {
+    font-family: inherit;
+    letter-spacing: 0.1rem;
+    padding: 2rem 1.1rem;
+    font-size: 1.8rem;
   }
 `
 
@@ -378,6 +399,19 @@ const buttonsBox = css`
   & button:not(:last-of-type) {
     margin-right: 2rem;
   }
+  @media (max-width: 1300px) {
+    padding-left: 0;
+  }
+  @media (max-width: 750px) {
+    font-size: 16px;
+  }
+  @media (max-width: 630px) {
+    flex-direction: column;
+    align-items: center;
+    & button {
+      margin: 1.5rem 1rem;
+    }
+  }
 `
 
 const submissionError = css`
@@ -390,9 +424,13 @@ const submissionError = css`
 `
 
 const title = css`
-  color: ${appColor1};
+  color: ${appColor1Hover};
   text-decoration: underline;
-  padding: 0 0 2rem 6rem;
+  margin-bottom: 4rem;
+  text-align: center;
+  @media (max-width: 355px) {
+    font-size: 29px;
+  }
 `
 
 export default connect(

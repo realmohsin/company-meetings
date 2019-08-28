@@ -146,3 +146,4 @@ photo uploading sync bug?
 photo bugs
 
 split meetings part of profile into 3 side by side sections on max width
+- refactor createmeeting and editmeeting to share duplicate code
