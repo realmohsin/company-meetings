@@ -47,4 +47,7 @@ export const inputCss = css`
   &:focus ~ label {
     ${shrunkLabelCss}
   }
+  @media (max-width: 355px) {
+    font-size: 1.6rem;
+  }
 `

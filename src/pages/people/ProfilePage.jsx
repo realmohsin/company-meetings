@@ -149,7 +149,7 @@ class ProfilePage extends React.Component {
 
 const profilePageCss = css`
   ${pagePadding};
-  padding: 10rem 0;
+  padding: 10rem 0rem;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto;

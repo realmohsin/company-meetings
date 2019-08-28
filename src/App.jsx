@@ -117,6 +117,16 @@ const globalStyles = css`
     text-decoration: none;
     color: inherit;
   }
+
+  .rc-time-picker-panel {
+    font-family: inherit;
+    transform: scale(1.4);
+  }
+  @media (max-width: 500px) {
+    .rc-time-picker-panel {
+      transform: scale(1.3);
+    }
+  }
 `
 
 export default connect(

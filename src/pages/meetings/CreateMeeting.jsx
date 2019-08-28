@@ -11,7 +11,8 @@ import {
   pagePadding,
   appBorderColor,
   appColor2,
-  appColor1
+  appColor1,
+  appColor1Hover
 } from '../../emotion/variables'
 import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
 import { createMeeting } from '../../store/actions/actions'
@@ -34,7 +35,7 @@ class CreateMeeting extends React.Component {
       <div css={createMeetingPage}>
         <div>
           <h1 css={title}>Create New Meeting</h1>
-          <Form css={formCss} autoComplete='off'>
+          <Form autoComplete='off'>
             <div
               css={css`
                 ${inputBoxCss};
@@ -42,11 +43,13 @@ class CreateMeeting extends React.Component {
               `}
             >
               <label>Title:</label>
-              <Field type='text' name='title' css={inputCss} />
+              <div>
+                <Field type='text' name='title' css={inputCss} />
 
-              <ErrorMessage name='title'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+                <ErrorMessage name='title'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -57,13 +60,15 @@ class CreateMeeting extends React.Component {
               `}
             >
               <label>Date: </label>
-              <DatePicker
-                selected={values.date}
-                onChange={e => setFieldValue('date', e)}
-              />
-              <ErrorMessage name='startTime'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              <div>
+                <DatePicker
+                  selected={values.date}
+                  onChange={e => setFieldValue('date', e)}
+                />
+                <ErrorMessage name='startTime'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -74,16 +79,18 @@ class CreateMeeting extends React.Component {
               `}
             >
               <label>Start Time: </label>
-              <TimePicker
-                showSecond={false}
-                value={values.startTime}
-                onChange={e => setFieldValue('startTime', e)}
-                format={'h:mm a'}
-                use12Hours
-              />
-              <ErrorMessage name='startTime'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              <div>
+                <TimePicker
+                  showSecond={false}
+                  value={values.startTime}
+                  onChange={e => setFieldValue('startTime', e)}
+                  format={'h:mm a'}
+                  use12Hours
+                />
+                <ErrorMessage name='startTime'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -94,16 +101,18 @@ class CreateMeeting extends React.Component {
               `}
             >
               <label>End Time: </label>
-              <TimePicker
-                showSecond={false}
-                value={values.endTime}
-                onChange={e => setFieldValue('endTime', e)}
-                format={'h:mm a'}
-                use12Hours
-              />
-              <ErrorMessage name='endTime'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              <div>
+                <TimePicker
+                  showSecond={false}
+                  value={values.endTime}
+                  onChange={e => setFieldValue('endTime', e)}
+                  format={'h:mm a'}
+                  use12Hours
+                />
+                <ErrorMessage name='endTime'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -113,28 +122,30 @@ class CreateMeeting extends React.Component {
               `}
             >
               <label>Department: </label>
-              <select
-                name='department'
-                css={css`
-                  ${inputCss};
-                  ${selectCss};
-                `}
-                value={values.department}
-                onChange={handleChange}
-              >
-                <option value='' disabled>
-                  Select a Department
-                </option>
-                <option value='Accounting'>Accounting</option>
-                <option value='Human Resources'>Human Resources</option>
-                <option value='Customer Service'>Customer Service</option>
-                <option value='Marketing'>Marketing</option>
-                <option value='Research & Development'>Research & Development</option>
-                <option value='Production'>Production</option>
-              </select>
-              <ErrorMessage name='department'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              <div>
+                <select
+                  name='department'
+                  css={css`
+                    ${inputCss};
+                    ${selectCss};
+                  `}
+                  value={values.department}
+                  onChange={handleChange}
+                >
+                  <option value='' disabled>
+                    Select a Department
+                  </option>
+                  <option value='Accounting'>Accounting</option>
+                  <option value='Human Resources'>Human Resources</option>
+                  <option value='Customer Service'>Customer Service</option>
+                  <option value='Marketing'>Marketing</option>
+                  <option value='Research & Development'>Research & Development</option>
+                  <option value='Production'>Production</option>
+                </select>
+                <ErrorMessage name='department'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -144,26 +155,28 @@ class CreateMeeting extends React.Component {
               `}
             >
               <label>Location: </label>
-              <select
-                name='building'
-                css={css`
-                  ${inputCss};
-                  ${selectCss};
-                `}
-                value={values.building}
-                onChange={handleChange}
-              >
-                <option value='' disabled>
-                  Select a Location
-                </option>
-                <option value='Company Headquarters'>Company Headquarters</option>
-                <option value='Eastern Branch'>Eastern Branch</option>
-                <option value='Midtown Building'>Midtown Building</option>
-                <option value='Western Branch'>Western Branch</option>
-              </select>
-              <ErrorMessage name='building'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+              <div>
+                <select
+                  name='building'
+                  css={css`
+                    ${inputCss};
+                    ${selectCss};
+                  `}
+                  value={values.building}
+                  onChange={handleChange}
+                >
+                  <option value='' disabled>
+                    Select a Location
+                  </option>
+                  <option value='Company Headquarters'>Company Headquarters</option>
+                  <option value='Eastern Branch'>Eastern Branch</option>
+                  <option value='Midtown Building'>Midtown Building</option>
+                  <option value='Western Branch'>Western Branch</option>
+                </select>
+                <ErrorMessage name='building'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
 
             <div
@@ -173,11 +186,13 @@ class CreateMeeting extends React.Component {
               `}
             >
               <label>Room:</label>
-              <Field type='text' name='room' css={inputCss} />
+              <div>
+                <Field type='text' name='room' css={inputCss} />
 
-              <ErrorMessage name='room'>
-                {errMsg => <div css={errCss}>{errMsg}</div>}
-              </ErrorMessage>
+                <ErrorMessage name='room'>
+                  {errMsg => <div css={errCss}>{errMsg}</div>}
+                </ErrorMessage>
+              </div>
             </div>
             <div css={buttonsBox}>
               <Button
@@ -242,27 +257,24 @@ const formikEnhancer = withFormik({
 
 const createMeetingPage = css`
   ${pagePadding};
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 2rem;
-`
-
-const timepickerBoxCss = css`
-  & .rc-time-picker-input {
-    font-family: inherit;
-    letter-spacing: 0.1rem;
-    padding: 2rem 1.1rem;
-    font-size: 1.8rem;
+  margin: 3rem auto;
+  width: 60%;
+  @media (max-width: 1100px) {
+    width: 75%;
+  }
+  @media (max-width: 800px) {
+    width: 85%;
+  }
+  @media (max-width: 600px) {
+    width: 90%;
+  }
+  @media (max-width: 575px) {
+    width: 100%;
+  }
+  @media (max-width: 500px) {
+    font-size: 0.9em;
   }
 `
-
-const headerCss = css`
-  text-align: center;
-  margin-top: 4rem;
-`
-
-const formCss = css``
 
 const flexInputBox = css`
   display: flex;
@@ -270,10 +282,28 @@ const flexInputBox = css`
     color: ${appColor2};
     display: flex;
     align-items: center;
-    width: 15rem;
+    width: 20%;
   }
-  & > span {
+  & > div {
+    flex: 1;
+  }
+  & span {
     width: 100%;
+  }
+  @media (max-width: 720px) {
+    & label {
+      width: 25%;
+    }
+  }
+  @media (max-width: 475px) {
+    & label {
+      width: 32%;
+    }
+  }
+  @media (max-width: 355px) {
+    & label {
+      width: 35%;
+    }
   }
 `
 
@@ -296,12 +326,36 @@ const datePickerBox = css`
     width: 100%;
   }
   & .react-datepicker-popper {
-    transform: translate(100px, 90px) scale(1.5) !important;
+    transform: translate(14rem, 13rem) scale(2) !important;
     will-change: auto !important;
   }
 
   & .react-datepicker {
     font-family: inherit !important;
+  }
+  @media (max-width: 475px) {
+    & .react-datepicker-popper {
+      transform: translate(9rem, 11rem) scale(1.8) !important;
+    }
+  }
+  @media (max-width: 375px) {
+    & .react-datepicker-popper {
+      transform: translate(7rem, 11rem) scale(1.8) !important;
+    }
+  }
+  @media (max-width: 335px) {
+    & .react-datepicker-popper {
+      transform: translate(6rem, 11rem) scale(1.8) !important;
+    }
+  }
+`
+
+const timepickerBoxCss = css`
+  & .rc-time-picker-input {
+    font-family: inherit;
+    letter-spacing: 0.1rem;
+    padding: 2rem 1.1rem;
+    font-size: 1.8rem;
   }
 `
 
@@ -312,9 +366,12 @@ const selectCss = css`
 
 const buttonsBox = css`
   margin: 6rem auto;
-  padding-left: 12.5rem;
+  padding-left: 12.1rem;
   & button {
     margin-right: 2rem;
+  }
+  @media (max-width: 750px) {
+    padding-left: 0;
   }
 `
 
@@ -328,9 +385,13 @@ const submissionError = css`
 `
 
 const title = css`
-  color: ${appColor1};
+  color: ${appColor1Hover};
   text-decoration: underline;
-  padding: 0 0 2rem 6rem;
+  margin-bottom: 4rem;
+  text-align: center;
+  @media (max-width: 355px) {
+    font-size: 29px;
+  }
 `
 
 export default connect(
