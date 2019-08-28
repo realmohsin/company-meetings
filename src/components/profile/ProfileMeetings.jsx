@@ -24,9 +24,9 @@ const ProfileMeetingsStyled = styled.div`
 `
 
 const ProfileMeetingsBody = styled.div`
-  height: 85%;
+  text-align: center;
   & > div {
-    height: 33%;
+    height: 20rem;
   }
   & > div:not(:last-of-type) {
     border-bottom: 1px solid ${appBorderColor};
@@ -43,6 +43,11 @@ const ProfileMeetingsBody = styled.div`
   }
   & p:last-of-type {
     margin-bottom: 3rem;
+  }
+  @media (max-width: 335px) {
+    & h5 {
+      font-size: 1.6rem;
+    }
   }
 `
 
