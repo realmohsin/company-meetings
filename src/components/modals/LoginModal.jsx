@@ -2,9 +2,8 @@ import React from 'react'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
-import * as yup from 'yup'
-import { appBorderColor, appTeal } from '../../emotion/variables'
-import buttonCss from '../../emotion/buttonCss'
+import { appBorderColor } from '../../emotion/variables'
+import { authButton, googleButton } from '../../emotion/buttonCss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import {
@@ -15,7 +14,9 @@ import {
   errCss
 } from '../../emotion/textInputCss'
 import { login, googleLogin } from '../../store/actions/actions'
-import { firebaseAuth } from '../../firebase/firebase'
+import formSubmitErrStyles from '../../emotion/formSubmitErrStyles'
+import loginSchema from '../../validation/loginSchema'
+import orDividerStyles from '../../emotion/orDividerStyles'
 
 const LoginModal = ({
   values,
@@ -30,8 +31,6 @@ const LoginModal = ({
     setSubmitting(true)
     googleLogin({ setSubmitting, setErrors, resetForm })
   }
-
-  console.log('from loginModal', firebaseAuth.currentUser)
 
   return (
     <div css={authModal}>
@@ -66,12 +65,12 @@ const LoginModal = ({
           </ErrorMessage>
         </div>
         {errors && errors.submissionError && (
-          <div css={submissionError}>{errors.submissionError}</div>
+          <div css={formSubmitErrStyles}>{errors.submissionError}</div>
         )}
         <button disabled={isSubmitting} css={authButton} type='submit'>
           Sign In
         </button>
-        <div css={orDivider}>OR</div>
+        <div css={orDividerStyles}>OR</div>
         <button
           onClick={handleGoogleLoginClick}
           disabled={isSubmitting}
@@ -89,20 +88,13 @@ const formikEnhancer = withFormik({
   mapPropsToValues () {
     return { email: '', password: '' }
   },
-  validationSchema: yup.object().shape({
-    email: yup
-      .string()
-      .email('Not Valid Email')
-      .required('Email is required'),
-    password: yup
-      .string()
-      .min(6, 'Password is too short')
-      .required('Password is required')
-  }),
+  validationSchema: loginSchema,
   handleSubmit (values, { resetForm, setErrors, setSubmitting, props }) {
     props.login(values.email, values.password, { resetForm, setErrors, setSubmitting })
   }
 })
+
+// styles
 
 const authModal = css`
   position: fixed;
@@ -131,58 +123,8 @@ const authBodyBox = css`
   border-radius: 0.5rem;
 `
 
-const authButton = css`
-  ${buttonCss};
-  margin-top: 1.9rem;
-  padding: 1rem 0;
-  width: 100%;
-  background: ${appTeal};
-`
-
-const googleButton = css`
-  ${buttonCss};
-  padding: 1rem 0;
-  width: 100%;
-  background: #dd4b39;
-`
-
-const orDivider = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0;
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    width: 11rem;
-    height: 1px;
-    top: 49%;
-    left: 0.1rem;
-    background: ${appBorderColor};
-  }
-  &::after {
-    content: '';
-    position: absolute;
-    width: 11rem;
-    height: 1px;
-    top: 49%;
-    right: 0.1rem;
-    background: ${appBorderColor};
-  }
-`
-
 const googleIcon = css`
   margin-right: 1rem;
-`
-
-const submissionError = css`
-  border: 1px solid red;
-  border-radius: 0.4rem;
-  color: red;
-  text-align: center;
-  padding: 1rem 0;
-  margin-top: 2rem;
 `
 
 export default connect(

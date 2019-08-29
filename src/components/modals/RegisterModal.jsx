@@ -2,9 +2,8 @@ import React from 'react'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
-import * as yup from 'yup'
 import { appBorderColor } from '../../emotion/variables'
-import buttonCss from '../../emotion/buttonCss'
+import { authButton, googleButton } from '../../emotion/buttonCss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import {
@@ -15,6 +14,9 @@ import {
   errCss
 } from '../../emotion/textInputCss'
 import { register, googleLogin } from '../../store/actions/actions'
+import registerSchema from '../../validation/registerSchema'
+import formSubmitErrStyles from '../../emotion/formSubmitErrStyles'
+import orDividerStyles from '../../emotion/orDividerStyles'
 
 const RegisterModal = ({
   values,
@@ -77,12 +79,12 @@ const RegisterModal = ({
           </ErrorMessage>
         </div>
         {errors && errors.submissionError && (
-          <div css={submissionError}>{errors.submissionError}</div>
+          <div css={formSubmitErrStyles}>{errors.submissionError}</div>
         )}
         <button type='submit' disabled={isSubmitting} css={authButton}>
           Register
         </button>
-        <div css={orDivider}>OR</div>
+        <div css={orDividerStyles}>OR</div>
         <button
           onClick={handleGoogleLoginClick}
           type='button'
@@ -101,21 +103,7 @@ const formikEnhancer = withFormik({
   mapPropsToValues () {
     return { username: '', email: '', password: '' }
   },
-  validationSchema: yup.object().shape({
-    username: yup
-      .string()
-      .min(2, 'Username is too short')
-      .max(18, 'Username is too long')
-      .required('Username is required'),
-    email: yup
-      .string()
-      .email('Not Valid Email')
-      .required('Email is required'),
-    password: yup
-      .string()
-      .min(6, 'Password is too short')
-      .required('Password is required')
-  }),
+  validationSchema: registerSchema,
   handleSubmit (values, { resetForm, setErrors, setSubmitting, props }) {
     props.register(values.username, values.email, values.password, {
       resetForm,
@@ -152,57 +140,8 @@ const authBodyBox = css`
   border-radius: 0.5rem;
 `
 
-const authButton = css`
-  ${buttonCss};
-  margin-top: 1.9rem;
-  padding: 1rem 0;
-  width: 100%;
-`
-
-const googleButton = css`
-  ${buttonCss};
-  padding: 1rem 0;
-  width: 100%;
-  background: #dd4b39;
-`
-
-const orDivider = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0;
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    width: 11rem;
-    height: 1px;
-    top: 49%;
-    left: 0.1rem;
-    background: ${appBorderColor};
-  }
-  &::after {
-    content: '';
-    position: absolute;
-    width: 11rem;
-    height: 1px;
-    top: 49%;
-    right: 0.1rem;
-    background: ${appBorderColor};
-  }
-`
-
 const googleIcon = css`
   margin-right: 1rem;
-`
-
-const submissionError = css`
-  border: 1px solid red;
-  border-radius: 0.4rem;
-  color: red;
-  text-align: center;
-  padding: 1rem 0;
-  margin-top: 2rem;
 `
 
 export default connect(

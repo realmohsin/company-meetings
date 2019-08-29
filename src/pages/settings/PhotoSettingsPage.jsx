@@ -19,6 +19,7 @@ import {
 } from '../../store/actions/actions'
 import { selectPhotos, selectUser } from '../../store/selectors/authSelectors'
 import Button from '../../components/utils/Button'
+import pageTitleStyles from '../../emotion/pageTitleStyles'
 
 const mapStateToProps = state => ({
   user: selectUser(state),
@@ -60,7 +61,7 @@ const PhotoSettingsPage = ({
 
   return (
     <div css={photoSettingsCss}>
-      <h1 css={headerCss}>My Photos</h1>
+      <h1 css={pageTitleStyles}>My Photos</h1>
 
       <div css={uploadedSection}>
         <PhotoList
@@ -128,19 +129,6 @@ const PhotoSettingsPage = ({
 
 const photoSettingsCss = css``
 
-const headerCss = css`
-  color: ${appColor1Hover};
-  text-decoration: underline;
-  margin-bottom: 3rem;
-  text-align: center;
-  @media (max-width: 600px) {
-    margin-bottom: 1px;
-  }
-  @media (max-width: 355px) {
-    font-size: 29px;
-  }
-`
-
 const inputsContainer = css`
   border: 1px solid ${appBorderColor};
   border-radius: 0.4rem;
@@ -179,10 +167,6 @@ const dropzoneContainer = css`
 `
 
 const uploadedSection = css`
-  ${'' /* border: 1px solid ${appBorderColor};
-  border-radius: 0.5rem;
-  background: white;
-  box-shadow: ${appBoxShadow}; */}
   margin-bottom: 2rem;
 `
 

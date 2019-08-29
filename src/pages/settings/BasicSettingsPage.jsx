@@ -3,69 +3,60 @@ import { css } from '@emotion/core'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
-import * as yup from 'yup'
-import {
-  pagePadding,
-  appBorderColor,
-  appColor1,
-  appColor2,
-  appColor1Hover
-} from '../../emotion/variables'
-import { inputBoxCss, inputCss, errCss } from '../../emotion/textInputCss'
-import buttonCss from '../../emotion/buttonCss'
+import { inputCss, errCss } from '../../emotion/textInputCss'
 import Button from '../../components/utils/Button'
+import pageTitleStyles from '../../emotion/pageTitleStyles'
+import basicSettingsSchema from '../../validation/basicSettingsSchema'
+import inputContainerStyles from '../../emotion/inputContainerStyles'
+import datepickerStyles from '../../emotion/datepickerStyles'
+import formSubmitErrStyles from '../../emotion/formSubmitErrStyles'
 
 const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
   return (
     <div css={basicSettingsPage}>
-      <h1 css={title}>Edit Basic Settings</h1>
+      <h1 css={pageTitleStyles}>Edit Basic Settings</h1>
       <Form autoComplete='off'>
-        <div
-          css={css`
-            ${inputBoxCss};
-            ${flexInputBox};
-          `}
-        >
-          <label>Name: </label>
-          <Field type='text' name='username' css={inputCss} />
-
-          <ErrorMessage name='username'>
-            {errMsg => <div css={errCss}>{errMsg}</div>}
-          </ErrorMessage>
+        <div css={inputContainerStyles}>
+          <label>Name:</label>
+          <div>
+            <Field type='text' name='username' css={inputCss} />
+            <ErrorMessage name='username'>
+              {errMsg => <div css={errCss}>{errMsg}</div>}
+            </ErrorMessage>
+          </div>
         </div>
 
-        <div
-          css={css`
-            ${inputBoxCss};
-            ${flexInputBox};
-          `}
-        >
+        <div css={inputContainerStyles}>
           <label>Email:</label>
-          <Field type='email' name='email' css={inputCss} />
+          <div>
+            <Field type='email' name='email' css={inputCss} />
 
-          <ErrorMessage name='email'>
-            {errMsg => <div css={errCss}>{errMsg}</div>}
-          </ErrorMessage>
+            <ErrorMessage name='email'>
+              {errMsg => <div css={errCss}>{errMsg}</div>}
+            </ErrorMessage>
+          </div>
         </div>
 
         <div
           css={css`
-            ${inputBoxCss};
-            ${flexInputBox};
-            ${datePickerBox};
+            ${inputContainerStyles};
+            ${datepickerStyles};
           `}
         >
-          <label>Birthday: </label>
-          <DatePicker
-            selected={values.birthday}
-            onChange={e => setFieldValue('birthday', e)}
-            showYearDropdown
-            scrollableYearDropdown
-          />
-          <ErrorMessage name='birthday'>
-            {errMsg => <div css={errCss}>{errMsg}</div>}
-          </ErrorMessage>
+          <label>Birthday:</label>
+          <div>
+            <DatePicker
+              selected={values.birthday}
+              onChange={e => setFieldValue('birthday', e)}
+              showYearDropdown
+              scrollableYearDropdown
+            />
+            <ErrorMessage name='birthday'>
+              {errMsg => <div css={errCss}>{errMsg}</div>}
+            </ErrorMessage>
+          </div>
         </div>
+
         <div css={buttonsBox}>
           <Button
             type='submit'
@@ -76,7 +67,7 @@ const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
         </div>
 
         {errors && errors.submissionError && (
-          <div css={submissionError}>{errors.submissionError}</div>
+          <div css={formSubmitErrStyles}>{errors.submissionError}</div>
         )}
       </Form>
     </div>
@@ -92,19 +83,8 @@ const formikEnhancer = withFormik({
       birthday: user.birthday ? user.birthday.toDate() : new Date()
     }
   },
-  validationSchema: yup.object().shape({
-    username: yup
-      .string()
-      .min(2, 'Username is too short')
-      .required('Username is required'),
-    email: yup
-      .string()
-      .email('Not Valid Email')
-      .required('Email is required'),
-    birthday: yup.date().required('Birthday is required')
-  }),
+  validationSchema: basicSettingsSchema,
   async handleSubmit (values, { resetForm, setErrors, setSubmitting, props }) {
-    console.log('from handleSubmit of BasicsSettingsPage')
     props.updateProfileBasics(values, { resetForm, setErrors, setSubmitting })
   }
 })
@@ -114,59 +94,8 @@ const formikEnhancer = withFormik({
 const basicSettingsPage = css`
   margin: 0 auto;
   width: 90%;
-  @media (max-width: 500px) {
-    font-size: 0.9em;
-  }
-`
-
-const title = css`
-  color: ${appColor1Hover};
-  text-decoration: underline;
-  margin-bottom: 4rem;
-  text-align: center;
-  @media (max-width: 355px) {
-    font-size: 29px;
-  }
-`
-
-const flexInputBox = css`
-  display: flex;
-  & > label {
-    color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    width: 15rem;
-  }
-  & > span {
-    width: 100%;
-  }
-`
-
-const datePickerBox = css`
-  & input {
-    width: 100%;
-    background: white;
-    color: gray;
-    font-size: 1.8rem;
-    padding: 1rem;
-    border: 1px solid ${appBorderColor};
-    border-radius: 0.5rem;
-    font-family: inherit;
-  }
-  & .react-datepicker-wrapper {
-    width: 100%;
-  }
-
-  & .react-datepicker__input-container {
-    width: 100%;
-  }
-  & .react-datepicker-popper {
-    transform: translate(100px, 90px) scale(1.5) !important;
-    will-change: auto !important;
-  }
-
-  & .react-datepicker {
-    font-family: inherit !important;
+  & label {
+    width: 12rem !important;
   }
 `
 
@@ -176,15 +105,6 @@ const buttonsBox = css`
   & button {
     margin-right: 2rem;
   }
-`
-
-const submissionError = css`
-  border: 1px solid red;
-  border-radius: 0.4rem;
-  color: red;
-  text-align: center;
-  padding: 1rem 0;
-  margin-top: 2rem;
 `
 
 export default formikEnhancer(BasicSettingsPage)

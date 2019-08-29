@@ -1,5 +1,4 @@
 import React from 'react'
-import { css } from '@emotion/core'
 import { connect } from 'react-redux'
 import LoginModal from './LoginModal'
 import RegisterModal from './RegisterModal'
