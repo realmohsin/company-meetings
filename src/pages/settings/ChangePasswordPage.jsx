@@ -7,14 +7,15 @@ import pageTitleStyles from '../../emotion/pageTitleStyles'
 import inputContainerStyles from '../../emotion/inputContainerStyles'
 import formSubmitErrStyles from '../../emotion/formSubmitErrStyles'
 import pwResetSchema from '../../validation/pwResetSchema'
+import { appColor2Hover } from '../../emotion/variables'
 
 const ChangePasswordPage = ({ user, errors, isSubmitting }) => {
   if (user.authMethod && user.authMethod !== 'password') {
     return (
-      <div css={thirdPartyMsg}>
-        You are authenticated through a third party provider. Check with that provider to
+      <p css={thirdPartyMsg}>
+        You are authenticated through a third party provider. Check with your provider to
         change your password.
-      </div>
+      </p>
     )
   }
   return (
@@ -86,6 +87,15 @@ const buttonsBox = css`
   }
 `
 
-const thirdPartyMsg = css``
+const thirdPartyMsg = css`
+  font-size: 2.6rem;
+  color: ${appColor2Hover};
+  width: 80%;
+  margin: 4rem auto;
+  text-align: center;
+  @media (max-width: 700px) {
+    font-size: 2rem;
+  }
+`
 
 export default formikEnhancer(ChangePasswordPage)

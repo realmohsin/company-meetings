@@ -95,7 +95,7 @@ const basicSettingsPage = css`
   margin: 0 auto;
   width: 90%;
   & label {
-    width: 12rem !important;
+    width: 13rem !important;
   }
 `
 
