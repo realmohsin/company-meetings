@@ -1,11 +1,10 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import { appBorderColor, appColor2Hover, appColor1Hover } from '../../emotion/variables'
+import { appBorderColor, appColor1Hover } from '../../emotion/variables'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const PhotoList = ({ user, photos, setMainPhoto, deletePhotoFromProfile }) => {
-  console.log('from photoList: ', photos)
   if (!user) return null
   return (
     <div css={photoListCss}>

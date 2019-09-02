@@ -98,37 +98,43 @@ class ProfilePage extends React.Component {
             <div css={about}>
               <h4>About</h4>
               <div css={aboutBody}>
-                <div>
-                  <p>
-                    <span>Job Title:</span> {profile.jobTitle || 'Unknown'}
-                  </p>
-                  <p>
-                    <span>Department:</span> {profile.department || 'Unknown'}{' '}
-                  </p>
-                  <p>
-                    <span>Birthday:</span>{' '}
-                    {profile.birthday
-                      ? format(profile.birthday.toDate(), 'MMM Do, YYYY')
-                      : 'Unknown'}
-                  </p>
+                <div css={aboutSection}>
+                  <div />
+                  <div css={aboutColumn}>
+                    <p>
+                      <span>Job Title:</span> {profile.jobTitle || 'Unknown'}
+                    </p>
+                    <p>
+                      <span>Department:</span> {profile.department || 'Unknown'}{' '}
+                    </p>
+                    <p>
+                      <span>Birthday:</span>{' '}
+                      {profile.birthday
+                        ? format(profile.birthday.toDate(), 'MMM Do, YYYY')
+                        : 'Unknown'}
+                    </p>
+                  </div>
                 </div>
 
-                <div>
-                  <p>
-                    <span>Member For: </span>
-                    {profile.createdAt
-                      ? distanceInWordsToNow(profile.createdAt.toDate())
-                      : 'Unknown'}
-                  </p>
-                  <p>
-                    <span>Hours:</span> {profile.hours || 'Unknown'}
-                  </p>
-                  <p>
-                    <span>Lunch Break:</span>{' '}
-                    {profile.lunchBreak
-                      ? format(profile.lunchBreak.toDate(), 'h:mm aa')
-                      : '12:00 pm'}
-                  </p>
+                <div css={aboutSection}>
+                  <div />
+                  <div css={aboutColumn}>
+                    <p>
+                      <span>Member For: </span>
+                      {profile.createdAt
+                        ? distanceInWordsToNow(profile.createdAt.toDate())
+                        : 'Unknown'}
+                    </p>
+                    <p>
+                      <span>Hours:</span> {profile.hours || 'Unknown'}
+                    </p>
+                    <p>
+                      <span>Lunch Break:</span>{' '}
+                      {profile.lunchBreak
+                        ? format(profile.lunchBreak.toDate(), 'h:mm aa')
+                        : '12:00 pm'}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -272,20 +278,6 @@ const aboutBody = css`
   display: flex;
   width: 100%;
   margin: 2rem 0;
-  & > div {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-  }
-  & p {
-    margin-bottom: 3rem;
-  }
-  & span {
-    font-weight: bold;
-    font-size: 1.7rem;
-    margin-right: 1rem;
-  }
   @media (max-width: 1030px) {
     font-size: 0.9em;
   }
@@ -294,15 +286,33 @@ const aboutBody = css`
   }
   @media (max-width: 750px) {
     display: block;
+  }
+`
+
+const aboutSection = css`
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 1rem;
+  @media (max-width: 750px) {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+`
+
+const aboutColumn = css`
+  display: flex;
+  flex-direction: column;
+  & p {
+    margin-bottom: 3rem;
+  }
+  & span {
+    font-weight: bold;
+    font-size: 1.7rem;
+    margin-right: 1rem;
+  }
+  @media (max-width: 750px) {
     text-align: center;
-    & > div {
-      margin: 2rem 1rem;
-      padding: 1rem;
-      width: auto;
-    }
-    & > div:last-of-type {
-      padding-left: 1rem;
-    }
   }
 `
 

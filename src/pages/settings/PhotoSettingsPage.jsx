@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
-import {
-  appBorderColor,
-  appColor1,
-  appColor2,
-  appColor1Hover,
-  appBoxShadow
-} from '../../emotion/variables'
-import buttonCss from '../../emotion/buttonCss'
+import { appBorderColor, appColor1Hover, appBoxShadow } from '../../emotion/variables'
 import PhotoDropzone from '../../components/photoSettings/PhotoDropzone'
 import CropperInput from '../../components/photoSettings/CropperInput'
 import PhotoList from '../../components/photoSettings/PhotoList'
@@ -60,7 +53,7 @@ const PhotoSettingsPage = ({
   }
 
   return (
-    <div css={photoSettingsCss}>
+    <div>
       <h1 css={pageTitleStyles}>My Photos</h1>
 
       <div css={uploadedSection}>
@@ -126,8 +119,6 @@ const PhotoSettingsPage = ({
 }
 
 // styles
-
-const photoSettingsCss = css``
 
 const inputsContainer = css`
   border: 1px solid ${appBorderColor};

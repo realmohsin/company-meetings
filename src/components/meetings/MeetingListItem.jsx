@@ -42,7 +42,12 @@ const MeetingListItem = ({ meeting, history }) => {
           </h2>
           <p>
             Hosted by{' '}
-            <Link to={`/people/${meeting.hostUid}`}>
+            <Link
+              to={`/people/${meeting.hostUid}`}
+              css={css`
+                display: inline;
+              `}
+            >
               <span>{meeting.hostName}</span>
             </Link>
           </p>
@@ -205,6 +210,47 @@ const headerText = css`
   }
 `
 
+const infoRowMediaQueries = css`
+  @media (max-width: 615px) {
+    & > div {
+      margin-left: 24%;
+    }
+  }
+  @media (max-width: 570px) {
+    font-size: 1.8rem;
+    & > div {
+      margin-left: 19%;
+    }
+  }
+  @media (max-width: 550px) {
+    & > div {
+      margin-left: 16%;
+    }
+  }
+  @media (max-width: 480px) {
+    & > div {
+      margin-left: 13%;
+    }
+  }
+  @media (max-width: 430px) {
+    & > div {
+      margin-left: 8%;
+    }
+  }
+  @media (max-width: 385px) {
+    font-size: 1.7rem;
+    & > div {
+      margin-left: 4%;
+    }
+  }
+  @media (max-width: 350px) {
+    font-size: 1.5rem;
+    & > div {
+      margin-left: 0;
+    }
+  }
+`
+
 const dateCss = css`
   ${padding};
   ${borderBottom};
@@ -223,77 +269,10 @@ const dateCss = css`
       margin-left: 28%;
     }
     & > div:last-of-type {
-      margin-top: 1.9rem;
+      margin-top: 2.9rem;
     }
   }
-  @media (max-width: 615px) {
-    & > div {
-      margin-left: 25%;
-    }
-  }
-  @media (max-width: 580px) {
-    & > div {
-      margin-left: 23%;
-    }
-  }
-  @media (max-width: 570px) {
-    font-size: 1.8rem;
-    & > div {
-      margin-left: 21%;
-    }
-  }
-  @media (max-width: 550px) {
-    & > div {
-      margin-left: 18%;
-    }
-  }
-  @media (max-width: 535px) {
-    & > div {
-      margin-left: 16%;
-    }
-  }
-  @media (max-width: 460px) {
-    & > div {
-      margin-left: 13%;
-    }
-  }
-  @media (max-width: 450px) {
-    & > div {
-      margin-left: 12%;
-    }
-  }
-  @media (max-width: 440px) {
-    & > div {
-      margin-left: 10%;
-    }
-  }
-  @media (max-width: 430px) {
-    & > div {
-      margin-left: 8%;
-    }
-  }
-  @media (max-width: 415px) {
-    & > div {
-      margin-left: 7%;
-    }
-  }
-  @media (max-width: 400px) {
-    & > div {
-      margin-left: 5%;
-    }
-  }
-  @media (max-width: 385px) {
-    font-size: 1.7rem;
-    & > div {
-      margin-left: 4%;
-    }
-  }
-  @media (max-width: 350px) {
-    font-size: 1.5rem;
-    & > div {
-      margin-left: 0;
-    }
-  }
+  ${infoRowMediaQueries};
 `
 
 const attendeesCss = css`
@@ -319,82 +298,10 @@ const locationCss = css`
       margin-left: 28%;
     }
     & > div:last-of-type {
-      margin-top: 1.9rem;
+      margin-top: 2.9rem;
     }
   }
-  @media (max-width: 615px) {
-    & > div {
-      margin-left: 25%;
-    }
-  }
-  @media (max-width: 580px) {
-    & > div {
-      margin-left: 23%;
-    }
-  }
-  @media (max-width: 570px) {
-    font-size: 1.8rem;
-    & > div {
-      margin-left: 21%;
-    }
-  }
-  @media (max-width: 550px) {
-    & > div {
-      margin-left: 18%;
-    }
-  }
-  @media (max-width: 535px) {
-    & > div {
-      margin-left: 16%;
-    }
-  }
-  @media (max-width: 460px) {
-    & > div {
-      margin-left: 13%;
-    }
-  }
-  @media (max-width: 450px) {
-    & > div {
-      margin-left: 12%;
-    }
-  }
-  @media (max-width: 440px) {
-    & > div {
-      margin-left: 10%;
-    }
-  }
-  @media (max-width: 430px) {
-    & > div {
-      margin-left: 8%;
-    }
-  }
-  @media (max-width: 415px) {
-    & > div {
-      margin-left: 7%;
-    }
-  }
-  @media (max-width: 400px) {
-    & > div {
-      margin-left: 5%;
-    }
-  }
-  @media (max-width: 385px) {
-    font-size: 1.7rem;
-    & > div {
-      margin-left: 4%;
-    }
-  }
-  @media (max-width: 365px) {
-    & > div {
-      margin-left: 2%;
-    }
-  }
-  @media (max-width: 350px) {
-    font-size: 1.5rem;
-    & > div {
-      margin-left: 0;
-    }
-  }
+  ${infoRowMediaQueries};
 `
 
 const iconCss = css`
