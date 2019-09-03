@@ -53,7 +53,10 @@ class MeetingChat extends React.Component {
               />
             ))}
           <div css={formContainer}>
-            <ReplyAreaAndButton parentId={0} />
+            <ReplyAreaAndButton
+              parentId={0}
+              handleSelectComment={this.handleSelectComment}
+            />
           </div>
         </div>
       </div>

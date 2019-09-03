@@ -108,8 +108,6 @@ const meetingListItem = css`
     width: 65rem;
     margin: 3rem 0;
   }
-  @media (max-width: 1245px) {
-  }
   @media (max-width: 1200px) {
     width: 60rem;
   }

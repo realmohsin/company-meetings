@@ -5,11 +5,10 @@ import { appBorderColor, appColor2, appColor2Hover } from '../../emotion/variabl
 import Ribbon from '../utils/Ribbon'
 
 const AttendeeListItem = ({ attendee }) => {
-  console.log(attendee)
   return (
     <div css={attendeeListItemCss}>
       {attendee.isHost && (
-        <Ribbon fontSize='1.3rem' color='teal' css={ribbonStyles}>
+        <Ribbon fontSize='1.4rem' color='teal' css={ribbonStyles}>
           Host
         </Ribbon>
       )}
@@ -27,7 +26,7 @@ const attendeeListItemCss = css`
   border-bottom: 1px solid ${appBorderColor};
   background: white;
   padding: 1rem;
-  height: 8rem;
+  height: 7rem;
   position: relative;
   & img {
     height: 100%;
@@ -40,15 +39,17 @@ const attendeeListItemCss = css`
 const nameStyles = css`
   padding-left: 2rem;
   color: ${appColor2};
+  font-size: 1.7rem;
+  margin-right: 4rem;
   &:hover {
     ${appColor2Hover};
   }
 `
 
 const ribbonStyles = css`
-  top: 1rem;
-  right: -1.4rem;
-  min-width: 6em;
+  top: 0.7rem;
+  right: -1.6rem;
+  min-width: 4.5em;
 `
 
 export default AttendeeListItem

@@ -122,7 +122,10 @@ export const fetchMeetingsForDashboard = () => async (dispatch, getState) => {
     let query
     const dashboardState = getState().meetings.dashboard
     if (dashboardState.willBeInitialFetch) {
-      query = meetingsRef.orderBy('date').startAfter(new Date()).limit(2)
+      query = meetingsRef
+        .orderBy('date')
+        .startAfter(new Date())
+        .limit(2)
     } else {
       const newlyFetchedMeetings = dashboardState.newlyFetchedMeetings
       const lastMeetingInState = newlyFetchedMeetings[newlyFetchedMeetings.length - 1]
@@ -236,10 +239,12 @@ export const cancelMeetingToggle = (cancelled, meetingId) => async dispatch => {
   }
 }
 
-export const addMeetingComment = (text, parentId, formHandlers) => async (
-  dispatch,
-  getState
-) => {
+export const addMeetingComment = (
+  text,
+  parentId,
+  handleSelectComment,
+  formHandlers
+) => async (dispatch, getState) => {
   dispatch({ type: ADD_MEETING_COMMENT_START })
   try {
     const meetingId = getState().meetings.selectedMeeting.id
@@ -259,6 +264,7 @@ export const addMeetingComment = (text, parentId, formHandlers) => async (
     })
     formHandlers.setSubmitting(false)
     formHandlers.resetForm()
+    handleSelectComment(null)
     dispatch({ type: ADD_MEETING_COMMENT_SUCCESS })
   } catch (error) {
     console.log('error from addMeetingComment: ', error)

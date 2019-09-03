@@ -36,7 +36,7 @@ const formikEnhancer = withFormik({
     comment: yup.string().required('Email is required')
   }),
   handleSubmit (values, { resetForm, setErrors, setSubmitting, props }) {
-    props.addMeetingComment(values.comment, props.parentId, {
+    props.addMeetingComment(values.comment, props.parentId, props.handleSelectComment, {
       resetForm,
       setErrors,
       setSubmitting

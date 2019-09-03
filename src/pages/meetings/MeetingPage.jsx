@@ -7,7 +7,8 @@ import {
   appBorderColor,
   appIconColor,
   darkTextColor,
-  appBoxShadow
+  appBoxShadow,
+  appColor2Hover
 } from '../../emotion/variables'
 import {
   selectMeetingsError,
@@ -80,7 +81,7 @@ class MeetingPage extends React.Component {
               />
               <div>
                 <h2>{selectedMeeting.title}</h2>
-                <p>Hosted by: {selectedMeeting.hostName}</p>
+                <p>Held by {selectedMeeting.hostName}</p>
               </div>
             </div>
             <div css={headerBottom}>
@@ -89,7 +90,7 @@ class MeetingPage extends React.Component {
                   onClick={() => history.push(`/meetings/edit/${selectedMeeting.id}`)}
                   css={buttonCss}
                 >
-                  Manage Meeting
+                  Edit or Cancel Meeting
                 </button>
               ) : isAttendee ? (
                 <Button
@@ -98,9 +99,11 @@ class MeetingPage extends React.Component {
                   color='red'
                 />
               ) : (
-                <button onClick={() => joinMeeting(selectedMeeting.id)} css={buttonCss}>
-                  Join Meeting
-                </button>
+                <Button
+                  onClick={() => joinMeeting(selectedMeeting.id)}
+                  content='Join Meeting'
+                  color='teal'
+                />
               )}
             </div>
           </section>
@@ -109,7 +112,6 @@ class MeetingPage extends React.Component {
               css={css`
                 ${detailSection};
                 color: ${departments[selectedMeeting.department].hex};
-                font-size: 3.2rem;
               `}
             >
               <FontAwesomeIcon css={iconCss} icon={faArrow} />
@@ -118,7 +120,7 @@ class MeetingPage extends React.Component {
             <div css={detailSection}>
               <span>{format(selectedMeeting.date.toDate(), 'MMMM Do, YYYY')}</span> at{' '}
               <span>
-                {format(selectedMeeting.startTime.toDate(), 'h:mm A')} to{' '}
+                {format(selectedMeeting.startTime.toDate(), 'h:mm A')} -{' '}
                 {format(selectedMeeting.endTime.toDate(), 'h:mm A')}
               </span>
             </div>
@@ -145,11 +147,20 @@ const meetingPageCss = css`
   padding-top: 11rem;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-gap: 4rem;
+  grid-gap: 6rem;
+  @media (max-width: 1400px) {
+    grid-gap: 4rem;
+  }
+  @media (max-width: 1295px) {
+    grid-template-columns: 2.4fr 1fr;
+  }
+  @media (max-width: 945px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const leftGridContainer = css`
-  margin: 0 2rem;
+  ${''}
 `
 
 const headerCss = css`
@@ -190,7 +201,25 @@ const imgContainer = css`
     font-size: 4rem;
   }
   & p {
-    font-size: 2.5rem;
+    font-size: 2rem;
+  }
+  @media (max-width: 720px) {
+    & h2 {
+      font-size: 3.3rem;
+    }
+    & p {
+      font-size: 1.6rem;
+      margin-right: 1rem;
+    }
+  }
+  @media (max-width: 500px) {
+    & > div {
+      width: auto;
+    }
+    & h2 {
+      font-size: 2.6rem;
+      margin-right: 1rem;
+    }
   }
 `
 
@@ -198,7 +227,7 @@ const headerBottom = css`
   display: flex;
   height: 10rem;
   align-items: center;
-  padding-left: 7rem;
+  padding-left: 4rem;
   background: #fff;
 `
 
@@ -210,6 +239,9 @@ const detailsCss = css`
   height: 29rem;
   width: 100%;
   margin: 3rem 0;
+  @media (max-width: 460px) {
+    height: 32rem;
+  }
 `
 
 const detailSection = css`
@@ -219,12 +251,30 @@ const detailSection = css`
   display: flex;
   align-items: center;
   padding-left: 5rem;
+  font-size: 0.9em;
   &:first-of-type {
     padding-left: 7rem;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+    font-size: 2.8rem;
   }
   & span {
     margin: 0 2rem;
+    font-weight: bold;
+  }
+  @media (max-width: 625px) {
+    padding-left: 0;
+    justify-content: center;
+    font-size: 0.85em;
+    &:first-of-type {
+      padding-left: 0;
+      font-size: 2.6rem;
+    }
+  }
+  @media (max-width: 460px) {
+    flex-direction: column;
+    &:first-of-type {
+      font-size: 2.2rem;
+    }
   }
 `
 

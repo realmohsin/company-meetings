@@ -23,7 +23,10 @@ const TopLevelComment = ({ comment, selectedId, handleSelectComment }) => {
             </span>
             {selectedId === comment.id && (
               <div css={replyFormContainer}>
-                <ReplyAreaAndButton parentId={comment.id} />
+                <ReplyAreaAndButton
+                  parentId={comment.id}
+                  handleSelectComment={handleSelectComment}
+                />
               </div>
             )}
             <div css={childCommentContainer}>
@@ -53,7 +56,10 @@ const TopLevelComment = ({ comment, selectedId, handleSelectComment }) => {
                           </span>
                           {selectedId === subComment.id && (
                             <div css={replyFormContainer}>
-                              <ReplyAreaAndButton parentId={comment.id} />
+                              <ReplyAreaAndButton
+                                parentId={comment.id}
+                                handleSelectComment={handleSelectComment}
+                              />
                             </div>
                           )}
                         </div>
@@ -83,6 +89,10 @@ const avatar = css`
   width: 5rem;
   height: 5rem;
   border-radius: 0.6rem;
+  @media (max-width: 600px) {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
 `
 
 const rightSideCss = css`
@@ -100,9 +110,16 @@ const commentHeader = css`
     margin-left: 0.6rem;
     color: rgba(0, 0, 0, 0.5);
   }
+  @media (max-width: 620px) {
+    & span {
+      margin-left: 0;
+      display: block;
+      width: 100%;
+    }
+  }
 `
 const textCss = css`
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   padding-bottom: 0.5rem;
 `
 const replySpan = css`
@@ -122,4 +139,3 @@ const replyFormContainer = css`
 const childCommentContainer = css``
 
 export default TopLevelComment
-

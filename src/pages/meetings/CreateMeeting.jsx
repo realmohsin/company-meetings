@@ -253,6 +253,11 @@ const buttonsBox = css`
   @media (max-width: 750px) {
     padding-left: 0;
   }
+  @media (max-width: 340px) {
+    & button {
+      margin: 1.5rem;
+    }
+  }
 `
 
 export default connect(

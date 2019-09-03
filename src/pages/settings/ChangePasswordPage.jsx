@@ -85,6 +85,12 @@ const buttonsBox = css`
   & button {
     margin-right: 2rem;
   }
+  @media (max-width: 360px) {
+    padding-left: 6rem;
+    & button {
+      margin-right: 0rem;
+    }
+  }
 `
 
 const thirdPartyMsg = css`

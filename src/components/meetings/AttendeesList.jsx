@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import { appBorderColor, appAqua, appBoxShadow } from '../../emotion/variables'
+import { appBorderColor, appAqua, appBoxShadow, appColor1 } from '../../emotion/variables'
 import AttendeeListItem from './AttendeeListItem'
 
 const AttendeesList = ({ attendees }) => {
@@ -26,10 +26,20 @@ const attendeesListCss = css`
   border-top-right-radius: 0.4rem;
   height: auto;
   box-shadow: ${appBoxShadow};
+  @media (max-width: 945px) {
+    width: 60%;
+    margin: 0 auto 10rem;
+  }
+  @media (max-width: 945px) {
+    width: 60%;
+  }
+  @media (max-width: 575px) {
+    width: 100%;
+  }
 `
 
 const headerCss = css`
-  background: ${appAqua};
+  background: ${appColor1};
   font-size: 2.2rem;
   text-align: center;
   height: 5rem;
