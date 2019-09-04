@@ -8,6 +8,7 @@ const initialState = {
 const modalReducer = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_MODAL:
+      console.log('action.modalProps: ', action.modalProps)
       return {
         ...state,
         modalType: action.modalType,

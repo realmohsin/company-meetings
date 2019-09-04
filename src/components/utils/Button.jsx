@@ -48,6 +48,10 @@ const colors = {
   appColor2: {
     color: appColor2,
     shadow: appColor2Hover
+  },
+  gray: {
+    color: '#E0E1E2',
+    shadow: '#CACBCD'
   }
 }
 

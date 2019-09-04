@@ -17,6 +17,12 @@ import { register, googleLogin } from '../../store/actions/actions'
 import registerSchema from '../../validation/registerSchema'
 import formSubmitErrStyles from '../../emotion/formSubmitErrStyles'
 import orDividerStyles from '../../emotion/orDividerStyles'
+import {
+  modalStyles,
+  headerCss,
+  authBodyBox,
+  googleIcon
+} from '../../emotion/modalStyles'
 
 const RegisterModal = ({
   values,
@@ -33,7 +39,7 @@ const RegisterModal = ({
   }
 
   return (
-    <div css={authModal}>
+    <div css={modalStyles}>
       <div css={headerCss}>Register</div>
       <Form css={authBodyBox} autoComplete='off'>
         <div css={inputBoxCss}>
@@ -112,37 +118,6 @@ const formikEnhancer = withFormik({
     })
   }
 })
-
-const authModal = css`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 200;
-  width: 37rem;
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-`
-
-const headerCss = css`
-  font-weight: bold;
-  text-align: center;
-  font-size: 2.4rem;
-  border-bottom: 1px solid ${appBorderColor};
-  padding: 1.3rem 0;
-`
-
-const authBodyBox = css`
-  margin: 1.5rem;
-  padding: 0 2.6rem 3rem;
-  border: 1px solid ${appBorderColor};
-  border-radius: 0.5rem;
-`
-
-const googleIcon = css`
-  margin-right: 1rem;
-`
 
 export default connect(
   null,

@@ -1,6 +1,3 @@
-Application Notes
-
-
 early state shape 
 {
   auth: {
@@ -102,7 +99,7 @@ Lunch Break:
 Hours:
 Member Since: 
 
-CSS question to figure out - how to split a section into two blocks - side by side. flex, grid, inline-block, which one is best? does grid have flaws?
+
 
 Accounting
 Human Resources
@@ -148,7 +145,8 @@ last major things to do:
 - meeting page css
 - guard routes & guard modal
 - photo uploading bug
-- new pages from the top library add
+- add redirect-to-top-of-page library
+- modals responsive
 - code splitting optimization
 
 

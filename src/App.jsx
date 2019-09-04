@@ -11,14 +11,18 @@ import TitlePage from './pages/TitlePage'
 import EditMeeting from './pages/meetings/EditMeeting'
 import CreateMeeting from './pages/meetings/CreateMeeting'
 import MeetingPage from './pages/meetings/MeetingPage'
-import MyMeetingsPage from './pages/meetings/MyMeetingsPage'
-import PeopleDashboard from './pages/people/PeopleDashboard'
 import ProfilePage from './pages/people/ProfilePage'
 import SettingsDashboard from './pages/settings/SettingsDashboard'
 import ModalManager from './components/modals/ModalManager'
 import containerCss from './emotion/containerCss'
 import { firebaseAuth, firestore } from './firebase/firebase'
-import { setUser } from './store/actions/actions'
+import { setUser, openModal } from './store/actions/actions'
+import { selectIsAuth } from './store/selectors/authSelectors'
+import withAuthGuard from './hocs/withAuthGuard'
+
+const mapStateToProps = state => ({
+  isAuthenticated: selectIsAuth(state)
+})
 
 class App extends React.Component {
   componentDidMount () {
@@ -49,6 +53,7 @@ class App extends React.Component {
   }
 
   render () {
+    const { isAuthenticated, openModal } = this.props
     return (
       <>
         <Global styles={globalStyles} />
@@ -63,12 +68,36 @@ class App extends React.Component {
                 <div css={containerCss}>
                   <Switch>
                     <Route exact path='/meetings' component={MeetingDashboard} />
-                    <Route path='/meetings/edit/:meetingId' component={EditMeeting} />
-                    <Route path='/meetings/create-meeting' component={CreateMeeting} />
-                    <Route path='/meetings/my-meetings' component={MyMeetingsPage} />
-                    <Route path='/meetings/:meetingId' component={MeetingPage} />
+                    <Route
+                      path='/meetings/edit/:meetingId'
+                      render={props =>
+                        withAuthGuard(isAuthenticated, openModal, EditMeeting, props)
+                      }
+                    />
+                    <Route
+                      path='/meetings/create-meeting'
+                      render={props =>
+                        withAuthGuard(isAuthenticated, openModal, CreateMeeting, props)
+                      }
+                    />
+                    <Route
+                      path='/meetings/:meetingId'
+                      render={props =>
+                        withAuthGuard(isAuthenticated, openModal, MeetingPage, props)
+                      }
+                    />
                     <Route path='/people/:userId' component={ProfilePage} />
-                    <Route path='/settings' component={SettingsDashboard} />
+                    <Route
+                      path='/settings'
+                      render={props =>
+                        withAuthGuard(
+                          isAuthenticated,
+                          openModal,
+                          SettingsDashboard,
+                          props
+                        )
+                      }
+                    />
                     <Route render={() => <h1 style={{ marginTop: 58 }}>404</h1>} />
                   </Switch>
                 </div>
@@ -130,6 +159,6 @@ const globalStyles = css`
 `
 
 export default connect(
-  null,
-  { setUser }
+  mapStateToProps,
+  { setUser, openModal }
 )(process.env.NODE_ENV === 'development' ? hot(App) : App)
