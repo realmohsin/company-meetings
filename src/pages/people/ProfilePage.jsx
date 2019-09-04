@@ -47,7 +47,7 @@ class ProfilePage extends React.Component {
     const uid = match.params.userId
     fetchProfileMeetings(uid)
     fetchProfilePhotos(uid)
-    if (uid === user.uid) return
+    if (user && user.uid === uid) return
     fetchSomeoneElsesProfile(uid)
   }
 
@@ -71,7 +71,8 @@ class ProfilePage extends React.Component {
 
   render () {
     const { user, photos, profileMeetings, match, someoneElsesProfile } = this.props
-    const profile = match.params.userId === user.uid ? user : someoneElsesProfile
+    const profile =
+      match.params.userId === (user && user.uid) ? user : someoneElsesProfile
     console.log('from render:', profile)
     return (
       <div css={profilePageCss}>
