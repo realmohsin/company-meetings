@@ -14,7 +14,6 @@ const mapStateToProps = state => ({
 })
 
 const ModalManager = ({ modalType, modalProps, openModal, closeModal }) => {
-  console.log('from modalmanager: ', openModal)
   const modalLookup = {
     LoginModal,
     RegisterModal,

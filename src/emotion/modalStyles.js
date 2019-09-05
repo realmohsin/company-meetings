@@ -11,6 +11,18 @@ export const modalStyles = css`
   background: white;
   border-radius: 0.5rem;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+  @media (max-width: 460px) {
+    width: 35rem;
+  }
+  @media (max-width: 410px) {
+    width: 33.5rem;
+  }
+  @media (max-width: 365px) {
+    width: 32.5rem;
+  }
+  @media (max-width: 345px) {
+    width: 31rem;
+  }
 `
 
 export const headerCss = css`

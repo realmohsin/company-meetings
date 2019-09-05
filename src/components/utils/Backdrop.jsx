@@ -11,7 +11,7 @@ const backdrop = css`
   z-index: 100;
   left: 0;
   top: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.75);
 `
 
 export default Backdrop

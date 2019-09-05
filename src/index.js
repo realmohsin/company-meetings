@@ -7,12 +7,14 @@ import store from './store/store'
 import history from './history/history'
 import firebase, { firebaseAuth, firestore } from './firebase/firebase'
 import { setUser } from './store/actions/actions'
-
+import PageLoadScrollTop from './hocs/PageLoadScrollTop'
 
 const application = (
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <PageLoadScrollTop>
+        <App />
+      </PageLoadScrollTop>
     </Router>
   </Provider>
 )

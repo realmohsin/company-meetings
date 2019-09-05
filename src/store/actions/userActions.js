@@ -156,7 +156,6 @@ export const setMainPhoto = imageURL => async dispatch => {
     const meetingAttendeeQuerySnap = await firestore
       .collection('meeting_attendee')
       .where('userUid', '==', user.uid)
-      .where('meetingDate', '>', new Date(Date.now()))
       .get()
 
     for (let i = 0; i < meetingAttendeeQuerySnap.length; i++) {

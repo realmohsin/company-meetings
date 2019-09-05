@@ -8,10 +8,20 @@ import {
 } from '../../emotion/modalStyles'
 import { appBorderColor } from '../../emotion/variables'
 import Button from '../../components/utils/Button'
+import history from '../../history/history'
 
 const UnauthorizedModal = ({ openModal, closeModal }) => {
   const handleLoginClick = () => {
     openModal('LoginModal')
+  }
+
+  const handleRegisterClick = () => {
+    openModal('RegisterModal')
+  }
+
+  const handleCancelClick = () => {
+    closeModal()
+    history.push('/meetings')
   }
 
   return (
@@ -28,7 +38,12 @@ const UnauthorizedModal = ({ openModal, closeModal }) => {
               onClick={handleLoginClick}
             />
             <div css={orDivider} />
-            <Button color='appColor2' content='Register' css={rightButtonStyles} />
+            <Button
+              color='appColor2'
+              content='Register'
+              css={rightButtonStyles}
+              onClick={handleRegisterClick}
+            />
           </div>
         </div>
         <div css={sectionTwo}>
@@ -41,6 +56,7 @@ const UnauthorizedModal = ({ openModal, closeModal }) => {
                 color: #888;
                 font-size: 1.6rem;
               `}
+              onClick={handleCancelClick}
             />
           </div>
         </div>

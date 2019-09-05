@@ -142,11 +142,11 @@ split meetings part of profile into 3 side by side sections on max width
 
 
 last major things to do:
-- meeting page css
-- guard routes & guard modal
-- photo uploading bug
-- add redirect-to-top-of-page library
-- modals responsive
+✔️ meeting page css
+✔️ guard routes & guard modal
+✔️ photo uploading bug
+✔️ add redirect-to-top-of-page library
+✔️ modals responsive
 - code splitting optimization
 
 
