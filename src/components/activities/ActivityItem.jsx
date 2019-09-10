@@ -1,6 +1,7 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import styled from '@emotion/styled'
+import { Link } from 'react-router-dom'
 import { appBorderColor, appColor2, appColor2Hover } from '../../emotion/variables'
 import AttendeeIcon from '../meetings/AttendeeIcon'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
@@ -38,21 +39,61 @@ const MeetingTextStyled = styled.div`
   }
 `
 
-const NewMeetingActivityText = ({ hostName, title, timestamp }) => (
+const NewMeetingActivityText = ({ hostName, hostUid, title, timestamp, meetingId }) => (
   <MeetingTextStyled>
     <p>
-      <strong>New Meeting!</strong> <span>{hostName}</span> has created{' '}
-      <span>{title}</span>.
+      <strong>New Meeting!</strong>{' '}
+      <Link
+        to={`/people/${hostUid}`}
+        css={css`
+          display: inline;
+        `}
+      >
+        <span>{hostName}</span>
+      </Link>{' '}
+      has created{' '}
+      <Link
+        to={`/meetings/${meetingId}`}
+        css={css`
+          display: inline;
+        `}
+      >
+        <span>{title}</span>
+      </Link>
+      .
     </p>
     <p className='timeAgo'>{distanceInWordsToNow(timestamp.toDate())} ago</p>
   </MeetingTextStyled>
 )
 
-const MeetingCancelledActivityText = ({ hostName, title, timestamp }) => (
+const MeetingCancelledActivityText = ({
+  hostName,
+  meetingId,
+  hostUid,
+  title,
+  timestamp
+}) => (
   <MeetingTextStyled>
     <p>
-      <strong>Meeting Cancelled!</strong> <span>{hostName}</span> has cancelled{' '}
-      <span>{title}</span>.
+      <strong>Meeting Cancelled!</strong>{' '}
+      <Link
+        to={`/people/${hostUid}`}
+        css={css`
+          display: inline;
+        `}
+      >
+        <span>{hostName}</span>
+      </Link>{' '}
+      has cancelled{' '}
+      <Link
+        to={`/meetings/${meetingId}`}
+        css={css`
+          display: inline;
+        `}
+      >
+        <span>{title}</span>
+      </Link>
+      .
     </p>
     <p>{distanceInWordsToNow(timestamp.toDate())} ago</p>
   </MeetingTextStyled>

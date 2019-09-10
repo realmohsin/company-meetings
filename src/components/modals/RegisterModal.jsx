@@ -47,12 +47,12 @@ const RegisterModal = ({
           <label
             css={css`
               ${labelCss};
-              ${values.email.length > 0 && shrunkLabelCss};
+              ${values.username.length > 0 && shrunkLabelCss};
             `}
           >
-            Username
+            Name
           </label>
-          <ErrorMessage name='email'>
+          <ErrorMessage name='username'>
             {errMsg => <div css={errCss}>{errMsg}</div>}
           </ErrorMessage>
         </div>

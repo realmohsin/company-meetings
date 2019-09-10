@@ -1,7 +1,13 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import { Link } from 'react-router-dom'
-import { appBorderColor, appColor2, appColor2Hover } from '../../emotion/variables'
+import {
+  appBorderColor,
+  appColor2,
+  appColor2Hover,
+  appColor1,
+  appColor1Hover
+} from '../../emotion/variables'
 import Ribbon from '../utils/Ribbon'
 
 const AttendeeListItem = ({ attendee }) => {
@@ -13,7 +19,7 @@ const AttendeeListItem = ({ attendee }) => {
         </Ribbon>
       )}
       <img src={attendee.photoURL} alt='attendee' />
-      <Link to={`/profile/${attendee.uid}`} css={nameStyles}>
+      <Link to={`/people/${attendee.uid}`} css={nameStyles}>
         {attendee.username}
       </Link>
     </div>
@@ -39,7 +45,7 @@ const attendeeListItemCss = css`
 const nameStyles = css`
   padding-left: 2rem;
   color: ${appColor2};
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   margin-right: 4rem;
   &:hover {
     ${appColor2Hover};

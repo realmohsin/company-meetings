@@ -52,7 +52,7 @@ const AboutSettingsPage = ({
               <option value='Human Resources'>Human Resources</option>
               <option value='Customer Service'>Customer Service</option>
               <option value='Marketing'>Marketing</option>
-              <option value='Research & Development'>Research & Development</option>
+              <option value='R & D'>Research & Development</option>
               <option value='Production'>Production</option>
             </select>
             <ErrorMessage name='department'>

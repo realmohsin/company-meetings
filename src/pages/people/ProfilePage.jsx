@@ -7,7 +7,8 @@ import {
   appMidColor,
   appTeal,
   appColor2,
-  appColor1
+  appColor1,
+  appColor2Hover
 } from '../../emotion/variables'
 import {
   fetchProfileMeetings,
@@ -73,7 +74,6 @@ class ProfilePage extends React.Component {
     const { user, photos, profileMeetings, match, someoneElsesProfile } = this.props
     const profile =
       match.params.userId === (user && user.uid) ? user : someoneElsesProfile
-    console.log('from render:', profile)
     return (
       <div css={profilePageCss}>
         {profile && (
@@ -93,7 +93,9 @@ class ProfilePage extends React.Component {
               </div>
               <div css={headerLeft}>
                 <h3>{profile.username}</h3>
-                <p>{profile.email}</p>
+                <p>
+                  <a href={`mailto:${profile.email}`}>{profile.email}</a>{' '}
+                </p>
               </div>
             </div>
             <div css={about}>
@@ -218,6 +220,12 @@ const headerLeft = css`
   & h3 {
     color: ${appColor1};
     font-size: 5rem;
+  }
+  & p {
+    color: ${appColor2};
+  }
+  & p:hover {
+    color: ${appColor2Hover};
   }
   @media (max-width: 1000px) {
     padding-left: 0;

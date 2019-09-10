@@ -1,10 +1,18 @@
 import React from 'react'
 import { css } from '@emotion/core'
+import { Link } from 'react-router-dom'
 import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
-import { appBorderColor, appDarkBlue, appTeal } from '../../emotion/variables'
+import {
+  appBorderColor,
+  appDarkBlue,
+  appTeal,
+  appColor1Hover,
+  appColor1
+} from '../../emotion/variables'
 import ReplyAreaAndButton from './ReplyAreaAndButton'
 
 const TopLevelComment = ({ comment, selectedId, handleSelectComment }) => {
+  console.log('comment: ', comment)
   return (
     <div>
       <div css={commentCss}>
@@ -14,7 +22,9 @@ const TopLevelComment = ({ comment, selectedId, handleSelectComment }) => {
         <div css={rightSideCss}>
           <div>
             <div css={commentHeader}>
-              {comment.username}
+              <Link to={`/people/${comment.uid}`} css={linkCss}>
+                {comment.username}
+              </Link>
               <span>about 7 hours ago</span>
             </div>
             <p css={textCss}>{comment.text}</p>
@@ -44,7 +54,9 @@ const TopLevelComment = ({ comment, selectedId, handleSelectComment }) => {
                       <div css={rightSideCss}>
                         <div>
                           <div css={commentHeader}>
-                            {subComment.username}
+                            <Link to={`/people/${subComment.uid}`} css={linkCss}>
+                              {subComment.username}
+                            </Link>
                             <span>about 7 hours ago</span>
                           </div>
                           <p css={textCss}>{subComment.text}</p>
@@ -102,7 +114,7 @@ const rightSideCss = css`
 const commentHeader = css`
   font-size: 1.8rem;
   font-weight: bold;
-  color: ${appTeal};
+  color: ${appColor1};
   padding-bottom: 0.7rem;
   & span {
     font-size: 1.6rem;
@@ -118,8 +130,16 @@ const commentHeader = css`
     }
   }
 `
+
+const linkCss = css`
+  display: inline;
+  &:hover {
+    color: ${appColor1Hover};
+  }
+`
+
 const textCss = css`
-  font-size: 1.9rem;
+  font-size: 1.8rem;
   padding-bottom: 0.5rem;
 `
 const replySpan = css`

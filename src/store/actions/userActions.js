@@ -158,13 +158,17 @@ export const setMainPhoto = imageURL => async dispatch => {
       .where('userUid', '==', user.uid)
       .get()
 
-    for (let i = 0; i < meetingAttendeeQuerySnap.length; i++) {
+    console.log(meetingAttendeeQuerySnap)
+
+    for (let i = 0; i < meetingAttendeeQuerySnap.docs.length; i++) {
       const meetingId = meetingAttendeeQuerySnap.docs[i].data().meetingId
+      console.log('meetingId: ', meetingId)
       const meetingRef = firestore.doc(`/meetings/${meetingId}`)
       batch.update(meetingRef, {
         [`attendees.${user.uid}.photoURL`]: imageURL
       })
-      const meetingSnap = meetingRef.get()
+      const meetingSnap = await meetingRef.get()
+      console.log('meetingSnap: ', meetingSnap)
       if (meetingSnap.data().hostUid === user.uid) {
         batch.update(meetingRef, {
           hostPhotoURL: imageURL

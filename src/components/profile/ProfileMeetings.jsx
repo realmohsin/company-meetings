@@ -73,7 +73,6 @@ const MeetingListItem = ({ meetingInfo }) => (
 )
 
 const ProfileMeetings = ({ profileMeetings }) => {
-  console.log('from ProfileMeetings: ', profileMeetings)
   const { upcomingMeetings, attendedMeetings, hostedMeetings } = profileMeetings || {}
   return (
     <ProfileMeetingsStyled>
@@ -85,7 +84,7 @@ const ProfileMeetings = ({ profileMeetings }) => {
             upcomingMeetings.map(upcomingMeeting => (
               <MeetingListItem
                 meetingInfo={upcomingMeeting}
-                key={upcomingMeeting.meetignId}
+                key={upcomingMeeting.meetingId}
               />
             ))
           ) : (

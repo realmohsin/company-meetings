@@ -82,6 +82,7 @@ const nb_AuthButton = css`
   margin-left: 1.5rem;
   &:hover {
     border-color: #f9fafb;
+    background: none;
   }
 `
 
@@ -111,6 +112,7 @@ const sd_AuthButton = css`
   font-size: 0.9em;
   &:hover {
     border-color: #f9fafb;
+    background: none;
   }
 `
 

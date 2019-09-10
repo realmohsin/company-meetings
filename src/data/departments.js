@@ -1,4 +1,4 @@
-import accounting from '../assets/accounting.jpg'
+import accountingCropped from '../assets/accountingCropped.jpg'
 import humanResources from '../assets/humanResources.jpg'
 import customerService from '../assets/customerService.jpg'
 import marketing from '../assets/marketing.jpg'
@@ -8,7 +8,7 @@ import production from '../assets/production.jpg'
 const departments = {
   Accounting: {
     color: 'blue',
-    imageURL: accounting,
+    imageURL: accountingCropped,
     rgba: 'rgba(33, 133, 208, 0.7)',
     hex: '#2185D0'
   },
@@ -30,7 +30,7 @@ const departments = {
     rgba: 'rgba(242, 113, 28, 0.7)',
     hex: '#F2711C'
   },
-  'Research & Development': {
+  'R & D': {
     color: 'purple',
     imageURL: researchDevelopment,
     rgba: 'rgba(163, 51, 200, 0.7)',
