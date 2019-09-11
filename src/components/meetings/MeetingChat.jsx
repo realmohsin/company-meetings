@@ -47,6 +47,7 @@ class MeetingChat extends React.Component {
           {comments &&
             comments.map(comment => (
               <TopLevelComment
+                key={comment.id}
                 comment={comment}
                 selectedId={selectedId}
                 handleSelectComment={this.handleSelectComment}

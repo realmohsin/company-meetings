@@ -21,12 +21,18 @@ import Ribbon from '../utils/Ribbon'
 import Button from '../utils/Button'
 import AttendeeIcon from './AttendeeIcon'
 import departments from '../../data/departments'
+import cancelledOverlay from '../../emotion/cancelledOverlay'
 
 const MeetingListItem = ({ meeting, history }) => {
   const attendeesMap = meeting.attendees
   const attendees = Object.keys(attendeesMap).map(id => ({ ...attendeesMap[id], id }))
   return (
-    <div css={meetingListItem}>
+    <div
+      css={css`
+        ${meetingListItem};
+        ${meeting.cancelled && cancelledOverlay};
+      `}
+    >
       <Ribbon
         color={departments[meeting.department].color}
         fontSize='20px'

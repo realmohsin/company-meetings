@@ -42,7 +42,7 @@ const TopLevelComment = ({ comment, selectedId, handleSelectComment }) => {
             <div css={childCommentContainer}>
               {comment.childNodes &&
                 comment.childNodes.map(subComment => (
-                  <div>
+                  <div key={subComment.id}>
                     <div css={commentCss}>
                       <div css={avatarContainer}>
                         <img

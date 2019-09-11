@@ -33,6 +33,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import departments from '../../data/departments'
 import Button from '../../components/utils/Button'
+import cancelledOverlay from '../../emotion/cancelledOverlay'
 
 const mapStateToProps = state => ({
   user: selectUser(state),
@@ -66,7 +67,12 @@ class MeetingPage extends React.Component {
     return (
       <div css={meetingPageCss}>
         <div css={leftGridContainer}>
-          <section css={headerCss}>
+          <section
+            css={css`
+              ${headerCss};
+              ${selectedMeeting.cancelled && cancelledOverlayMP}
+            `}
+          >
             <div
               css={css`
                 ${imgContainer};
@@ -88,9 +94,17 @@ class MeetingPage extends React.Component {
               {user.uid === selectedMeeting.hostUid ? (
                 <button
                   onClick={() => history.push(`/meetings/edit/${selectedMeeting.id}`)}
-                  css={buttonCss}
+                  css={css`
+                    ${buttonCss};
+                    ${selectedMeeting.cancelled &&
+                      css`
+                        z-index: 11;
+                      `}
+                  `}
                 >
-                  Edit or Cancel Meeting
+                  {selectedMeeting.cancelled
+                    ? 'Reactivate Meeting'
+                    : 'Edit or Cancel Meeting'}
                 </button>
               ) : isAttendee ? (
                 <Button
@@ -107,7 +121,12 @@ class MeetingPage extends React.Component {
               )}
             </div>
           </section>
-          <section css={detailsCss}>
+          <section
+            css={css`
+              ${detailsCss};
+              ${selectedMeeting.cancelled && cancelledOverlayMP}
+            `}
+          >
             <div
               css={css`
                 ${detailSection};
@@ -163,6 +182,16 @@ const leftGridContainer = css`
   ${''}
 `
 
+const cancelledOverlayMP = css`
+  ${cancelledOverlay};
+  &::before {
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 3rem;
+    z-index: 10;
+  }
+`
+
 const headerCss = css`
   border: 1px solid ${appBorderColor};
   border-radius: 0.6rem;
@@ -170,7 +199,9 @@ const headerCss = css`
   height: 30rem;
   width: 100%;
   overflow: hidden;
+  position: relative;
 `
+
 const imgContainer = css`
   position: relative;
   height: 20rem;
@@ -239,6 +270,7 @@ const detailsCss = css`
   height: 29rem;
   width: 100%;
   margin: 3rem 0;
+  position: relative;
   @media (max-width: 460px) {
     height: 32rem;
   }

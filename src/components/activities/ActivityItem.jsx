@@ -95,7 +95,7 @@ const MeetingCancelledActivityText = ({
       </Link>
       .
     </p>
-    <p>{distanceInWordsToNow(timestamp.toDate())} ago</p>
+    <p className='timeAgo'>{distanceInWordsToNow(timestamp.toDate())} ago</p>
   </MeetingTextStyled>
 )
 

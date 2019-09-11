@@ -1,4 +1,4 @@
-import accountingCropped from '../assets/accountingCropped.jpg'
+import accounting from '../assets/accounting.jpg'
 import humanResources from '../assets/humanResources.jpg'
 import customerService from '../assets/customerService.jpg'
 import marketing from '../assets/marketing.jpg'
@@ -8,7 +8,7 @@ import production from '../assets/production.jpg'
 const departments = {
   Accounting: {
     color: 'blue',
-    imageURL: accountingCropped,
+    imageURL: accounting,
     rgba: 'rgba(33, 133, 208, 0.7)',
     hex: '#2185D0'
   },
