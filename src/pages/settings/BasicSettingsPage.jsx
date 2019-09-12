@@ -48,8 +48,10 @@ const BasicSettingsPage = ({ values, errors, isSubmitting, setFieldValue }) => {
             <DatePicker
               selected={values.birthday}
               onChange={e => setFieldValue('birthday', e)}
+              peekNextMonth
+              showMonthDropdown
               showYearDropdown
-              scrollableYearDropdown
+              dropdownMode='select'
             />
             <ErrorMessage name='birthday'>
               {errMsg => <div css={errCss}>{errMsg}</div>}

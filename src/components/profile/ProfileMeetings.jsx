@@ -3,7 +3,6 @@ import { css } from '@emotion/core'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 import {
-  pagePadding,
   appBorderColor,
   appColor1,
   appColor2,

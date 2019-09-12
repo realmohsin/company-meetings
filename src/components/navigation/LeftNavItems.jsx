@@ -12,11 +12,11 @@ import buttonCss from '../../emotion/buttonCss'
 // Styles for SideDrawer start with sd_.
 
 const LeftNavItems = ({ sideDrawer, isAuth, user, hideSideDrawer }) => {
-  const leftNav = sideDrawer ? sd_LeftNav : nb_LeftNav
-  const navItem = sideDrawer ? sd_NavItem : nb_NavItem
-  const logoCss = sideDrawer ? sd_Logo : nb_Logo
-  const meetingButton = sideDrawer ? sd_MeetingButton : nb_MeetingButton
-  const meetingButtonBox = sideDrawer ? sd_MeetingButtonBox : nb_MeetingButtonBox
+  const leftNav = sideDrawer ? sdLeftNav : nbLeftNav
+  const navItem = sideDrawer ? sdNavItem : nbNavItem
+  const logoCss = sideDrawer ? sdLogo : nbLogo
+  const meetingButton = sideDrawer ? sdMeetingButton : nbMeetingButton
+  const meetingButtonBox = sideDrawer ? sdMeetingButtonBox : nbMeetingButtonBox
   return (
     <div css={leftNav}>
       <NavLink exact to='/' css={navItem}>
@@ -65,14 +65,14 @@ const LeftNavItems = ({ sideDrawer, isAuth, user, hideSideDrawer }) => {
 
 // styles in NavBar
 
-const nb_LeftNav = css`
+const nbLeftNav = css`
   display: flex;
   ${mq.bp1} {
     display: none;
   }
 `
 
-let nb_NavItem = css`
+let nbNavItem = css`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,13 +91,13 @@ let nb_NavItem = css`
   }
 `
 
-const nb_Logo = css`
+const nbLogo = css`
   width: 5.8rem;
   height: 5.8rem;
   padding: 0.7rem;
 `
 
-const nb_MeetingButtonBox = css`
+const nbMeetingButtonBox = css`
   &:hover {
     background: none;
   }
@@ -106,7 +106,7 @@ const nb_MeetingButtonBox = css`
   }
 `
 
-const nb_MeetingButton = css`
+const nbMeetingButton = css`
   ${buttonCss};
   padding: 0.74rem 1.38rem 0.76rem;
   margin: 0.78rem 0rem;
@@ -121,7 +121,7 @@ const nb_MeetingButton = css`
 
 // styles in SideDrawer
 
-let sd_LeftNav = css`
+let sdLeftNav = css`
   display: none;
   ${mq.bp1} {
     display: flex;
@@ -129,7 +129,7 @@ let sd_LeftNav = css`
   }
 `
 
-let sd_NavItem = css`
+let sdNavItem = css`
   padding: 1.2rem 0;
   display: flex;
   justify-content: center;
@@ -138,17 +138,17 @@ let sd_NavItem = css`
   }
 `
 
-const sd_Logo = css`
+const sdLogo = css`
   width: 9.8rem;
   height: 9.8rem;
 `
 
-const sd_MeetingButtonBox = css`
-  ${nb_MeetingButtonBox};
+const sdMeetingButtonBox = css`
+  ${nbMeetingButtonBox};
 `
 
-const sd_MeetingButton = css`
-  ${nb_MeetingButton};
+const sdMeetingButton = css`
+  ${nbMeetingButton};
   padding: 0.8rem 1.6rem;
   margin: 1.3rem 1rem;
   font-weight: normal;

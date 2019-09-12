@@ -5,9 +5,11 @@ import { Provider } from 'react-redux'
 import App from './App'
 import store from './store/store'
 import history from './history/history'
-import firebase, { firebaseAuth, firestore } from './firebase/firebase'
+import { firebaseAuth, firestore } from './firebase/firebase'
 import { setUser } from './store/actions/actions'
 import PageLoadScrollTop from './hocs/PageLoadScrollTop'
+
+console.log('from index.js')
 
 const application = (
   <Provider store={store}>

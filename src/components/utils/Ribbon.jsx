@@ -3,10 +3,10 @@ import styled from '@emotion/styled'
 // documentation
 
 // blue - 33, 133, 208
-// green - 	33, 186, 69
-// yellow - 	251, 189, 8
+// green - 33, 186, 69
+// yellow - 251, 189, 8
 // orange - 242, 113, 28
-// pink - 	224, 57, 151
+// pink - 224, 57, 151
 // purple - 163, 51, 200
 
 const colors = {

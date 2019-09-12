@@ -1,5 +1,4 @@
 import React from 'react'
-import { css } from '@emotion/core'
 import { connect } from 'react-redux'
 import {
   selectActivities,
@@ -7,7 +6,7 @@ import {
 } from '../../store/selectors/activitySelectors'
 import styled from '@emotion/styled'
 import Segment from '../utils/Segment'
-import { appBorderColor, appColor1 } from '../../emotion/variables'
+import { appColor1 } from '../../emotion/variables'
 import ActivityItem from './ActivityItem'
 
 const mapStateToProps = state => ({

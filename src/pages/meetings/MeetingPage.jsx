@@ -7,8 +7,7 @@ import {
   appBorderColor,
   appIconColor,
   darkTextColor,
-  appBoxShadow,
-  appColor2Hover
+  appBoxShadow
 } from '../../emotion/variables'
 import {
   selectMeetingsError,
@@ -25,12 +24,7 @@ import AttendeesList from '../../components/meetings/AttendeesList'
 import MeetingChat from '../../components/meetings/MeetingChat'
 import buttonCss from '../../emotion/buttonCss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faArrow,
-  faClock,
-  faMapMarker,
-  faCalendar
-} from '@fortawesome/free-solid-svg-icons'
+import { faArrow } from '@fortawesome/free-solid-svg-icons'
 import departments from '../../data/departments'
 import Button from '../../components/utils/Button'
 import cancelledOverlay from '../../emotion/cancelledOverlay'
@@ -160,7 +154,7 @@ class MeetingPage extends React.Component {
 
 // styles
 
-const meetingPageCss = css`
+export const meetingPageCss = css`
   ${pagePadding};
   color: ${darkTextColor};
   padding-top: 11rem;

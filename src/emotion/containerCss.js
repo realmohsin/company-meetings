@@ -1,5 +1,4 @@
 import { css } from '@emotion/core'
-import * as mq from './breakpoints'
 
 const containerCss = css`
   max-width: 112rem;

@@ -2,7 +2,6 @@ import React from 'react'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
-import { appBorderColor } from '../../emotion/variables'
 import { authButton, googleButton } from '../../emotion/buttonCss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -93,7 +92,6 @@ const RegisterModal = ({
         <div css={orDividerStyles}>OR</div>
         <button
           onClick={handleGoogleLoginClick}
-          type='button'
           disabled={isSubmitting}
           type='submit'
           css={googleButton}

@@ -1,16 +1,7 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import styled from '@emotion/styled'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera } from '@fortawesome/free-solid-svg-icons'
-import {
-  pagePadding,
-  appBorderColor,
-  appMidColor,
-  appTeal,
-  appColor2,
-  appColor1
-} from '../../emotion/variables'
+import { appBorderColor, appColor1 } from '../../emotion/variables'
 
 const PhotoItem = styled.img`
   display: block;
@@ -88,10 +79,6 @@ const noPhotosStyles = css`
   display: flex;
   align-items: center;
   justify-content: center;
-`
-
-const iconCss = css`
-  font-size: 5rem;
 `
 
 export default ProfilePhotos

@@ -1,13 +1,7 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import { Link } from 'react-router-dom'
-import {
-  appBorderColor,
-  appColor2,
-  appColor2Hover,
-  appColor1,
-  appColor1Hover
-} from '../../emotion/variables'
+import { appBorderColor, appColor2, appColor2Hover } from '../../emotion/variables'
 import Ribbon from '../utils/Ribbon'
 
 const AttendeeListItem = ({ attendee }) => {

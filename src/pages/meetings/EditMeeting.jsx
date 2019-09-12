@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withFormik, Form, Field, ErrorMessage } from 'formik'
 import {
-  pagePadding,
+  pagePadding
 } from '../../emotion/variables'
 import { inputCss, errCss } from '../../emotion/textInputCss'
 import {
@@ -25,7 +25,8 @@ import datepickerStyles from '../../emotion/datepickerStyles'
 import pageTitleStyles from '../../emotion/pageTitleStyles'
 import inputContainerStyles from '../../emotion/inputContainerStyles'
 import formSubmitErrStyles from '../../emotion/formSubmitErrStyles'
-import meetingValidationSchema from '../../validation/meetingValidation';
+import meetingValidationSchema from '../../validation/meetingValidation'
+import { meetingPageCss } from './MeetingPage'
 
 const mapStateToProps = state => ({
   selectedMeeting: selectSelectedMeeting(state),

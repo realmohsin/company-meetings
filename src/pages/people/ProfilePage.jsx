@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import {
   pagePadding,
   appBorderColor,
-  appMidColor,
-  appTeal,
   appColor2,
   appColor1,
   appColor2Hover

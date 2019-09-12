@@ -11,6 +11,7 @@ import {
   RESET_DASHBOARD_STATE,
   EDIT_MEETING_START,
   EDIT_MEETING_SUCCESS,
+  EDIT_MEETING_ERROR,
   JOIN_MEETING_START,
   JOIN_MEETING_SUCCESS,
   JOIN_MEETING_ERROR,
@@ -65,10 +66,10 @@ export const createMeeting = (values, formHandlers) => async (dispatch, getState
     const user = getState().auth.user
     const newMeeting = _createNewMeetingFromFormValues(user, values)
     const meetingRef = await meetingsRef.add(newMeeting)
-    const meeting_attendeeDocRef = firestore.doc(
+    const meetingAttendeeDocRef = firestore.doc(
       `/meeting_attendee/${meetingRef.id}_${user.uid}`
     )
-    await meeting_attendeeDocRef.set({
+    await meetingAttendeeDocRef.set({
       userUid: user.uid,
       meetingId: meetingRef.id,
       date: newMeeting.date,
@@ -96,11 +97,11 @@ export const editMeeting = (id, values, formHandlers) => async dispatch => {
     }
     if (!isEqual(meetingDoc.data().date.toDate(), values.date)) {
       const user = firebaseAuth.currentUser
-      const meeting_attendeeRef = firestore.doc(
+      const meetingAttendeeRef = firestore.doc(
         `/meeting_attendee/${meetingRef.id}_${user.uid}`
       )
       const batch = firestore.batch()
-      batch.update(meeting_attendeeRef, { date: values.date })
+      batch.update(meetingAttendeeRef, { date: values.date })
       batch.update(meetingRef, values)
       await batch.commit()
     } else {
@@ -207,9 +208,7 @@ export const leaveMeeting = meetingId => async dispatch => {
   try {
     const user = firebaseAuth.currentUser
     const meetingRef = firestore.doc(`/meetings/${meetingId}`)
-    const meeting_attendeeRef = firestore.doc(
-      `/meeting_attendee/${meetingId}_${user.uid}`
-    )
+    const meetingAttendeeRef = firestore.doc(`/meeting_attendee/${meetingId}_${user.uid}`)
     const meetingSnapshot = await meetingRef.get()
     if (!meetingSnapshot.exists) {
       throw new Error('Meeting does not exist')
@@ -217,7 +216,7 @@ export const leaveMeeting = meetingId => async dispatch => {
     await meetingRef.update({
       [`attendees.${user.uid}`]: firebase.firestore.FieldValue.delete()
     })
-    await meeting_attendeeRef.delete()
+    await meetingAttendeeRef.delete()
     dispatch({ type: LEAVE_MEETING_SUCCESS, userUid: user.uid })
   } catch (error) {
     console.log('Error from leaveMeeting: ', error)

@@ -16,15 +16,7 @@ import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 import * as mq from '../../emotion/breakpoints'
 import { logout } from '../../store/actions/actions'
 import { selectUser } from '../../store/selectors/authSelectors'
-import {
-  appIconColor,
-  appAqua,
-  appColor2,
-  appColor1,
-  appBorderColor,
-  darkTextColor,
-  appColor2Hover
-} from '../../emotion/variables'
+import { appColor2Hover } from '../../emotion/variables'
 
 // nav item for right/bottom side of navbar as dropdown that reveals authed routes
 
@@ -77,7 +69,7 @@ class NavDropdown extends React.Component {
         <div css={textBox}>{user.username}</div>
         <FontAwesomeIcon
           icon={sideDrawer ? faCaretUp : faCaretDown}
-          css={sideDrawer && sd_caret}
+          css={sideDrawer && sdCaret}
         />
         {isOpen && (
           <ul css={dropdownEle}>
@@ -245,7 +237,7 @@ const tooBigIcon = css`
   transform: scale(0.94) translateX(-4px);
 `
 
-const sd_caret = css``
+const sdCaret = css``
 
 export default connect(
   mapStateToProps,

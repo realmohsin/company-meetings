@@ -10,9 +10,9 @@ import buttonCss from '../../emotion/buttonCss'
 // Styles for SideDrawer start with sd_.
 
 const RightNavItems = ({ sideDrawer, isAuth, openModal, hideSideDrawer }) => {
-  const rightNav = sideDrawer ? sd_RightNav : nb_RightNav
-  const navItem = sideDrawer ? sd_NavItem : nb_NavItem
-  const authButton = sideDrawer ? sd_AuthButton : nb_AuthButton
+  const rightNav = sideDrawer ? sdRightNav : nbRightNav
+  const navItem = sideDrawer ? sdNavItem : nbNavItem
+  const authButton = sideDrawer ? sdAuthButton : nbAuthButton
   return (
     <div css={rightNav}>
       {isAuth ? (
@@ -40,7 +40,7 @@ const RightNavItems = ({ sideDrawer, isAuth, openModal, hideSideDrawer }) => {
 
 // styles when in NavBar
 
-const nb_RightNav = css`
+const nbRightNav = css`
   display: flex;
   user-select: none;
   ${mq.bp1} {
@@ -48,7 +48,7 @@ const nb_RightNav = css`
   }
 `
 
-const nb_NavItem = css`
+const nbNavItem = css`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,7 +74,7 @@ const userDropdown = css`
   }
 `
 
-const nb_AuthButton = css`
+const nbAuthButton = css`
   ${buttonCss};
   background: none;
   border: 2px solid rgba(255, 255, 255, 0.5);
@@ -88,7 +88,7 @@ const nb_AuthButton = css`
 
 // styles when in SideDrawer
 
-const sd_RightNav = css`
+const sdRightNav = css`
   display: none;
   ${mq.bp1} {
     display: flex;
@@ -96,14 +96,14 @@ const sd_RightNav = css`
   }
 `
 
-const sd_NavItem = css`
+const sdNavItem = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-bottom: 2rem;
 `
 
-const sd_AuthButton = css`
+const sdAuthButton = css`
   ${buttonCss};
   background: none;
   text-align: center;

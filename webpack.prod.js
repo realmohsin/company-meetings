@@ -15,10 +15,6 @@ module.exports = {
     publicPath: '/'
   },
   optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: false
-    },
     minimizer: [new TerserPlugin()]
   },
   resolve: {

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { appColor1, appBorderColor } from '../../emotion/variables'
+import { appBorderColor } from '../../emotion/variables'
 
 const AttendeeIconStyled = styled.img`
   display: inline-block;

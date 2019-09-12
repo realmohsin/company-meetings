@@ -1,11 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import {
-  modalStyles,
-  headerCss,
-  authBodyBox,
-  googleIcon
-} from '../../emotion/modalStyles'
+import { modalStyles, headerCss } from '../../emotion/modalStyles'
 import { appBorderColor } from '../../emotion/variables'
 import Button from '../../components/utils/Button'
 import history from '../../history/history'

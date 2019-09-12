@@ -1,6 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import { appBorderColor, appAqua, appBoxShadow, appColor1 } from '../../emotion/variables'
+import { appBoxShadow, appColor1 } from '../../emotion/variables'
 import AttendeeListItem from './AttendeeListItem'
 
 const AttendeesList = ({ attendees }) => {

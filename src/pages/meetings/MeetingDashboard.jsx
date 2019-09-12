@@ -6,17 +6,15 @@ import Activity from '../../components/activities/Activity'
 import { pagePadding } from '../../emotion/variables'
 import {
   fetchMeetingsForDashboard,
-  resetDashboardState
+  resetDashboardState,
+  onSuccessActivityListener,
+  onErrorActivityListener
 } from '../../store/actions/actions'
 import {
   selectAllFetchedMeetings,
   selectIsMoreToFetch,
   selectMeetingsError
 } from '../../store/selectors/meetingSelectors'
-import {
-  onSuccessActivityListener,
-  onErrorActivityListener
-} from '../../store/actions/actions'
 import { firestore } from '../../firebase/firebase'
 
 const mapStateToProps = state => ({

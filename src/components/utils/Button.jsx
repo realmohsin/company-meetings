@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/core'
 import { appColor2Hover, appColor2 } from '../../emotion/variables'

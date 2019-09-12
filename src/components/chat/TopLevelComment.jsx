@@ -2,13 +2,7 @@ import React from 'react'
 import { css } from '@emotion/core'
 import { Link } from 'react-router-dom'
 import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
-import {
-  appBorderColor,
-  appDarkBlue,
-  appTeal,
-  appColor1Hover,
-  appColor1
-} from '../../emotion/variables'
+import { appColor1Hover, appColor1 } from '../../emotion/variables'
 import ReplyAreaAndButton from './ReplyAreaAndButton'
 
 const TopLevelComment = ({ comment, selectedId, handleSelectComment }) => {
