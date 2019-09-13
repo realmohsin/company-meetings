@@ -3,6 +3,7 @@ import { css } from '@emotion/core'
 import { Link } from 'react-router-dom'
 import { appBorderColor, appColor2, appColor2Hover } from '../../emotion/variables'
 import Ribbon from '../utils/Ribbon'
+import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 
 const AttendeeListItem = ({ attendee }) => {
   return (
@@ -12,7 +13,7 @@ const AttendeeListItem = ({ attendee }) => {
           Host
         </Ribbon>
       )}
-      <img src={attendee.photoURL} alt='attendee' />
+      <img src={attendee.photoURL || defaultUserPhoto} alt='attendee' />
       <Link to={`/people/${attendee.uid}`} css={nameStyles}>
         {attendee.username}
       </Link>

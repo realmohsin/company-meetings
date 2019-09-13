@@ -206,9 +206,9 @@ export const deletePhotoFromProfile = (id, photoName, imageURL) => async dispatc
   try {
     const user = firebaseAuth.currentUser
 
-    const storageRef = firebaseStorage.ref()
-    const imageRef = storageRef.child(`${user.uid}/profilePhotos/${photoName}`)
-    await imageRef.delete()
+    // const storageRef = firebaseStorage.ref()
+    // const imageRef = storageRef.child(`${user.uid}/profilePhotos/${photoName}`)
+    // await imageRef.delete()
 
     const userProfileRef = firestore.doc(`/users/${user.uid}`)
     const userProfileSnap = await userProfileRef.get()
