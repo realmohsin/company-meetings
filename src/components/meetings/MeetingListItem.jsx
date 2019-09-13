@@ -22,6 +22,7 @@ import Button from '../utils/Button'
 import AttendeeIcon from './AttendeeIcon'
 import departments from '../../data/departments'
 import cancelledOverlay from '../../emotion/cancelledOverlay'
+import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 
 const MeetingListItem = ({ meeting, history }) => {
   const attendeesMap = meeting.attendees
@@ -76,7 +77,10 @@ const MeetingListItem = ({ meeting, history }) => {
       <div css={attendeesCss}>
         {attendees &&
           attendees.map(attendee => (
-            <AttendeeIcon key={attendee.id} photoURL={attendee.photoURL} />
+            <AttendeeIcon
+              key={attendee.id}
+              photoURL={attendee.photoURL || defaultUserPhoto}
+            />
           ))}
       </div>
       <div css={locationCss}>

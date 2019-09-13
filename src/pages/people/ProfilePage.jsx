@@ -72,6 +72,7 @@ class ProfilePage extends React.Component {
     const { user, photos, profileMeetings, match, someoneElsesProfile } = this.props
     const profile =
       match.params.userId === (user && user.uid) ? user : someoneElsesProfile
+    console.log(profile)
     return (
       <div css={profilePageCss}>
         {profile && (

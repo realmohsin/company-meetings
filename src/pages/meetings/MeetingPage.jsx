@@ -24,7 +24,7 @@ import AttendeesList from '../../components/meetings/AttendeesList'
 import MeetingChat from '../../components/meetings/MeetingChat'
 import buttonCss from '../../emotion/buttonCss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrow } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import departments from '../../data/departments'
 import Button from '../../components/utils/Button'
 import cancelledOverlay from '../../emotion/cancelledOverlay'
@@ -127,7 +127,7 @@ class MeetingPage extends React.Component {
                 color: ${departments[selectedMeeting.department].hex};
               `}
             >
-              <FontAwesomeIcon css={iconCss} icon={faArrow} />
+              <FontAwesomeIcon css={iconCss} icon={faArrowRight} />
               {selectedMeeting.department}
             </div>
             <div css={detailSection}>

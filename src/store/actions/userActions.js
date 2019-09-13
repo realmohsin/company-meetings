@@ -174,6 +174,24 @@ export const setMainPhoto = imageURL => async dispatch => {
           hostPhotoURL: imageURL
         })
       }
+      if (meetingAttendeeQuerySnap.docs[i].data().host) {
+        const recentActivitiesQuerySnap = await firestore
+          .collection('activities')
+          .orderBy('timestamp', 'desc')
+          .limit(5)
+          .get()
+        console.log('recentActivitiesQuerySnap: ', recentActivitiesQuerySnap)
+        for (let i = 0; i < recentActivitiesQuerySnap.docs.length; i++) {
+          if (recentActivitiesQuerySnap.docs[i].data().hostUid === user.uid) {
+            const activityRef = firestore.doc(
+              `/activities/${recentActivitiesQuerySnap.docs[i].id}`
+            )
+            batch.update(activityRef, {
+              hostPhotoURL: imageURL
+            })
+          }
+        }
+      }
     }
     await batch.commit()
     dispatch({ type: SET_MAIN_PHOTO_SUCCESS })
@@ -197,9 +215,7 @@ export const deletePhotoFromProfile = (id, photoName, imageURL) => async dispatc
     const userPhotoURL = userProfileSnap.data().photoURL
     console.log('userPhotoURL: ', userPhotoURL, 'imageURL: ', imageURL)
     if (userPhotoURL === imageURL) {
-      await userProfileRef.update({
-        photoURL: ''
-      })
+      dispatch(setMainPhoto(''))
     }
 
     await userProfileRef

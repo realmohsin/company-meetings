@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { appBorderColor, appColor2, appColor2Hover } from '../../emotion/variables'
 import AttendeeIcon from '../meetings/AttendeeIcon'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
+import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 
 const ActivityItemStyled = styled.div`
   padding: 1.5rem 1rem 1rem 0.5rem;
@@ -107,7 +108,7 @@ const ActivityItem = ({ activity }) => {
           width: 8rem;
         `}
       >
-        <AttendeeIcon photoURL={activity.hostPhotoURL} />
+        <AttendeeIcon photoURL={activity.hostPhotoURL || defaultUserPhoto} />
       </div>
       {activity.type === 'newMeeting' ? (
         <NewMeetingActivityText {...activity} />

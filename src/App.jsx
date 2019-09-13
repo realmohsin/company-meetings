@@ -1,23 +1,33 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { hot } from 'react-hot-loader/root'
 import { Global, css } from '@emotion/core'
 import NavBar from './components/navigation/NavBar'
 import SideDrawer from './components/navigation/SideDrawer'
-import MeetingDashboard from './pages/meetings/MeetingDashboard'
-import TitlePage from './pages/TitlePage'
-import EditMeeting from './pages/meetings/EditMeeting'
-import CreateMeeting from './pages/meetings/CreateMeeting'
-import MeetingPage from './pages/meetings/MeetingPage'
-import ProfilePage from './pages/people/ProfilePage'
-import SettingsDashboard from './pages/settings/SettingsDashboard'
+// import MeetingDashboard from './pages/meetings/MeetingDashboard'
+// import TitlePage from './pages/TitlePage'
+// import EditMeeting from './pages/meetings/EditMeeting'
+// import CreateMeeting from './pages/meetings/CreateMeeting'
+// import MeetingPage from './pages/meetings/MeetingPage'
+// import ProfilePage from './pages/people/ProfilePage'
+// import SettingsDashboard from './pages/settings/SettingsDashboard'
 import ModalManager from './components/modals/ModalManager'
 import containerCss from './emotion/containerCss'
 import { firebaseAuth, firestore } from './firebase/firebase'
 import { setUser, openModal } from './store/actions/actions'
 import { selectIsAuth } from './store/selectors/authSelectors'
 import withAuthGuard from './hocs/withAuthGuard'
+
+const MeetingDashboard = React.lazy(() => import('./pages/meetings/MeetingDashboard'))
+const CreateMeeting = React.lazy(() => import('./pages/meetings/CreateMeeting'))
+const EditMeeting = React.lazy(() => import('./pages/meetings/EditMeeting'))
+const MeetingPage = React.lazy(() => import('./pages/meetings/MeetingPage'))
+const ProfilePage = React.lazy(() => import('./pages/people/ProfilePage'))
+const SettingsDashboard = React.lazy(() => import('./pages/settings/SettingsDashboard'))
+const TitlePage = React.lazy(() => import('./pages/TitlePage'))
+
+const Loader = () => <div>Loading...</div>
 
 const mapStateToProps = state => ({
   isAuthenticated: selectIsAuth(state)
@@ -57,16 +67,29 @@ class App extends React.Component {
       <>
         <Global styles={globalStyles} />
         <Switch>
-          <Route exact path='/' component={TitlePage} />
+          <Route
+            exact
+            path='/'
+            render={props => (
+              <Suspense fallback={<Loader />}>
+                <TitlePage {...props} />
+              </Suspense>
+            )}
+          />
           <Route
             render={() => (
-              <>
+              <Suspense fallback={<Loader />}>
                 <NavBar />
                 <ModalManager />
                 <SideDrawer />
                 <div css={containerCss}>
                   <Switch>
-                    <Route exact path='/meetings' component={MeetingDashboard} />
+                    <Route
+                      exact
+                      path='/meetings'
+                      component={MeetingDashboard}
+                      render={() => <MeetingDashboard />}
+                    />
                     <Route
                       path='/meetings/edit/:meetingId'
                       render={props =>
@@ -100,7 +123,7 @@ class App extends React.Component {
                     <Route render={() => <h1 style={{ marginTop: 58 }}>404</h1>} />
                   </Switch>
                 </div>
-              </>
+              </Suspense>
             )}
           />
         </Switch>
