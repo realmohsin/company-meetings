@@ -1,15 +1,21 @@
 const path = require('path')
 const express = require('express')
+const expressStaticGzip = require('express-static-gzip')
 
 const app = express()
 
+const port = process.env.PORT || 8080
 const distPath = path.join(__dirname, '../dist')
 
-app.use(express.static(distPath))
+app.use(
+  expressStaticGzip(distPath, {
+    enableBrotli: true,
+    orderPreference: ['br']
+  })
+)
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'))
+  res.sendFile(path.join(distPath, 'index.html'))
 })
 
-const port = process.env.PORT || 8080
-app.listen(port, () => console.log(`Server up at port ${PORT}...`))
+app.listen(port, () => console.log(`Server is running on port ${port}...`))

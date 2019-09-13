@@ -3,7 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+const BrotliPlugin = require('brotli-webpack-plugin')
 
 module.exports = {
   mode: 'production',
@@ -25,7 +27,7 @@ module.exports = {
         }
       }
     },
-    minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})]
+    minimizer: [new TerserPlugin(), new OptimizeCssAssetsPlugin({})]
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -74,14 +76,26 @@ module.exports = {
       template: './src/index.html',
       favicon: 'src/assets/favicon.ico',
       minify: {
-        removeAttributeQuotes: true,
-        collapseWhiteSpace: true,
-        removeComments: true
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true
       }
     }),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'
     }),
-    new CleanWebpackPlugin()
+    new OptimizeCssAssetsPlugin({
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }]
+      }
+    }),
+    new CompressionPlugin({
+      algorithm: 'gzip'
+    }),
+    new BrotliPlugin()
   ]
 }
