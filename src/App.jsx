@@ -18,6 +18,8 @@ import { firebaseAuth, firestore } from './firebase/firebase'
 import { setUser, openModal } from './store/actions/actions'
 import { selectIsAuth } from './store/selectors/authSelectors'
 import withAuthGuard from './hocs/withAuthGuard'
+import Loader from './components/utils/Loader'
+import { appColor1Hover } from './emotion/variables'
 
 const MeetingDashboard = React.lazy(() => import('./pages/meetings/MeetingDashboard'))
 const CreateMeeting = React.lazy(() => import('./pages/meetings/CreateMeeting'))
@@ -26,8 +28,6 @@ const MeetingPage = React.lazy(() => import('./pages/meetings/MeetingPage'))
 const ProfilePage = React.lazy(() => import('./pages/people/ProfilePage'))
 const SettingsDashboard = React.lazy(() => import('./pages/settings/SettingsDashboard'))
 const TitlePage = React.lazy(() => import('./pages/TitlePage'))
-
-const Loader = () => <div>Loading...</div>
 
 const mapStateToProps = state => ({
   isAuthenticated: selectIsAuth(state)
@@ -71,14 +71,14 @@ class App extends React.Component {
             exact
             path='/'
             render={props => (
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<Loader>Loading...</Loader>}>
                 <TitlePage {...props} />
               </Suspense>
             )}
           />
           <Route
             render={() => (
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<Loader>Loading...</Loader>}>
                 <NavBar />
                 <ModalManager />
                 <SideDrawer />
@@ -120,7 +120,19 @@ class App extends React.Component {
                         )
                       }
                     />
-                    <Route render={() => <h1 style={{ marginTop: 58 }}>404</h1>} />
+                    <Route
+                      render={() => (
+                        <h2
+                          css={css`
+                            text-align: center;
+                            margin: 10rem auto;
+                            color: ${appColor1Hover};
+                          `}
+                        >
+                          404
+                        </h2>
+                      )}
+                    />
                   </Switch>
                 </div>
               </Suspense>

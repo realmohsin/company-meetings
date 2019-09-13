@@ -147,7 +147,16 @@ last major things to do:
 ✔️ photo uploading bug
 ✔️ add redirect-to-top-of-page library
 ✔️ modals responsive
-- code splitting optimization
+✔️ code splitting optimization
 
 
 Titillium Web
+
+- put into production with heroku
+✔️ loader component
+- 404 page
+✔️ css compression
+- manual css pruning
+- image compression with cloud functions
+- app intro in title page for demo
+- readme page
