@@ -4,17 +4,14 @@
   "description": "Internal Application for Company Meetings",
   "author": "Real Mohsin",
   "license": "ISC",
-  "engines": {
-    "node": "11.12.0",
-    "npm": "6.7.0"
-  },
   "scripts": {
     "start": "node server/server.js",
     "dev": "webpack-dev-server --config webpack.dev.js --open",
     "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix",
-    "analyze": "source-map-explorer 'dist/*.js'"
+    "analyze": "source-map-explorer 'dist/*.js'",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@babel/core": "7.4.4",
