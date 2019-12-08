@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { hot } from 'react-hot-loader/root'
 import { Global, css } from '@emotion/core'
 import NavBar from './components/navigation/NavBar'
 import SideDrawer from './components/navigation/SideDrawer'
@@ -21,13 +20,27 @@ import withAuthGuard from './hocs/withAuthGuard'
 import Loader from './components/utils/Loader'
 import { appColor1Hover } from './emotion/variables'
 
-const MeetingDashboard = React.lazy(() => import('./pages/meetings/MeetingDashboard'))
-const CreateMeeting = React.lazy(() => import('./pages/meetings/CreateMeeting'))
-const EditMeeting = React.lazy(() => import('./pages/meetings/EditMeeting'))
-const MeetingPage = React.lazy(() => import('./pages/meetings/MeetingPage'))
-const ProfilePage = React.lazy(() => import('./pages/people/ProfilePage'))
-const SettingsDashboard = React.lazy(() => import('./pages/settings/SettingsDashboard'))
-const TitlePage = React.lazy(() => import('./pages/TitlePage'))
+const MeetingDashboard = React.lazy(() =>
+  import(/* webpackChunkName:'MeetingDashboard' */ './pages/meetings/MeetingDashboard')
+)
+const CreateMeeting = React.lazy(() =>
+  import(/* webpackChunkName:'CreateMeeting' */ './pages/meetings/CreateMeeting')
+)
+const EditMeeting = React.lazy(() =>
+  import(/* webpackChunkName:'EditMeeting' */ './pages/meetings/EditMeeting')
+)
+const MeetingPage = React.lazy(() =>
+  import(/* webpackChunkName:'MeetingPage' */ './pages/meetings/MeetingPage')
+)
+const ProfilePage = React.lazy(() =>
+  import(/* webpackChunkName:'ProfilePage' */ './pages/people/ProfilePage')
+)
+const SettingsDashboard = React.lazy(() =>
+  import(/* webpackChunkName:'SettingsDashboard' */ './pages/settings/SettingsDashboard')
+)
+const TitlePage = React.lazy(() =>
+  import(/* webpackChunkName:'TitlePage' */ './pages/TitlePage')
+)
 
 const mapStateToProps = state => ({
   isAuthenticated: selectIsAuth(state)
@@ -93,19 +106,34 @@ class App extends React.Component {
                     <Route
                       path='/meetings/edit/:meetingId'
                       render={props =>
-                        withAuthGuard(isAuthenticated, openModal, EditMeeting, props)
+                        withAuthGuard(
+                          isAuthenticated,
+                          openModal,
+                          EditMeeting,
+                          props
+                        )
                       }
                     />
                     <Route
                       path='/meetings/create-meeting'
                       render={props =>
-                        withAuthGuard(isAuthenticated, openModal, CreateMeeting, props)
+                        withAuthGuard(
+                          isAuthenticated,
+                          openModal,
+                          CreateMeeting,
+                          props
+                        )
                       }
                     />
                     <Route
                       path='/meetings/:meetingId'
                       render={props =>
-                        withAuthGuard(isAuthenticated, openModal, MeetingPage, props)
+                        withAuthGuard(
+                          isAuthenticated,
+                          openModal,
+                          MeetingPage,
+                          props
+                        )
                       }
                     />
                     <Route path='/people/:userId' component={ProfilePage} />
@@ -195,4 +223,4 @@ const globalStyles = css`
 export default connect(
   mapStateToProps,
   { setUser, openModal }
-)(process.env.NODE_ENV === 'development' ? hot(App) : App)
+)(App)
