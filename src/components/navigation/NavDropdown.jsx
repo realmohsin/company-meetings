@@ -18,6 +18,8 @@ import { logout } from '../../store/actions/actions'
 import { selectUser } from '../../store/selectors/authSelectors'
 import { appColor2Hover } from '../../emotion/variables'
 
+console.log('default user photo from nav dropdown: ', defaultUserPhoto)
+
 // nav item for right/bottom side of navbar as dropdown that reveals authed routes
 
 const mapStateToProps = state => ({
@@ -40,7 +42,10 @@ class NavDropdown extends React.Component {
   // }
 
   handleClickOutside = e => {
-    if (this.navDropdownRef.current && !this.navDropdownRef.current.contains(e.target)) {
+    if (
+      this.navDropdownRef.current &&
+      !this.navDropdownRef.current.contains(e.target)
+    ) {
       this.setState({
         isOpen: false
       })
@@ -64,8 +69,16 @@ class NavDropdown extends React.Component {
     const { user, logout, sideDrawer, hideSideDrawer } = this.props
     const { isOpen } = this.state
     return (
-      <div css={navDropdown} onClick={this.toggleDropdown} ref={this.navDropdownRef}>
-        <img src={user.photoURL || defaultUserPhoto} alt='Nav Item Icon' css={imgCss} />
+      <div
+        css={navDropdown}
+        onClick={this.toggleDropdown}
+        ref={this.navDropdownRef}
+      >
+        <img
+          src={user.photoURL || defaultUserPhoto}
+          alt='Nav Item Icon'
+          css={imgCss}
+        />
         <div css={textBox}>{user.username}</div>
         <FontAwesomeIcon
           icon={sideDrawer ? faCaretUp : faCaretDown}

@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "start": "node server/server.js",
-    "dev": "webpack-dev-server --config webpack.dev.js --open",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js --open",
     "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
     "lint": "eslint **/*.js",
     "lint-fix": "eslint **/*.js --fix",
@@ -37,6 +37,7 @@
     "css-loader": "2.1.1",
     "cuid": "2.1.6",
     "date-fns": "1.30.1",
+    "dotenv": "8.2.0",
     "eslint": "5.16.0",
     "eslint-config-standard": "12.0.0",
     "eslint-config-standard-react": "7.0.2",

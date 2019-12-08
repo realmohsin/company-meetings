@@ -1,11 +1,18 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import { Link } from 'react-router-dom'
-import { appBorderColor, appColor2, appColor2Hover } from '../../emotion/variables'
+import {
+  appBorderColor,
+  appColor2,
+  appColor2Hover
+} from '../../emotion/variables'
 import Ribbon from '../utils/Ribbon'
 import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
 
+console.log('default user photo from attendeelistitem', defaultUserPhoto)
+
 const AttendeeListItem = ({ attendee }) => {
+  console.log('attendee photoURL: ', attendee.photoURL)
   return (
     <div css={attendeeListItemCss}>
       {attendee.isHost && (
