@@ -21,7 +21,7 @@ const firebaseConfig = {
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.FIREBASE_APP_ID
-};
+}
 
 firebase.initializeApp(firebaseConfig)
 
@@ -32,4 +32,10 @@ const firestore = firebase.firestore()
 
 const firebaseStorage = firebase.storage()
 
-export { firebase as default, firebaseAuth, googleProvider, firestore, firebaseStorage }
+export {
+  firebase as default,
+  firebaseAuth,
+  googleProvider,
+  firestore,
+  firebaseStorage
+}
