@@ -59,7 +59,10 @@ const _createNewMeetingFromFormValues = (user, formValues) => {
   }
 }
 
-export const createMeeting = (values, formHandlers) => async (dispatch, getState) => {
+export const createMeeting = (values, formHandlers) => async (
+  dispatch,
+  getState
+) => {
   dispatch({ type: CREATE_MEETING_START })
   try {
     const meetingsRef = firestore.collection('meetings')
@@ -122,15 +125,20 @@ export const fetchMeetingsForDashboard = () => async (dispatch, getState) => {
     const meetingsRef = firestore.collection('meetings')
     let query
     const dashboardState = getState().meetings.dashboard
+    const date = new Date()
+    date.setDate(date.getDate() - 1)
     if (dashboardState.willBeInitialFetch) {
       query = meetingsRef
         .orderBy('date')
-        .startAfter(new Date())
+        .startAfter(date)
         .limit(2)
     } else {
       const newlyFetchedMeetings = dashboardState.newlyFetchedMeetings
-      const lastMeetingInState = newlyFetchedMeetings[newlyFetchedMeetings.length - 1]
-      const startAfter = await firestore.doc(`/meetings/${lastMeetingInState.id}`).get()
+      const lastMeetingInState =
+        newlyFetchedMeetings[newlyFetchedMeetings.length - 1]
+      const startAfter = await firestore
+        .doc(`/meetings/${lastMeetingInState.id}`)
+        .get()
       query = meetingsRef
         .orderBy('date')
         .startAfter(startAfter)
@@ -145,7 +153,10 @@ export const fetchMeetingsForDashboard = () => async (dispatch, getState) => {
     dispatch({ type: FETCH_DASHBOARD_MEETINGS_SUCCESS, meetings })
   } catch (error) {
     console.log('Error from fetchMeetingsForDashboard: ', error)
-    dispatch({ type: FETCH_DASHBOARD_MEETINGS_ERROR, error: { message: error.message } })
+    dispatch({
+      type: FETCH_DASHBOARD_MEETINGS_ERROR,
+      error: { message: error.message }
+    })
   }
 }
 
@@ -163,7 +174,10 @@ export const fetchSelectedMeeting = meetingId => async dispatch => {
     dispatch({ type: FETCH_SELECTED_MEETING_SUCCESS, meeting })
   } catch (error) {
     console.log('Error from fetchSelectedMeeting: ', error)
-    dispatch({ type: FETCH_SELECTED_MEETING_ERROR, error: { message: error.message } })
+    dispatch({
+      type: FETCH_SELECTED_MEETING_ERROR,
+      error: { message: error.message }
+    })
   }
 }
 
@@ -173,7 +187,9 @@ export const joinMeeting = meetingId => async (dispatch, getState) => {
     const user = getState().auth.user
     console.log('from joinMeeting - user: ', user)
     const meetingRef = firestore.doc(`/meetings/${meetingId}`)
-    const meetingAttendeeRef = firestore.doc(`/meeting_attendee/${meetingId}_${user.uid}`)
+    const meetingAttendeeRef = firestore.doc(
+      `/meeting_attendee/${meetingId}_${user.uid}`
+    )
     const attendee = {
       isHost: false,
       photoURL: user.photoURL,
@@ -208,7 +224,9 @@ export const leaveMeeting = meetingId => async dispatch => {
   try {
     const user = firebaseAuth.currentUser
     const meetingRef = firestore.doc(`/meetings/${meetingId}`)
-    const meetingAttendeeRef = firestore.doc(`/meeting_attendee/${meetingId}_${user.uid}`)
+    const meetingAttendeeRef = firestore.doc(
+      `/meeting_attendee/${meetingId}_${user.uid}`
+    )
     const meetingSnapshot = await meetingRef.get()
     if (!meetingSnapshot.exists) {
       throw new Error('Meeting does not exist')
@@ -234,7 +252,10 @@ export const cancelMeetingToggle = (cancelled, meetingId) => async dispatch => {
     dispatch({ type: CANCEL_MEETING_TOGGLE_SUCCESS, cancelled })
   } catch (error) {
     console.log('Error from cancelMeetingToggle: ', error)
-    dispatch({ type: CANCEL_MEETING_TOGGLE_ERROR, error: { message: error.message } })
+    dispatch({
+      type: CANCEL_MEETING_TOGGLE_ERROR,
+      error: { message: error.message }
+    })
   }
 }
 
@@ -268,6 +289,9 @@ export const addMeetingComment = (
   } catch (error) {
     console.log('error from addMeetingComment: ', error)
     _handleFormOnDatabaseErr(error.message, formHandlers)
-    dispatch({ type: ADD_MEETING_COMMENT_ERROR, error: { message: error.message } })
+    dispatch({
+      type: ADD_MEETING_COMMENT_ERROR,
+      error: { message: error.message }
+    })
   }
 }
