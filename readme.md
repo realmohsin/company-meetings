@@ -1,11 +1,21 @@
 <div align="center">
-  <img alt="Logo" src="https://image.flaticon.com/icons/png/512/1046/1046784.png" width="100" />
+  <img alt="Logo" src="https://image.flaticon.com/icons/png/512/490/490283.png" width="100" />
 </div>
 <h1 align="center">
-  Burger Builder
+  Company Meetings
 </h1>
 <p align="center">
-  Interactive food ordering application, allowing graphical interface for adding ingredients to a burger before moving on to a form page for finalizing the order. 
+Fully Featured Application for Organizing Company Meetings
+
+Features include:
+Real time chat for every meeting
+Real time activity feed detailing the latest user actions
+JWT Authentication (and third-party options)
+Photo Uploading for User Profiles
+User Interface design that is intuitive and responsive
+Technologies Used: React, Redux, React-Router, Express, NodeJs, and Firebase
+
+VIEW
 
 </p>
 
