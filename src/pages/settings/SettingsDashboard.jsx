@@ -50,7 +50,12 @@ class SettingsDashboard extends React.Component {
   }
 
   render () {
-    const { user, updateProfileBasics, updateProfileAbout, changePassword } = this.props
+    const {
+      user,
+      updateProfileBasics,
+      updateProfileAbout,
+      changePassword
+    } = this.props
     return (
       <div css={settingsCss}>
         <div css={contentGridSection}>
@@ -108,11 +113,11 @@ class SettingsDashboard extends React.Component {
             </div>
             <div css={navBody}>
               <NavLink css={navItem} to='/settings/basic'>
-                Basics
-              </NavLink>
-              <NavLink css={navItem} to='/settings/about'>
                 About Me
               </NavLink>
+              {/* <NavLink css={navItem} to='/settings/about'>
+                About Me
+              </NavLink> */}
               <NavLink css={navItem} to='/settings/photos'>
                 My Photos
               </NavLink>
@@ -237,10 +242,12 @@ const headerBorder = css`
   border: 1px solid #535353;
 `
 
-export default connect(
-  mapStateToProps,
-  { updateProfileBasics, updateProfileAbout, changePassword, setUserPhotos }
-)(SettingsDashboard)
+export default connect(mapStateToProps, {
+  updateProfileBasics,
+  updateProfileAbout,
+  changePassword,
+  setUserPhotos
+})(SettingsDashboard)
 
 /*
 
