@@ -2,10 +2,10 @@
   <img alt="Logo" src="https://image.flaticon.com/icons/png/512/90/90821.png" width="100" />
 </div>
 <h1 align="center">
-  React Component Library
+  Burger Builder
 </h1>
 <p align="center">
-  Library of reusable components. Each page corresponds to a different component. Examples include - rating stars, hamburger menu, color pallete, dice roll animation and coin flip animation.
+  Interactive food ordering application, allowing graphical interface for adding ingredients to a burger before moving on to a form page for finalizing the order. 
 
 </p>
 
