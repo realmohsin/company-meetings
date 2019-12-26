@@ -6,7 +6,6 @@
 </h1>
 <p align="center">
 Fully Featured Application for Organizing Company Meetings
-
 Features include:
 Real time chat for every meeting
 Real time activity feed detailing the latest user actions
@@ -14,8 +13,6 @@ JWT Authentication (and third-party options)
 Photo Uploading for User Profiles
 User Interface design that is intuitive and responsive
 Technologies Used: React, Redux, React-Router, Express, NodeJs, and Firebase
-
-VIEW
 
 </p>
 
